@@ -1,0 +1,18 @@
+<nav class="tw-w-full tw-h-16 tw-fixed tw-left-0 tw-top-0 tw-z-50 tw-transition tw-duration-200"
+    [ngClass]="{'tw-border-b tw-bg-white': isScrolling || router.url !== '/'}">
+    <app-container>
+        <div class="tw-flex tw-h-16 tw-w-full tw-items-center tw-justify-between tw-gap-7">
+            <app-logo></app-logo>
+            <ul class="tw-flex tw-flex-1 tw-gap-4 tw-justify-start tw-items-center">
+                <app-navbar-link label="T-shirts" route="category/tshirt" [isActive]="true"></app-navbar-link>
+                <app-navbar-link label="Jeans" route="category/jeans" [isActive]="false"></app-navbar-link>
+                <app-navbar-link label="Skirts" route="category/skirt" [isActive]="false"></app-navbar-link>
+                <app-navbar-link label="Shoes" route="category/shoes" [isActive]="false"></app-navbar-link>
+            </ul>
+            <ul class="tw-flex tw-gap-5 tw-justify-center tw-items-center">
+                <app-bag-btn></app-bag-btn>
+                <app-profile-btn></app-profile-btn>
+            </ul>
+        </div>
+    </app-container>
+</nav>

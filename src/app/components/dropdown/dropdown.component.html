@@ -1,0 +1,22 @@
+<a mat-icon-button [matMenuTriggerFor]="menu" [matMenuTriggerData]="menuOptions">
+    <ng-container [ngTemplateOutlet]="menuTrigger"></ng-container>
+</a>
+
+<mat-menu #menu="matMenu" [xPosition]="menuPosition">
+    <ng-template matMenuContent let-items="menuItems">
+        <div [ngClass]="containerClasses">
+            <ng-container *ngFor="let item of items">
+                <div *ngIf="item.isDivider" class="tw-flex tw-w-full tw-h-0 tw-border-b tw-border-b-haizenBlue-950/10 tw-my-2"></div>
+                <button class="tw-font-semibold tw-text-sm" *ngIf="!item.isDivider" mat-menu-item
+                    (click)="item.click?.()">
+                    <div class="tw-flex tw-flex-1 tw-items-center">
+                        <mat-icon *ngIf="item.icon" class="tw-transition group-hover:tw-opacity-80"
+                            [fontIcon]="item.icon"></mat-icon>
+                        <span class="tw-leading-none" *ngIf="item.label"
+                            [ngClass]="item.customClasses">{{item.label}}</span>
+                    </div>
+                </button>
+            </ng-container>
+        </div>
+    </ng-template>
+</mat-menu>

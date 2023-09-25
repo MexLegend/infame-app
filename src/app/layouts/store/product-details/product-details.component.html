@@ -1,0 +1,26 @@
+<section class="tw-flex tw-flex-col tw-flex-1 tw-w-full tw-pt-36 tw-pb-16">
+    <app-container class="tw-w-full">
+        <div class="tw-flex  tw-flex-col">
+            <div class="tw-flex tw-mb-12 tw-gap-12 tw-border-b tw-pb-12">
+                <div class="tw-flex tw-flex-1 tw-gap-5">
+                    <app-product-preview-controls></app-product-preview-controls>
+                    <div class="tw-h-[500px] tw-flex-1">
+                        <img class="tw-w-full tw-h-full tw-aspect-square tw-object-contain tw-origin-top tw-object-top"
+                            src="https://res.cloudinary.com/dtqijixar/image/upload/v1691711281/Shoes_1_b0koqx.jpg"
+                            alt="product_details">
+                    </div>
+                </div>
+                <div class="tw-flex tw-flex-col tw-gap-5 tw-w-[380px]">
+                    <app-product-buy-controls></app-product-buy-controls>
+                </div>
+            </div>
+            <h1 class="tw-text-3xl tw-w-full tw-font-bold tw-leading-tight tw-text-red-900 tw-mb-12">
+                Related Products
+            </h1>
+            <div class="tw-grid tw-grid-cols-[repeat(auto-fill,minmax(260px,1fr))] tw-gap-5">
+                <app-product-card></app-product-card>
+                <app-product-card></app-product-card>
+            </div>
+        </div>
+    </app-container>
+</section>
