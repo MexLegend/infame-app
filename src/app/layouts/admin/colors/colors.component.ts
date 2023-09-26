@@ -4,18 +4,18 @@ import { BreadcrumbComponent } from '../components/breadcrumb/breadcrumb.compone
 import { DataSource, DisplayedColumn, TableComponent } from 'src/app/components/table/table.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { Observable } from 'rxjs';
-import { CategoryResponse, CategoryService } from 'src/app/services/category.service';
-import { Category } from 'src/app/types/category';
+import { ColorResponse, ColorService } from 'src/app/services/color.service';
+import { Color } from 'src/app/types/color';
 
 @Component({
-  selector: 'app-categories',
+  selector: 'app-colors',
   standalone: true,
   providers: [DatePipe],
   imports: [CommonModule, BreadcrumbComponent, TableComponent],
-  templateUrl: './categories.component.html',
-  styleUrls: ['./categories.component.scss']
+  templateUrl: './colors.component.html',
+  styleUrls: ['./colors.component.scss']
 })
-export class CategoriesComponent {
+export class ColorsComponent {
 
   displayedColumns: DisplayedColumn[] = [
     {
@@ -23,7 +23,7 @@ export class CategoriesComponent {
       isSortable: true
     },
     {
-      label: 'Billboard',
+      label: 'Color',
       isSortable: true
     },
     {
@@ -40,12 +40,12 @@ export class CategoriesComponent {
 
   constructor(
     private authService: AuthService,
-    public categoryService: CategoryService,
+    public colorsService: ColorService,
     private datePipe: DatePipe
   ) { }
 
-  getCategoriesObservable = (page: number, limit: number): Observable<CategoryResponse> => {
-    return this.categoryService.getCategories({
+  getColorsObservable = (page: number, limit: number): Observable<ColorResponse> => {
+    return this.colorsService.getColors({
       userId: this.authService.getCurrentUser()?._id,
       page,
       limit
@@ -56,23 +56,23 @@ export class CategoriesComponent {
 
     const formatedSource: DataSource[] = dataSource.map((data) => {
 
-      const category = (data as Category);
+      const color = (data as Color);
 
       return {
         "Name": {
-          label: category.name,
+          label: color.name,
           customContainerClasses: `max-w-[210px] !font-semibold`,
         },
-        "Billboard": {
-          label: category.billboard,
+        "Color": {
+          label: color.value,
           customContainerClasses: `max-w-[200px]`,
         },
         "Products Quantity": {
-          label: category.products.length.toString(),
+          label: color.products.length.toString(),
           customContainerClasses: `max-w-[400px]`,
         },
         "Date": {
-          label: this.datePipe.transform(category.createdAt, "dd MMM yyyy")!
+          label: this.datePipe.transform(color.createdAt, "dd MMM yyyy")!
         }
       }
     });

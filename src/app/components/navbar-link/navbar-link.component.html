@@ -1,13 +1,15 @@
 <li>
     <a class="
-        tw-text-red-950 
-        hover:tw-text-black 
         tw-transition
         tw-relative
         after:tw-absolute
-        "
-        [ngClass]="{'tw-text-black tw-font-semibold': isActive}"
-        [href]="route">
+        hover:tw-text-black
+        " [ngClass]="{
+            'tw-text-red-950': !isAdminLink,
+            'tw-text-black tw-font-semibold': isActive && !isAdminLink,
+            'tw-text-sm tw-font-normal tw-transition-colors tw-text-gray-500': isAdminLink,
+            '!tw-text-black !tw-font-medium': isActive && isAdminLink
+        }" [href]="route">
         {{label}}
     </a>
 </li>

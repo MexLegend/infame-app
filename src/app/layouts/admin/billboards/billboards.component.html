@@ -1,1 +1,7 @@
-<p>billboards works!</p>
+<section class="tw-flex tw-flex-col tw-flex-1 tw-w-full">
+    <app-breadcrumb title="Billboards (0)" subtitle="Manage billboards for your store"></app-breadcrumb>
+    <app-table searchFilterLabel="billboards" activeSortLabel="Label" [getData]="getBillboardsObservable"
+        [reloadDataEmitter]="billboardService.reloadDataEmitter" observableResponsePropertyname="billboards"
+        [formatDataFunction]="formatDataSource" [displayedColumns]="displayedColumns"
+        emptyRegistersLabel="There are not billboards"></app-table>
+</section>

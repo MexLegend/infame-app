@@ -1,6 +1,10 @@
 <section class="tw-flex tw-flex-1 tw-flex-col tw-w-full">
     <app-navbar></app-navbar>
-    <app-breadcrumb></app-breadcrumb>
-    <router-outlet></router-outlet>
-    <app-api-routes></app-api-routes>
+
+    <app-container>
+        <div class="tw-mt-16 tw-pt-5 tw-flex tw-flex-1 tw-flex-col">
+            <router-outlet></router-outlet>
+            <app-api-routes></app-api-routes>
+        </div>
+    </app-container>
 </section>

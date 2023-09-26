@@ -1,0 +1,49 @@
+<button class="
+    tw-flex 
+    tw-gap-2 
+    tw-items-center 
+    tw-justify-center 
+    tw-h-[38px] 
+    tw-w-[200px]
+    tw-px-2 
+    tw-border
+    tw-rounded-lg
+    tw-transition
+    tw-duration-200
+    hover:tw-shadow-md
+    hover:tw-opacity-80
+    " [matMenuTriggerFor]="menu">
+    <mat-icon class="tw-text-xl tw-leading-tight tw-text-gray-700" fontIcon="store"></mat-icon>
+    <span class="tw-text-sm tw-flex tw-flex-1">Vsionary</span>
+    <mat-icon class="tw-text-xl tw-leading-tight tw-text-gray-400" fontIcon="unfold_more"></mat-icon>
+</button>
+
+<mat-menu class="dropdown-menu" #menu="matMenu" xPosition="before">
+    <div class="tw-flex tw-flex-col tw-w-full" (click)="$event.stopPropagation()">
+        <div class="flex tw-items-center tw-justify-center tw-border-b tw-p-2">
+            <label for="searchStore" class="tw-flex tw-gap-3">
+                <mat-icon class="tw-text-xl tw-leading-tight tw-text-gray-400" fontIcon="search"></mat-icon>
+                <input class="
+                    tw-text-sm 
+                    tw-font-normal 
+                    placeholder:tw-font-light 
+                    placeholder:tw-text-gray-600 
+                    tw-bg-transparent 
+                    tw-outline-none" id="searchStore" type="text" placeholder="Search store...">
+            </label>
+        </div>
+        <div class="tw-flex tw-flex-col tw-border-b tw-p-2 ">
+            <h4 class="tw-text-gray-700 tw-text-xs tw-font-light tw-px-1 tw-mb-1">Stores</h4>
+            <button class="tw-flex tw-items-center tw-px-1 tw-py-2 tw-gap-1 hover:tw-bg-slate-100 tw-rounded-md">
+                <mat-icon class="tw-text-xl tw-leading-tight tw-font-light tw-text-gray-700"
+                    fontIcon="store"></mat-icon>
+                <span class="tw-text-sm tw-flex tw-flex-1">Vsionary</span>
+                <mat-icon class="tw-text-xl tw-leading-tight tw-text-gray-600" fontIcon="check"></mat-icon>
+            </button>
+        </div>
+        <button class="tw-flex tw-items-center tw-px-1 tw-py-2 tw-m-2 tw-mb-0 tw-gap-1 hover:tw-bg-slate-100 tw-rounded-md">
+            <mat-icon class="tw-text-xl tw-leading-tight tw-font-light tw-text-gray-700" fontIcon="add_circle_outline"></mat-icon>
+            <span class="tw-text-sm tw-flex tw-flex-1">Create Store</span>
+        </button>
+    </div>
+</mat-menu>

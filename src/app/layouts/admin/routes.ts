@@ -7,6 +7,7 @@ import { SizesComponent } from "./sizes/sizes.component";
 import { ProductsComponent } from "./products/products.component";
 import { OrdersComponent } from "./orders/orders.component";
 import { SettingsComponent } from "./settings/settings.component";
+import { ColorsComponent } from "./colors/colors.component";
 
 
 export const ADMIN_ROUTES: Route[] = [
@@ -23,6 +24,7 @@ export const ADMIN_ROUTES: Route[] = [
             { path: 'billboards', component: BillboardsComponent },
             { path: 'categories', component: CategoriesComponent },
             { path: 'sizes', component: SizesComponent },
+            { path: 'colors', component: ColorsComponent },
             { path: 'products', component: ProductsComponent },
             { path: 'orders', component: OrdersComponent },
             { path: 'settings', component: SettingsComponent }

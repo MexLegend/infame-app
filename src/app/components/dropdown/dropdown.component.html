@@ -2,7 +2,7 @@
     <ng-container [ngTemplateOutlet]="menuTrigger"></ng-container>
 </a>
 
-<mat-menu #menu="matMenu" [xPosition]="menuPosition">
+<mat-menu class="dropdown-menu" #menu="matMenu" [xPosition]="menuPosition">
     <ng-template matMenuContent let-items="menuItems">
         <div [ngClass]="containerClasses">
             <ng-container *ngFor="let item of items">

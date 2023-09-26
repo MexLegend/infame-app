@@ -1,1 +1,15 @@
-<p>navbar works!</p>
+<nav class="tw-w-full tw-h-16 tw-fixed tw-left-0 tw-top-0 tw-z-50 tw-transition tw-duration-200 tw-border-b">
+    <app-container>
+        <div class="tw-flex tw-h-16 tw-w-full tw-items-center tw-justify-between tw-gap-7">
+            <app-store-select></app-store-select>
+            <ul class="tw-flex tw-flex-1 tw-gap-4 tw-justify-start tw-items-center">
+                <app-navbar-link [label]="navLink.label" [route]="'admin' + navLink.link"
+                    [isActive]="router.url === ('/admin' + navLink.link)" [isAdminLink]="true"
+                    *ngFor="let navLink of navLinks"></app-navbar-link>
+            </ul>
+            <ul class="tw-flex tw-gap-5 tw-justify-center tw-items-center">
+                <app-profile-btn [isAdminView]="true"></app-profile-btn>
+            </ul>
+        </div>
+    </app-container>
+</nav>

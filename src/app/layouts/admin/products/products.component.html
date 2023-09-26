@@ -1,1 +1,7 @@
-<p>products works!</p>
+<section class="tw-flex tw-flex-col tw-flex-1 tw-w-full">
+    <app-breadcrumb title="Products (0)" subtitle="Manage products for your store"></app-breadcrumb>
+    <app-table searchFilterLabel="products" activeSortLabel="Name" [getData]="getProductsObservable"
+        [reloadDataEmitter]="productsService.reloadDataEmitter" observableResponsePropertyname="products"
+        [formatDataFunction]="formatDataSource" [displayedColumns]="displayedColumns"
+        emptyRegistersLabel="There are not products"></app-table>
+</section>

@@ -1,0 +1,222 @@
+<mat-form-field class="tw-w-full !tw-rounded-lg tw-overflow-hidden">
+    <mat-label>Search {{searchFilterLabel}}</mat-label>
+    <input matInput (keyup)="handleFilter($event)" #input>
+</mat-form-field>
+
+<div class="tw-rounded-lg tw-overflow-clip tw-relative tw-border tw-border-gray-300">
+
+    <ng-container *ngIf="isLoadingResults" [ngTemplateOutlet]="loadingContainer"></ng-container>
+    <ng-container *ngIf="hasError" [ngTemplateOutlet]="errorContainer"></ng-container>
+
+    <table mat-table [dataSource]="dataSource" matSort [matSortActive]="activeSortLabel" matSortDisableClear
+        matSortDirection="asc" (matSortChange)="handleSortData($event)" cdkDropList cdkDropListOrientation="vertical"
+        (cdkDropListDropped)="handleReorderRow($event)" class="tw-w-full tw-min-h-[150px]"
+        [ngClass]="{'tw-h-60': hasError || isLoadingResults}">
+
+        <ng-container [matColumnDef]="column.label" *ngFor="let column of displayedColumns">
+            <!-- Checkbox Column -->
+            <ng-container *ngIf="column.label === 'Select'">
+                <th mat-header-cell *matHeaderCellDef class="!tw-w-10 !tw-pr-0">
+                    <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+                    </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row" class="!tw-w-10 !tw-pr-0">
+                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                        [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+                    </mat-checkbox>
+                </td>
+            </ng-container>
+
+            <ng-container *ngIf="column.label !== 'reorder' && column.label !== 'select'">
+                <ng-container *ngIf="column.isSortable">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        {{column.label}}
+                    </th>
+                </ng-container>
+
+                <ng-container *ngIf="!column.isSortable">
+                    <th mat-header-cell *matHeaderCellDef> {{column.label}}
+                    </th>
+                </ng-container>
+
+                <td mat-cell *matCellDef="let row" [ngClass]="row[column.label].customContainerClasses">
+                    <ng-container *ngIf="!row[column.label].actions" [ngTemplateOutlet]="cellContent"
+                        [ngTemplateOutletContext]="{$implicit: column, row}"></ng-container>
+
+                    <ng-container *ngIf="row[column.label].actions" [ngTemplateOutlet]="cellActions"
+                        [ngTemplateOutletContext]="{$implicit: column, row}"></ng-container>
+                </td>
+            </ng-container>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns | safeTableHeaders"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns | safeTableHeaders;" cdkDrag
+            class="tw-group hover:!tw-bg-[whitesmoke]"></tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <tr *matNoDataRow>
+            <td *ngIf="!!dataSource.data.length" class="tw-h-28 tw-px-4 tw-text-base" colspan="9">
+                No se encontraron coincidencias con el valor "{{input.value}}"
+            </td>
+            <td *ngIf="!dataSource.data.length" class="tw-h-28 tw-px-4 tw-text-base" colspan="9">
+                <div class="tw-flex tw-justify-center tw-items-center tw-flex-1 tw-text-lg">
+                    {{emptyRegistersLabel}}
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <mat-paginator [length]="resultsLength" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons
+        [attr.aria-label]="'Select page'"
+        class="tw-border-t tw-botder-t-[rgba(0,0,0,0.12)]"></mat-paginator>
+</div>
+
+<ng-template #cellContent let-column let-row="row">
+    <div class="tw-flex tw-flex-1 tw-items-center" [ngClass]="row[column.label].customWrapperClasses">
+
+        <!-- Render Font Awesome Icon -->
+        <i *ngIf="row[column.label].fsIcon" [ngClass]="row[column.label].fsIcon"></i>
+
+        <!-- Render Material Icon -->
+        <i *ngIf="row[column.label].materialIcon">{{row[column.label].materialIcon}}</i>
+
+        <!-- Render Single Image -->
+        <img *ngIf="row[column.label].image !== undefined"
+            class="tw-w-12 tw-h-12 tw-mr-2 tw-rounded-full tw-overflow-clip" [src]="row[column.label].image | img"
+            alt="Table cell avatar" width="60" height="60">
+
+        <!-- Render Multiple Images -->
+        <ng-container *ngIf="row[column.label].images !== undefined" [ngTemplateOutlet]="cellMultipleImages"
+            [ngTemplateOutletContext]="{$implicit: row[column.label].images}"></ng-container>
+
+        <!-- Render Single Text -->
+        <span *ngIf="row[column.label].label && !row[column.label].isHtml" class="tw-line-clamp-2">
+            {{row[column.label].label}}
+        </span>
+
+        <!-- Render HTML Text -->
+        <span *ngIf="row[column.label].label && row[column.label].isHtml" class="tw-line-clamp-2">
+            {{row[column.label].label | htmlToText}}
+        </span>
+
+    </div>
+</ng-template>
+
+<ng-template #cellMultipleImages let-images>
+    <div class="tw-relative tw-min-w-[48px] tw-min-h-[48px] tw-mr-2">
+
+        <img *ngFor="let image of images.slice(0, 3); let i = index"
+            class="tw-absolute tw-bottom-0 tw-w-[23px] tw-h-[23px] tw-rounded-full tw-overflow-clip" [ngClass]="{
+            'tw-left-[12.5px] !tw-bottom-[calc(100%-23px)]': i === 0, 
+            'tw-left-0': i === 1,
+            'tw-right-0': i === 2
+        }" [src]="image | img" alt="Table cell avatar" width="60" height="60">
+
+        <img class="tw-absolute tw-bottom-0 tw-right-0 tw-w-[23px] tw-h-[23px] tw-rounded-full tw-overflow-clip"
+            *ngIf="images.length === 2" [src]="'' | img" alt="Dummy table Cell avatar">
+
+        <div *ngIf="images.length - 3 > 0" class="
+            tw-flex 
+            tw-items-center 
+            tw-justify-center
+            tw-text-xs 
+            tw-absolute 
+            tw-w-[23px] 
+            tw-h-[23px] 
+            tw-bottom-0 
+            tw-right-0 
+            tw-rounded-full 
+            tw-bg-slate-950/60 
+            tw-text-white">
+            +{{images.length - 2}}
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #cellActions let-column let-row="row">
+    <div class="tw-flex tw-flex-1 tw-justify-start tw-gap-2">
+        <ng-container *ngFor="let action of row[column.label].actions">
+            <ng-template *ngIf="!action.isMenu" [ngTemplateOutlet]="cellClickAction"
+                [ngTemplateOutletContext]="{$implicit: action}">
+            </ng-template>
+
+            <ng-template *ngIf="action.isMenu" [ngTemplateOutlet]="cellMenuAction"
+                [ngTemplateOutletContext]="{$implicit: action}">
+            </ng-template>
+        </ng-container>
+    </div>
+</ng-template>
+
+<ng-template #cellClickAction let-action>
+    <button class="tw-flex tw-flex-1 tw-items-center tw-text-left tw-py-1 tw-pl-1"
+        [ngClass]="action.customWrapperClasses" (click)="action.click?.()">
+        <i *ngIf="action.fsIcon" [ngClass]="action.fsIcon"></i>
+        <i *ngIf="action.materialIcon">{{action.materialIcon}}</i>
+        <img *ngIf="action.image !== undefined" class="tw-w-11 tw-h-11 tw-mr-2 tw-rounded-full tw-overflow-clip"
+            [src]="action.image | img" alt="Table cell avatar" width="60" height="60">
+        <span *ngIf="action.label" class="tw-line-clamp-2">{{action.label}}</span>
+    </button>
+</ng-template>
+
+<ng-template #cellMenuAction let-action>
+
+    <ng-template #actionMenuTrigger>
+        <button class="tw-flex tw-flex-1 tw-items-center tw-text-left tw-py-1 tw-pl-1"
+            [ngClass]="action.customWrapperClasses">
+            <i *ngIf="action.fsIcon" [ngClass]="action.fsIcon"></i>
+            <i *ngIf="action.materialIcon">{{action.materialIcon}}</i>
+            <img *ngIf="action.image !== undefined" class="tw-w-11 tw-h-11 tw-mr-2 tw-rounded-full tw-overflow-clip"
+                [src]="action.image | img" alt="Table cell avatar" width="60" height="60">
+            <span *ngIf="action.label" class="tw-line-clamp-2">{{action.label}}</span>
+        </button>
+    </ng-template>
+
+    <app-dropdown class="tw-flex tw-w-max tw-h-max" [menuTrigger]="actionMenuTrigger" [menuOptions]="action.menuOptions"
+        containerClasses="tw-min-w-[150px] tw-max-w-[200px]"></app-dropdown>
+
+</ng-template>
+
+<ng-template #loadingContainer>
+    <div class="
+        tw-absolute 
+        tw-flex 
+        tw-items-center 
+        tw-justify-center 
+        tw-z-10 
+        tw-inset-0
+        tw-bottom-14
+        tw-bg-[rgb(178,178,178,35%)]">
+        <mat-spinner [diameter]="50"></mat-spinner>
+    </div>
+</ng-template>
+
+<ng-template #errorContainer>
+    <div class="
+        tw-pt-14
+        tw-absolute 
+        tw-flex 
+        tw-flex-col
+        tw-gap-4
+        tw-items-center 
+        tw-justify-center 
+        tw-z-10 
+        tw-inset-0
+        tw-bottom-14">
+        <span class="tw-text-[#ff1b66] tw-font-semibold tw-text-lg">Loading data failed.</span>
+        <button class="
+            tw-w-full 
+            tw-max-w-[200px] 
+            tw-rounded-lg 
+            tw-transition
+            tw-duration-200 
+            hover:tw-opacity-80
+            active:tw-scale-95
+            tw-bg-black
+            tw-text-white
+            tw-py-3" (click)="getDataSource()">
+            Retry
+        </button>
+    </div>
+</ng-template>

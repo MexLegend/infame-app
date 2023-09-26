@@ -13,5 +13,6 @@ export class NavbarLinkComponent {
   @Input() label: string = "";
   @Input() route: string = "";
   @Input() isActive: boolean = false;
+  @Input() isAdminLink: boolean = false;
 
 }

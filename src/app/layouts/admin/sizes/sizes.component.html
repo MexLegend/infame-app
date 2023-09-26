@@ -1,1 +1,7 @@
-<p>sizes works!</p>
+<section class="tw-flex tw-flex-col tw-flex-1 tw-w-full">
+    <app-breadcrumb title="Sizes (0)" subtitle="Manage sizes for your products"></app-breadcrumb>
+    <app-table searchFilterLabel="sizes" activeSortLabel="Name" [getData]="getSizesObservable"
+        [reloadDataEmitter]="sizeService.reloadDataEmitter" observableResponsePropertyname="sizes"
+        [formatDataFunction]="formatDataSource" [displayedColumns]="displayedColumns"
+        emptyRegistersLabel="There are not sizes"></app-table>
+</section>
