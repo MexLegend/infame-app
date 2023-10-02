@@ -1,34 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, WritableSignal, signal } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { BreadcrumbComponent } from '../components/breadcrumb/breadcrumb.component';
 import { DataSource, DisplayedColumn, TableComponent } from 'src/app/components/table/table.component';
-import { AuthService } from 'src/app/services/auth.service';
 import { Observable } from 'rxjs';
-import { BillboardResponse, BillboardService } from 'src/app/services/billboard.service';
-import { Billboard } from 'src/app/types/billboard';
+import { CategoryResponse, CategoryService } from 'src/app/services/category.service';
+import { Category } from 'src/app/types/category';
 import { ApiRoutesComponent } from '../components/api-routes/api-routes.component';
 
 @Component({
-  selector: 'app-billboards',
+  selector: 'app-categories',
   standalone: true,
   providers: [DatePipe],
   imports: [CommonModule, BreadcrumbComponent, TableComponent, ApiRoutesComponent],
-  templateUrl: './billboards.component.html',
-  styleUrls: ['./billboards.component.scss']
+  templateUrl: './categories.component.html',
+  styleUrls: ['./categories.component.scss']
 })
-export class BillboardsComponent {
+export class CategoriesComponent {
 
   displayedColumns: DisplayedColumn[] = [
     {
-      label: 'Image',
-      isSortable: false
-    },
-    {
-      label: 'Label',
+      label: 'Name',
       isSortable: true
     },
     {
-      label: 'Description',
+      label: 'Billboard',
+      isSortable: true
+    },
+    {
+      label: 'Products Quantity',
       isSortable: true
     },
     {
@@ -37,17 +36,17 @@ export class BillboardsComponent {
     }
   ];
 
+  categoriesLength: WritableSignal<number> = signal(0);
   isLoadingResults: boolean = true;
 
   constructor(
-    private authService: AuthService,
-    public billboardService: BillboardService,
+    public categoryService: CategoryService,
     private datePipe: DatePipe
   ) { }
 
-  getBillboardsObservable = (page: number, limit: number): Observable<BillboardResponse> => {
-    return this.billboardService.getBillboards({
-      userId: this.authService.getCurrentUser()?.id,
+  getCategoriesObservable = (page: number, limit: number): Observable<CategoryResponse> => {
+    return this.categoryService.getCategories({
+      storeId: "61edd0fa6458af2d6422557f",
       page,
       limit
     });
@@ -57,24 +56,23 @@ export class BillboardsComponent {
 
     const formatedSource: DataSource[] = dataSource.map((data) => {
 
-      const billboard = (data as Billboard);
+      const category = (data as Category);
 
       return {
-        "Image": {
-          image: billboard.imageUrl || null,
-          label: "",
+        "Name": {
+          label: category.name,
           customContainerClasses: `max-w-[210px] !font-semibold`,
         },
-        "Label": {
-          label: billboard.label,
+        "Billboard": {
+          label: category.billboard,
           customContainerClasses: `max-w-[200px]`,
         },
-        "Description": {
-          label: billboard.description,
+        "Products Quantity": {
+          label: category.products.length.toString(),
           customContainerClasses: `max-w-[400px]`,
         },
         "Date": {
-          label: this.datePipe.transform(billboard.createdAt, "dd MMM yyyy")!
+          label: this.datePipe.transform(category.createdAt, "dd MMM yyyy")!
         }
       }
     });

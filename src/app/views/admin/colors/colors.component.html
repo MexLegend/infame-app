@@ -1,7 +1,8 @@
 <section class="tw-flex tw-flex-col tw-flex-1 tw-w-full">
-    <app-breadcrumb title="Colors (0)" subtitle="Manage colors for your products"></app-breadcrumb>
+    <app-breadcrumb [title]="'Colors (' + colorsLength() + ')'"
+        subtitle="Manage colors for your products"></app-breadcrumb>
     <app-table searchFilterLabel="colors" activeSortLabel="Name" [getData]="getColorsObservable"
-        [reloadDataEmitter]="colorsService.reloadDataEmitter" observableResponsePropertyname="colors"
+        [dataResults]="colorsLength" [reloadDataEmitter]="colorsService.reloadDataEmitter"
         [formatDataFunction]="formatDataSource" [displayedColumns]="displayedColumns"
         emptyRegistersLabel="There are not colors"></app-table>
     <div class="tw-w-full tw-my-5">

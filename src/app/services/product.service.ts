@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Product } from '../types/product';
 
 interface ProductParams {
-  userId?: string;
+  storeId?: string;
   page?: number;
   limit?: number;
 }
@@ -28,7 +28,7 @@ export class ProductService {
   ) { }
 
   getProducts(params: ProductParams): Observable<ProductResponse> {
-    let url = `${environment.URI}/api/products`;
+    let url = `${environment.URI}/api/product`;
 
     return this.http.get<ProductResponse>(url, { params: { ...params } });
   }

@@ -1,7 +1,8 @@
 <section class="tw-flex tw-flex-col tw-flex-1 tw-w-full">
-    <app-breadcrumb title="Products (0)" subtitle="Manage products for your store"></app-breadcrumb>
+    <app-breadcrumb [title]="'Products (' + productsLength() + ')'"
+        subtitle="Manage products for your store"></app-breadcrumb>
     <app-table searchFilterLabel="products" activeSortLabel="Name" [getData]="getProductsObservable"
-        [reloadDataEmitter]="productsService.reloadDataEmitter" observableResponsePropertyname="products"
+        [dataResults]="productsLength" [reloadDataEmitter]="productsService.reloadDataEmitter"
         [formatDataFunction]="formatDataSource" [displayedColumns]="displayedColumns"
         emptyRegistersLabel="There are not products"></app-table>
     <div class="tw-w-full tw-my-5">

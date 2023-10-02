@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, WritableSignal, signal } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { BreadcrumbComponent } from '../components/breadcrumb/breadcrumb.component';
-import { AuthService } from 'src/app/services/auth.service';
 import { ProductResponse, ProductService } from 'src/app/services/product.service';
 import { Observable } from 'rxjs';
 import { DataSource, DisplayedColumn, TableComponent } from 'src/app/components/table/table.component';
@@ -53,17 +52,17 @@ export class ProductsComponent {
     }
   ];
 
+  productsLength: WritableSignal<number> = signal(0);
   isLoadingResults: boolean = true;
 
   constructor(
-    private authService: AuthService,
     public productsService: ProductService,
     private datePipe: DatePipe
   ) { }
 
   getProductsObservable = (page: number, limit: number): Observable<ProductResponse> => {
     return this.productsService.getProducts({
-      userId: this.authService.getCurrentUser()?.id,
+      storeId: "61edd0fa6458af2d6422557f",
       page,
       limit
     });

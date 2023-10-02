@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Category } from '../types/category';
 
 interface CategoryParams {
-  userId?: string;
+  storeId?: string;
   page?: number;
   limit?: number;
 }
@@ -28,7 +28,7 @@ export class CategoryService {
   ) { }
 
   getCategories(params: CategoryParams): Observable<CategoryResponse> {
-    let url = `${environment.URI}/api/categories`;
+    let url = `${environment.URI}/api/category`;
 
     return this.http.get<CategoryResponse>(url, { params: { ...params } });
   }

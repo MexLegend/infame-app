@@ -5,7 +5,7 @@ import { Billboard } from '../types/billboard';
 import { environment } from 'src/environments/environment';
 
 interface BillboardParams {
-  userId?: string;
+  storeId?: string;
   page?: number;
   limit?: number;
 }
@@ -29,10 +29,9 @@ export class BillboardService {
 
 
   getBillboards(params: BillboardParams): Observable<BillboardResponse> {
-    let url = `${environment.URI}/api/billboards`;
+    let url = `${environment.URI}/api/billboard`;
 
-    return this.http
-      .get<BillboardResponse>(url, { params: { ...params } });
+    return this.http.get<BillboardResponse>(url, { params: { ...params } });
   }
 
 }

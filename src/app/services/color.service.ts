@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Color } from '../types/color';
 
 interface ColorParams {
-  userId?: string;
+  storeId?: string;
   page?: number;
   limit?: number;
 }
@@ -28,7 +28,7 @@ export class ColorService {
   ) { }
 
   getColors(params: ColorParams): Observable<ColorResponse> {
-    let url = `${environment.URI}/api/colors`;
+    let url = `${environment.URI}/api/color`;
 
     return this.http.get<ColorResponse>(url, { params: { ...params } });
   }

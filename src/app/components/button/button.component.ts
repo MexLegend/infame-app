@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
+export type ButtonType = "submit" | "reset" | "button";
+
 @Component({
   selector: 'app-button',
   templateUrl: './button.component.html',
@@ -16,5 +18,6 @@ export class ButtonComponent {
   @Input() onClick: (e: MouseEvent) => void = () => { };
   @Input() isLoading: boolean = false;
   @Input() customClasses?: string = "";
+  @Input() type: ButtonType = "button";
 
 }

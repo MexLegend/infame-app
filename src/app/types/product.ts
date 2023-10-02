@@ -1,4 +1,5 @@
 import { Category } from "./category";
+import { Image } from "./image";
 import { User } from './user';
 
 export type FavoriteProducts = {
@@ -14,7 +15,7 @@ export type Product = {
     createdAt?: Date;
     description: string;
     id: string;
-    images: string[];
+    images: Image[];
     isArchived: boolean;
     isFeatured: boolean;
     name: string;

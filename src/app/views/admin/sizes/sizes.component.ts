@@ -1,22 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, WritableSignal, signal } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { BreadcrumbComponent } from '../components/breadcrumb/breadcrumb.component';
 import { DataSource, DisplayedColumn, TableComponent } from 'src/app/components/table/table.component';
-import { AuthService } from 'src/app/services/auth.service';
 import { Observable } from 'rxjs';
-import { ColorResponse, ColorService } from 'src/app/services/color.service';
-import { Color } from 'src/app/types/color';
+import { Size } from 'src/app/types/size';
+import { SizeResponse, SizeService } from 'src/app/services/size.service';
 import { ApiRoutesComponent } from '../components/api-routes/api-routes.component';
 
 @Component({
-  selector: 'app-colors',
+  selector: 'app-sizes',
   standalone: true,
   providers: [DatePipe],
   imports: [CommonModule, BreadcrumbComponent, TableComponent, ApiRoutesComponent],
-  templateUrl: './colors.component.html',
-  styleUrls: ['./colors.component.scss']
+  templateUrl: './sizes.component.html',
+  styleUrls: ['./sizes.component.scss']
 })
-export class ColorsComponent {
+export class SizesComponent {
 
   displayedColumns: DisplayedColumn[] = [
     {
@@ -24,7 +23,7 @@ export class ColorsComponent {
       isSortable: true
     },
     {
-      label: 'Color',
+      label: 'Size',
       isSortable: true
     },
     {
@@ -37,17 +36,17 @@ export class ColorsComponent {
     }
   ];
 
+  sizesLength: WritableSignal<number> = signal(0);
   isLoadingResults: boolean = true;
 
   constructor(
-    private authService: AuthService,
-    public colorsService: ColorService,
+    public sizeService: SizeService,
     private datePipe: DatePipe
   ) { }
 
-  getColorsObservable = (page: number, limit: number): Observable<ColorResponse> => {
-    return this.colorsService.getColors({
-      userId: this.authService.getCurrentUser()?.id,
+  getSizesObservable = (page: number, limit: number): Observable<SizeResponse> => {
+    return this.sizeService.getSizes({
+      storeId: "61edd0fa6458af2d6422557f",
       page,
       limit
     });
@@ -57,23 +56,23 @@ export class ColorsComponent {
 
     const formatedSource: DataSource[] = dataSource.map((data) => {
 
-      const color = (data as Color);
+      const size = (data as Size);
 
       return {
         "Name": {
-          label: color.name,
+          label: size.name,
           customContainerClasses: `max-w-[210px] !font-semibold`,
         },
-        "Color": {
-          label: color.value,
+        "Size": {
+          label: size.value,
           customContainerClasses: `max-w-[200px]`,
         },
         "Products Quantity": {
-          label: color.products.length.toString(),
+          label: size.products.length.toString(),
           customContainerClasses: `max-w-[400px]`,
         },
         "Date": {
-          label: this.datePipe.transform(color.createdAt, "dd MMM yyyy")!
+          label: this.datePipe.transform(size.createdAt, "dd MMM yyyy")!
         }
       }
     });

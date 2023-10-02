@@ -1,7 +1,8 @@
 <section class="tw-flex tw-flex-col tw-flex-1 tw-w-full">
-    <app-breadcrumb title="Orders (0)" subtitle="Manage orders for your store"></app-breadcrumb>
+    <app-breadcrumb [title]="'Orders (' + ordersLength() + ')'"
+        subtitle="Manage orders for your store"></app-breadcrumb>
     <app-table searchFilterLabel="orders" activeSortLabel="Name" [getData]="getOrdersObservable"
-        [reloadDataEmitter]="ordersService.reloadDataEmitter" observableResponsePropertyname="orders"
+        [dataResults]="ordersLength" [reloadDataEmitter]="ordersService.reloadDataEmitter"
         [formatDataFunction]="formatDataSource" [displayedColumns]="displayedColumns"
         emptyRegistersLabel="There are not orders"></app-table>
 </section>

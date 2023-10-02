@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 interface OrderParams {
-  userId?: string;
+  storeId?: string;
   page?: number;
   limit?: number;
 }
@@ -28,7 +28,7 @@ export class OrderService {
   ) { }
 
   getOrders(params: OrderParams): Observable<OrderResponse> {
-    let url = `${environment.URI}/api/orders`;
+    let url = `${environment.URI}/api/order`;
 
     return this.http.get<OrderResponse>(url, { params: { ...params } });
   }

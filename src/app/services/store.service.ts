@@ -2,16 +2,16 @@ import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Size } from '../types/size';
+import { Store } from '../types/store';
 
-interface SizeParams {
+interface StoreParams {
   storeId?: string;
   page?: number;
   limit?: number;
 }
 
-export interface SizeResponse {
-  sizes: Size[];
+export interface StoreResponse {
+  stores: Store[];
   ok: boolean;
   total: number;
 }
@@ -19,7 +19,7 @@ export interface SizeResponse {
 @Injectable({
   providedIn: 'root'
 })
-export class SizeService {
+export class StoreService {
 
   reloadDataEmitter: EventEmitter<boolean> = new EventEmitter();
 
@@ -27,10 +27,10 @@ export class SizeService {
     private http: HttpClient
   ) { }
 
-  getSizes(params: SizeParams): Observable<SizeResponse> {
-    let url = `${environment.URI}/api/size`;
+  getStores(params: StoreParams): Observable<StoreResponse> {
+    let url = `${environment.URI}/api/store`;
 
-    return this.http.get<SizeResponse>(url, { params: { ...params } });
+    return this.http.get<StoreResponse>(url, { params: { ...params } });
   }
-  
+
 }

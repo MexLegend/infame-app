@@ -8,7 +8,7 @@
         tw-h-[38px] 
         tw-px-4 
         tw-border
-        tw-border-black
+        tw-border-gray-400
         tw-rounded-full
         tw-transition
         tw-duration-200
@@ -17,8 +17,7 @@
         active:tw-scale-95
         " [ngClass]="{'tw-border-gray-200': isAdminView}">
         <mat-icon class="tw-text-xl tw-leading-tight" fontIcon="menu"></mat-icon>
-        <img class="tw-rounded-full tw-aspect-square tw-w-[30px] tw-h-[30px]"
-            [src]="user.image?.url | img"
+        <img class="tw-rounded-full tw-aspect-square tw-w-[30px] tw-h-[30px]" [src]="user.image?.url | img"
             alt="profile_avatar" width="30" height="30">
     </button>
 </ng-template>

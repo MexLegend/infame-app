@@ -1,7 +1,8 @@
 <section class="tw-flex tw-flex-col tw-flex-1 tw-w-full">
-    <app-breadcrumb title="Categories (0)" subtitle="Manage categories for your store"></app-breadcrumb>
+    <app-breadcrumb [title]="'Categories (' + categoriesLength() + ')'"
+        subtitle="Manage categories for your store"></app-breadcrumb>
     <app-table searchFilterLabel="categories" activeSortLabel="Name" [getData]="getCategoriesObservable"
-        [reloadDataEmitter]="categoryService.reloadDataEmitter" observableResponsePropertyname="categories"
+        [dataResults]="categoriesLength" [reloadDataEmitter]="categoryService.reloadDataEmitter"
         [formatDataFunction]="formatDataSource" [displayedColumns]="displayedColumns"
         emptyRegistersLabel="There are not categories"></app-table>
     <div class="tw-w-full tw-my-5">

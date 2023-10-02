@@ -83,8 +83,8 @@ export class TableComponent {
   @ViewChild(MatSort) sort!: MatSort;
 
   @Input() getData: (page: number, limit: number) => Observable<any> = () => new Observable();
+  @Input() dataResults?: WritableSignal<number>;
   @Input() reloadDataEmitter: EventEmitter<boolean> = new EventEmitter();
-  @Input() observableResponsePropertyname: string = "";
   @Input() formatDataFunction: (dataSource: DataSource[]) => DataSource[] = () => [];
   @Input() displayedColumns: DisplayedColumn[] = [];
   @Input() searchFilterLabel: string = "";
@@ -228,7 +228,8 @@ export class TableComponent {
     const getDataSub$ = observable.subscribe({
       next: (response) => {
 
-        this.dataSource = new MatTableDataSource(this.formatDataFunction(response[this.observableResponsePropertyname]));
+        this.dataSource = new MatTableDataSource(this.formatDataFunction(response));
+        this.dataResults?.set(response.length);
 
         this.dataSource.filterPredicate = this.getFilterPredicate();
         this.resultsLength = response.total;

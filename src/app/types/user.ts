@@ -1,10 +1,6 @@
+import { Image } from "./image";
 
 export type UserRole = "ADMIN" | "CLIENT";
-
-export interface UserImage {
-    url: string,
-    public_id: string
-}
 
 export interface Tokens {
     access_token: string;
@@ -19,7 +15,7 @@ export interface SafeUser extends Partial<User>, Partial<Tokens> {
 
 export type User = {
     email: string;
-    image?: UserImage;
+    image?: Image;
     firstName: string;
     lastName: string;
     password?: string;

@@ -1,0 +1,16 @@
+<section class="tw-flex tw-flex-col tw-flex-1 tw-w-full">
+    <app-breadcrumb title="Store settings" subtitle="Manage store preferences"></app-breadcrumb>
+    <form [formGroup]="form" action="" class="tw-flex tw-flex-col tw-gap-4">
+        <div class="md:tw-grid md:tw-grid-cols-3 tw-gap-8 max-md:tw-space-y-5">
+            <app-input class="tw-w-full" [formGroupRef]="form" formControlName="name" ngDefaultControl id="settingsName"
+                label="Store Name" type="text" [autofocus]="true"></app-input>
+            <app-input class="tw-w-full" [formGroupRef]="form" formControlName="website" ngDefaultControl
+                id="settingsWebsite" label="Website" type="text"></app-input>
+        </div>
+        <app-button label="Save changes" [onClick]="handleSubmit" type="submit"
+            customClasses="!tw-bg-black !tw-text-white tw-w-max tw-px-4 disabled:tw-opacity-100"></app-button>
+    </form>
+    <div class="tw-w-full tw-my-5">
+        <app-api-routes></app-api-routes>
+    </div>
+</section>

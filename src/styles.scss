@@ -26,6 +26,10 @@ body {
     @apply tw-border-black;
 }
 
+.form-field .mdc-text-field--invalid {
+    @apply tw-border-rose-600;
+}
+
 .form-field .mat-mdc-form-field-focus-overlay {
     display: none;
 }
