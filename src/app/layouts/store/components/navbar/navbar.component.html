@@ -10,8 +10,27 @@
                 <app-navbar-link label="Shoes" route="category/shoes" [isActive]="false"></app-navbar-link>
             </ul>
             <ul class="tw-flex tw-gap-5 tw-justify-center tw-items-center">
-                <app-bag-btn></app-bag-btn>
-                <app-profile-btn></app-profile-btn>
+                <app-bag-btn *ngIf="authService.isLoggedIn()"></app-bag-btn>
+                <app-profile-btn *ngIf="authService.isLoggedIn()" [user]="authService.getCurrentUser()!"></app-profile-btn>
+                <button *ngIf="!authService.isLoggedIn()" class="
+                    tw-w-max 
+                    tw-flex 
+                    tw-gap-2 
+                    tw-items-center 
+                    tw-justify-center 
+                    tw-h-[38px] 
+                    tw-px-4 
+                    tw-bg-black
+                    tw-text-white
+                    tw-rounded-full
+                    tw-transition
+                    tw-duration-200
+                    hover:tw-shadow-lg
+                    hover:tw-opacity-80
+                    active:tw-scale-95
+                    " routerLink="/signin">
+                    Log In
+                </button>
             </ul>
         </div>
     </app-container>

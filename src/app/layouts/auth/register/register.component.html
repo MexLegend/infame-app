@@ -1,0 +1,73 @@
+<section class="
+    tw-flex
+    tw-justify-center
+    tw-items-center
+    tw-w-screen 
+    tw-h-screen 
+    tw-bg-neutral-200">
+    <form [formGroup]="form" class="
+        tw-flex
+        tw-flex-col 
+        tw-gap-4
+        tw-justify-start
+        tw-items-center
+        tw-rounded-xl 
+        tw-bg-white
+        tw-w-full
+        tw-max-w-[800px]
+        tw-px-5
+        tw-py-8
+        tw-border
+        tw-border-haizenBlue-300/50
+        tw-transition
+        tw-duration-200
+        ">
+        <div class="tw-h-20 tw-w-auto tw-pointer-events-none">
+            <app-logo scaleSize="tw-scale-[2.5]"></app-logo>
+        </div>
+        <div class="tw-flex tw-flex-col tw-items-center tw-gap-7 tw-mt-3 tw-w-full tw-max-w-[700px]">
+
+            <div class="tw-grid tw-grid-cols-2 tw-gap-4 tw-w-full">
+                <app-multi-select class="tw-w-full" id="post_category" label="¿Are you a seller?" [formGroupRef]="form"
+                    formControlName="isAdmin" ngDefaultControl [options]="isAdminOptions"
+                    [multiple]="false"></app-multi-select>
+                <app-input class="tw-w-full" [formGroupRef]="form" formControlName="email" ngDefaultControl
+                    id="registerEmail" label="Email" type="email" [autofocus]="true"></app-input>
+                <app-input class="tw-w-full" [formGroupRef]="form" formControlName="firstName" ngDefaultControl
+                    id="firstName" label="Name" type="text"></app-input>
+                <app-input class="tw-w-full" [formGroupRef]="form" formControlName="lastName" ngDefaultControl
+                    id="lastName" label="Last name" type="text"></app-input>
+                <app-input class="tw-w-full" [formGroupRef]="form" formControlName="password" ngDefaultControl
+                    id="registerPassword" label="Password" type="password"></app-input>
+                <app-input class="tw-w-full" [formGroupRef]="form" formControlName="confirmPassword" ngDefaultControl
+                    id="registerConfirmPassword" label="Confirm password" type="password"></app-input>
+            </div>
+
+            <ng-container *ngIf="registerError && registerError === 'PasswordMismatch'"
+                [ngTemplateOutlet]="passwordMismatch"></ng-container>
+            <ng-container *ngIf="registerError && registerError === 'ExistsAlready'"
+                [ngTemplateOutlet]="existsAlready"></ng-container>
+
+            <app-button class="tw-w-full" label="Register" [disabled]="form.invalid || isLoading"
+                (click)="form.valid && !isLoading && handleRegister()" [isLoading]="isLoading"></app-button>
+
+            <div class="tw-flex tw-w-full tw-items-center tw-flex-col tw-gap-2">
+                <span class="tw-text-pastel-blue tw-flex tw-gap-2">
+                    Do you already have an account?
+                    <a class="tw-text-rose-300 tw-font-medium hover:tw-underline" href=" /signin">Log in</a>
+                </span>
+            </div>
+        </div>
+    </form>
+</section>
+
+<ng-template #passwordMismatch>
+    <app-form-error-box class="tw-w-full tw-max-w-md" label="Make sure the passwords match.">
+    </app-form-error-box>
+</ng-template>
+
+<ng-template #existsAlready>
+    <app-form-error-box class="tw-w-full tw-max-w-md"
+        label="The email you provided has already been registered. Please enter a different one.">
+    </app-form-error-box>
+</ng-template>

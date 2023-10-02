@@ -16,7 +16,6 @@ export interface SizeResponse {
   total: number;
 }
 
-
 @Injectable({
   providedIn: 'root'
 })

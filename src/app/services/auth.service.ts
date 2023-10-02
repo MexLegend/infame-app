@@ -4,31 +4,17 @@ import { Observable, map } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 import { getStorage, removeStorage, setStorage } from '../helpers/storage';
-import { User } from '../types/user';
-import { AuthError, EmailType, VerifyError } from '../types/emailPayload';
+import { SafeUser, User } from '../types/user';
+import { AuthError } from '../types/emailPayload';
+
 
 export interface Tokens {
   access_token: string;
   refresh_token: string;
 }
 
-interface VerifyParams {
-  token?: string;
-  code?: string;
-  action?: EmailType;
-  id?: string;
-}
-
-interface VerifyResponse {
-  ok: boolean;
-  message: string;
-  responseData: any;
-  error: VerifyError;
-}
-
-
 interface LoginResponse {
-  user?: User,
+  user?: SafeUser,
   tokens?: Tokens,
   error?: AuthError,
   ok: boolean
@@ -41,13 +27,13 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  private user: User | null = null;
+  private user: SafeUser | null = null;
   private accessToken: string | null = null;
   private refreshToken: string | null = null;
 
-  userEmitter: EventEmitter<User | null> = new EventEmitter();
+  userEmitter: EventEmitter<SafeUser | null> = new EventEmitter();
 
-  setCurrentUserAndTokens(user: User | null, tokens: Tokens | null) {
+  setCurrentUserAndTokens(user: SafeUser | null, tokens: Tokens | null) {
     if (user && tokens)
       setStorage([
         { key: 'user', value: user },
@@ -61,7 +47,7 @@ export class AuthService {
     this.userEmitter.emit(user);
   }
 
-  setCurrentUserData(user: User | null) {
+  setCurrentUserData(user: SafeUser | null) {
     if (user)
       setStorage([{ key: 'user', value: user }]);
 
@@ -80,7 +66,7 @@ export class AuthService {
       this.setCurrentUserAndTokens(user, { access_token, refresh_token });
   }
 
-  getCurrentUser(): User | null {
+  getCurrentUser(): SafeUser | null {
     return this.user;
   }
 
@@ -114,11 +100,5 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     return !!this.accessToken;
-  }
-
-  verifyTokenOrCode(params: VerifyParams): Observable<VerifyResponse> {
-    const url = `${environment.URI}/api/auth/verify`;
-
-    return this.http.put<VerifyResponse>(url, params);
   }
 }

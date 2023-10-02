@@ -6,12 +6,13 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Observable } from 'rxjs';
 import { ColorResponse, ColorService } from 'src/app/services/color.service';
 import { Color } from 'src/app/types/color';
+import { ApiRoutesComponent } from '../components/api-routes/api-routes.component';
 
 @Component({
   selector: 'app-colors',
   standalone: true,
   providers: [DatePipe],
-  imports: [CommonModule, BreadcrumbComponent, TableComponent],
+  imports: [CommonModule, BreadcrumbComponent, TableComponent, ApiRoutesComponent],
   templateUrl: './colors.component.html',
   styleUrls: ['./colors.component.scss']
 })
@@ -46,7 +47,7 @@ export class ColorsComponent {
 
   getColorsObservable = (page: number, limit: number): Observable<ColorResponse> => {
     return this.colorsService.getColors({
-      userId: this.authService.getCurrentUser()?._id,
+      userId: this.authService.getCurrentUser()?.id,
       page,
       limit
     });

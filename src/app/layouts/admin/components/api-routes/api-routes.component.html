@@ -1,1 +1,89 @@
-<p>api-routes works!</p>
+<section class="tw-flex tw-w-full tw-flex-col tw-gap-5 tw-mb-5">
+    <div *ngIf="label" class="tw-pb-5 tw-border-b tw-mt-5">
+        <h2 class="tw-font-semibold tw-text-2xl">API</h2>
+        <p class="tw-text-gray-500">Api calls for {{label}}</p>
+    </div>
+    <ng-container *ngIf="true">
+        <div role="alert" class="
+            tw-relative 
+            tw-w-full 
+            tw-rounded-lg 
+            tw-border 
+            tw-p-4 
+            [&:has(svg)]:tw-pl-11 
+            [&>svg+div]:tw-translate-y-[-3px] 
+            [&>svg]:tw-absolute 
+            [&>svg]:tw-left-4 
+            [&>svg]:tw-top-4 
+            [&>svg]:tw-text-foreground 
+            tw-bg-background 
+            tw-text-foreground">
+            <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round"
+                stroke-linejoin="round" class="tw-h-4 tw-w-4" height="1em" width="1em"
+                xmlns="http://www.w3.org/2000/svg">
+                <rect width="20" height="8" x="2" y="2" rx="2" ry="2"></rect>
+                <rect width="20" height="8" x="2" y="14" rx="2" ry="2"></rect>
+                <line x1="6" x2="6.01" y1="6" y2="6"></line>
+                <line x1="6" x2="6.01" y1="18" y2="18"></line>
+            </svg>
+            <h5 class="tw-mb-1 tw-font-medium tw-leading-none tw-tracking-tight tw-flex tw-items-center tw-gap-x-2">
+                GET
+                <div class="
+                    tw-inline-flex 
+                    tw-items-center 
+                    tw-rounded-full 
+                    tw-border 
+                    tw-px-2.5 
+                    tw-py-0.5 
+                    tw-text-xs 
+                    tw-font-semibold 
+                    tw-transition-colors 
+                    focus:tw-outline-none 
+                    focus:tw-ring-2 
+                    focus:tw-ring-ring 
+                    focus:tw-ring-offset-2 
+                    tw-border-transparent 
+                    tw-bg-secondary 
+                    tw-bg-slate-100
+                    hover:tw-bg-secondary/80">
+                    Public
+                </div>
+            </h5>
+            <div class="tw-text-sm [&_p]:tw-leading-relaxed tw-mt-4 tw-flex tw-items-center tw-justify-between">
+                <code
+                    class="tw-relative tw-rounded tw-bg-muted tw-px-[0.3rem] tw-py-[0.2rem] tw-font-mono tw-text-sm tw-font-semibold tw-bg-slate-100">
+                    https://next-ecommerce-back.vercel.app/api/4406380b-bfdd-4c71-9962-3f2084e84ced/products
+                </code>
+                <button class="
+                        tw-inline-flex 
+                        tw-items-center 
+                        tw-justify-center 
+                        tw-text-sm 
+                        tw-font-medium 
+                        tw-ring-offset-background 
+                        tw-transition-colors 
+                        focus-visible:tw-outline-none 
+                        focus-visible:tw-ring-2 
+                        focus-visible:tw-ring-ring 
+                        focus-visible:tw-ring-offset-2 
+                        disabled:tw-pointer-events-none 
+                        disabled:tw-opacity-50 tw-border 
+                        tw-border-input 
+                        tw-bg-background 
+                        hover:tw-bg-accent 
+                        hover:tw-bg-slate-100
+                        tw-h-9 
+                        tw-rounded-md 
+                        tw-px-3">
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round"
+                        stroke-linejoin="round" class="h-4 w-4" height="1em" width="1em"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+                        <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </ng-container>
+
+</section>

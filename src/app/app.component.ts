@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NgSwitch, NgSwitchDefault, NgSwitchCase } from '@angular/common';
+import { AuthService } from './services/auth.service';
 
 @Component({
     selector: 'app-root',
@@ -10,5 +11,9 @@ import { NgSwitch, NgSwitchDefault, NgSwitchCase } from '@angular/common';
     imports: [NgSwitch, NgSwitchDefault, NgSwitchCase, RouterOutlet]
 })
 export class AppComponent {
+
+constructor(private authService: AuthService){
+    this.authService.loadStorageUser();
+}
 
 }

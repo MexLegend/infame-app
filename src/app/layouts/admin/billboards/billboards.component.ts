@@ -6,12 +6,13 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Observable } from 'rxjs';
 import { BillboardResponse, BillboardService } from 'src/app/services/billboard.service';
 import { Billboard } from 'src/app/types/billboard';
+import { ApiRoutesComponent } from '../components/api-routes/api-routes.component';
 
 @Component({
   selector: 'app-billboards',
   standalone: true,
   providers: [DatePipe],
-  imports: [CommonModule, BreadcrumbComponent, TableComponent],
+  imports: [CommonModule, BreadcrumbComponent, TableComponent, ApiRoutesComponent],
   templateUrl: './billboards.component.html',
   styleUrls: ['./billboards.component.scss']
 })
@@ -46,7 +47,7 @@ export class BillboardsComponent {
 
   getBillboardsObservable = (page: number, limit: number): Observable<BillboardResponse> => {
     return this.billboardService.getBillboards({
-      userId: this.authService.getCurrentUser()?._id,
+      userId: this.authService.getCurrentUser()?.id,
       page,
       limit
     });

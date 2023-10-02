@@ -1,0 +1,45 @@
+<div class="relative w-full">
+  <textarea class="
+    bg-white 
+    border-2 
+    disabled:cursor-not-allowed 
+    disabled:opacity-70 
+    font-light 
+    outline-none 
+    p-4 peer 
+    pt-6 
+    rounded-md
+    transition
+    text-haizenBlue-950
+      w-full" [ngClass]="[
+      resizable ? 'resize-y' : 'resize-none',
+    errors
+      ? 'border-rose-500 focus:border-rose-500'
+      : 'border-neutral-300 focus:border-black',
+    ]" [rows]="rows" [formControl]="formGroupRef.get(formControlName)! | formControlPipe" [required]="required"
+    [id]="id" placeholder=" " autocomplete="" [autofocus]="autofocus">
+    </textarea>
+  <div class="w-[calc(100%-18px)] bg-white absolute h-6 left-[2px] top-[2px] rounded-t-md pointer-events-none"></div>
+  <label class="
+      font-roboto-slab
+      left-4
+      pointer-events-none
+      -translate-y-[10px] 
+      absolute 
+      duration-150 
+      origin-[0] 
+      peer-focus:-translate-y-[14px]
+      peer-focus:scale-75 
+      peer-placeholder-shown:scale-100 
+      peer-placeholder-shown:translate-y-0 
+      peer-autofill:-translate-y-[14px]
+      peer-autofill:scale-75 
+      text-md 
+      top-3
+      transform z-10" [ngClass]="[
+      formGroupRef.get(formControlName)?.value ? 'scale-75 -translate-y-[14px]' : '',
+      errors ? 'text-rose-500' : 'text-haizenBlue-950/80'
+    ]">
+    {{ label }}
+  </label>
+</div>

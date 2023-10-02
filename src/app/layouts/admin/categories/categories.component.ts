@@ -6,12 +6,13 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Observable } from 'rxjs';
 import { CategoryResponse, CategoryService } from 'src/app/services/category.service';
 import { Category } from 'src/app/types/category';
+import { ApiRoutesComponent } from '../components/api-routes/api-routes.component';
 
 @Component({
   selector: 'app-categories',
   standalone: true,
   providers: [DatePipe],
-  imports: [CommonModule, BreadcrumbComponent, TableComponent],
+  imports: [CommonModule, BreadcrumbComponent, TableComponent, ApiRoutesComponent],
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss']
 })
@@ -46,7 +47,7 @@ export class CategoriesComponent {
 
   getCategoriesObservable = (page: number, limit: number): Observable<CategoryResponse> => {
     return this.categoryService.getCategories({
-      userId: this.authService.getCurrentUser()?._id,
+      userId: this.authService.getCurrentUser()?.id,
       page,
       limit
     });

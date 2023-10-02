@@ -1,0 +1,5 @@
+<mat-form-field class="form-field tw-w-full">
+  <mat-label>{{label}}</mat-label>
+  <input matInput [formControl]="formGroupRef.get(formControlName)! | formControlPipe" [required]="required" [id]="id"
+    [type]="type!" [autocomplete]="autoComplete">
+</mat-form-field>

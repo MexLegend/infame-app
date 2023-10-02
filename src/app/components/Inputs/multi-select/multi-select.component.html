@@ -1,0 +1,18 @@
+<mat-form-field class="form-field tw-w-full">
+    <mat-label>{{label}}</mat-label>
+    <mat-select [formControl]="formGroupRef.get(formControlName)! | formControlPipe" [multiple]="multiple">
+        <mat-option *ngFor="let option of options" [value]="option.value"
+            [disabled]="limit ? ((formGroupRef.get(formControlName)! | formControlPipe).value | multiSelectLimit : option.value) : false">
+
+            <div class="tw-flex tw-gap-2 tw-flex-1 tw-w-full tw-justify-center tw-items-center">
+                <i *ngIf="option.icon" class="tw-mr-2" [ngClass]="option.icon"></i>
+
+                <img *ngIf="option.image !== undefined" [src]="option.image | img" alt="option_image"
+                    class="tw-rounded-full tw-w-10 tw-h-10" width="30" height="30">
+
+                <span>{{option.key}}</span>
+            </div>
+
+        </mat-option>
+    </mat-select>
+</mat-form-field>

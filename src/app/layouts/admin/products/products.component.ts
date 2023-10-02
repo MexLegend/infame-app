@@ -6,12 +6,13 @@ import { ProductResponse, ProductService } from 'src/app/services/product.servic
 import { Observable } from 'rxjs';
 import { DataSource, DisplayedColumn, TableComponent } from 'src/app/components/table/table.component';
 import { Product } from 'src/app/types/product';
+import { ApiRoutesComponent } from '../components/api-routes/api-routes.component';
 
 @Component({
   selector: 'app-products',
   standalone: true,
   providers: [DatePipe],
-  imports: [CommonModule, BreadcrumbComponent, TableComponent],
+  imports: [CommonModule, BreadcrumbComponent, TableComponent, ApiRoutesComponent],
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
@@ -62,7 +63,7 @@ export class ProductsComponent {
 
   getProductsObservable = (page: number, limit: number): Observable<ProductResponse> => {
     return this.productsService.getProducts({
-      userId: this.authService.getCurrentUser()?._id,
+      userId: this.authService.getCurrentUser()?.id,
       page,
       limit
     });

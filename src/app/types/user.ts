@@ -1,25 +1,27 @@
-export type Gender = "Male" | "Female" | "Other";
 
-export type UserRole = "ADMINISTRADOR" | "ABOGADO" | "CLIENTE" | "NUEVO";
+export type UserRole = "ADMIN" | "CLIENT";
 
 export interface UserImage {
     url: string,
     public_id: string
 }
 
+export interface Tokens {
+    access_token: string;
+    refresh_token: string;
+}
+
+export interface SafeUser extends Partial<User>, Partial<Tokens> {
+    createdAt: Date;
+    id: string;
+    updatedAt: Date;
+}
+
 export type User = {
-    email: string,
-    cellphone: string,
-    first_name: string,
-    last_name: string,
-    password: string,
-    gender?: Gender,
-    image?: UserImage,
-    is_confirmed?: boolean,
-    is_deleted?: boolean,
-    role?: UserRole,
-    code?: number,
-    createdAt?: Date,
-    updatedAt?: Date,
-    _id?: string
+    email: string;
+    image?: UserImage;
+    firstName: string;
+    lastName: string;
+    password?: string;
+    role: UserRole;
 }

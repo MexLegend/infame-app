@@ -15,10 +15,10 @@
         hover:tw-shadow-lg
         hover:tw-opacity-80
         active:tw-scale-95
-        ">
+        " [ngClass]="{'tw-border-gray-200': isAdminView}">
         <mat-icon class="tw-text-xl tw-leading-tight" fontIcon="menu"></mat-icon>
         <img class="tw-rounded-full tw-aspect-square tw-w-[30px] tw-h-[30px]"
-            src="https://res.cloudinary.com/devmexsoft/image/upload/v1691610840/Users/z7oysmo2iy78zelqxwof.png"
+            [src]="user.image?.url | img"
             alt="profile_avatar" width="30" height="30">
     </button>
 </ng-template>

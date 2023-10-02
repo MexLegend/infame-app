@@ -7,6 +7,7 @@ import { NavLink } from '../../../../types/navLink';
 import { ProfileBtnComponent } from 'src/app/components/profile-btn/profile-btn.component';
 import { Router } from '@angular/router';
 import { StoreSelectComponent } from '../store-select/store-select.component';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -19,6 +20,6 @@ export class NavbarComponent {
 
   navLinks: NavLink[] = navLinks;
 
-  constructor(public router: Router){}
+  constructor(public router: Router, public authService: AuthService) { }
 
 }

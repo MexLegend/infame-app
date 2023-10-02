@@ -1,4 +1,11 @@
 import { Category } from "./category";
+import { User } from './user';
+
+export type FavoriteProducts = {
+    id: string;
+    product: Product;
+    user: User;
+}
 
 export type Product = {
     category: Category;
@@ -18,5 +25,5 @@ export type Product = {
     store: string;
     storeId: string;
     updatedAt?: Date;
-    favoriteProducts: string[];
+    favoriteProducts: FavoriteProducts[];
 }

@@ -8,3 +8,74 @@ html,
 body {
     scroll-behavior: smooth;
 }
+
+@font-face {
+    font-family: "Mayennesans";
+    src: url("../src/assets/fonts/Mayenne-Sans.otf");
+}
+
+/* FormFiled */
+.form-field .mat-mdc-text-field-wrapper {
+    border-radius: 8px !important;
+    background-color: white !important;
+    @apply tw-border-2;
+    @apply tw-border-neutral-300;
+}
+
+.form-field .mdc-text-field--focused {
+    @apply tw-border-black;
+}
+
+.form-field .mat-mdc-form-field-focus-overlay {
+    display: none;
+}
+
+.form-field .mat-mdc-form-field-infix {
+    min-height: 48px !important;
+}
+
+.form-field .mat-mdc-text-field-wrapper:not(.mdc-text-field--outlined) .mat-mdc-form-field-infix {
+    padding-top: 21px !important;
+    padding-bottom: 0 !important;
+}
+
+.form-field .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label {
+    top: 25px;
+    color: rgba(0, 13, 31, 0.8);
+}
+
+.mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label {
+    color: #0068f0;
+}
+
+.mat-primary .mat-pseudo-checkbox-checked.mat-pseudo-checkbox-minimal::after,
+.mat-primary .mat-pseudo-checkbox-indeterminate.mat-pseudo-checkbox-minimal::after {
+    color: #0068f0;
+}
+
+.mat-primary .mat-pseudo-checkbox-checked.mat-pseudo-checkbox-full,
+.mat-primary .mat-pseudo-checkbox-indeterminate.mat-pseudo-checkbox-full {
+    background-color: #0068f0 !important;
+}
+
+.form-field .mat-mdc-form-field-subscript-wrapper {
+    height: 0;
+}
+
+.form-field div.mat-mdc-select-panel {
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+    border-bottom-right-radius: 0.5rem /* 8px */ !important;
+    border-bottom-left-radius: 0.5rem /* 8px */ !important;
+}
+
+.form-field .mat-mdc-select-panel-above div.mat-mdc-select-panel {
+    border-top-left-radius: 0.5rem /* 8px */ !important;
+    border-top-right-radius: 0.5rem /* 8px */ !important;
+    border-bottom-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+
+.form-field .mdc-line-ripple {
+    display: none !important;
+}

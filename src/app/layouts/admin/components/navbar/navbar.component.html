@@ -1,4 +1,5 @@
-<nav class="tw-w-full tw-h-16 tw-fixed tw-left-0 tw-top-0 tw-z-50 tw-transition tw-duration-200 tw-border-b">
+<nav
+    class="tw-w-full tw-h-16 tw-fixed tw-left-0 tw-top-0 tw-z-50 tw-transition tw-duration-200 tw-border-b tw-bg-white">
     <app-container>
         <div class="tw-flex tw-h-16 tw-w-full tw-items-center tw-justify-between tw-gap-7">
             <app-store-select></app-store-select>
@@ -8,7 +9,7 @@
                     *ngFor="let navLink of navLinks"></app-navbar-link>
             </ul>
             <ul class="tw-flex tw-gap-5 tw-justify-center tw-items-center">
-                <app-profile-btn [isAdminView]="true"></app-profile-btn>
+                <app-profile-btn [isAdminView]="true" [user]="authService.getCurrentUser()!"></app-profile-btn>
             </ul>
         </div>
     </app-container>

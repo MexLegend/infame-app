@@ -6,12 +6,13 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Observable } from 'rxjs';
 import { Size } from 'src/app/types/size';
 import { SizeResponse, SizeService } from 'src/app/services/size.service';
+import { ApiRoutesComponent } from '../components/api-routes/api-routes.component';
 
 @Component({
   selector: 'app-sizes',
   standalone: true,
   providers: [DatePipe],
-  imports: [CommonModule, BreadcrumbComponent, TableComponent],
+  imports: [CommonModule, BreadcrumbComponent, TableComponent, ApiRoutesComponent],
   templateUrl: './sizes.component.html',
   styleUrls: ['./sizes.component.scss']
 })
@@ -46,7 +47,7 @@ export class SizesComponent {
 
   getSizesObservable = (page: number, limit: number): Observable<SizeResponse> => {
     return this.sizeService.getSizes({
-      userId: this.authService.getCurrentUser()?._id,
+      userId: this.authService.getCurrentUser()?.id,
       page,
       limit
     });
