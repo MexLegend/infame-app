@@ -2,16 +2,16 @@ import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Store } from '../types/store';
+import { SafeStore, Store } from '../types/store';
 
 interface StoreParams {
-  storeId?: string;
+  userId?: string;
   page?: number;
   limit?: number;
 }
 
 export interface StoreResponse {
-  stores: Store[];
+  stores: SafeStore[];
   ok: boolean;
   total: number;
 }
@@ -27,10 +27,16 @@ export class StoreService {
     private http: HttpClient
   ) { }
 
-  getStores(params: StoreParams): Observable<StoreResponse> {
+  getStores(userId: string): Observable<SafeStore[]> {
     let url = `${environment.URI}/api/store`;
 
-    return this.http.get<StoreResponse>(url, { params: { ...params } });
+    return this.http.get<SafeStore[]>(url, { params: { userId } });
+  }
+
+  createStore(store: Store): Observable<SafeStore> {
+    let url = `${environment.URI}/api/store`;
+
+    return this.http.post<SafeStore>(url, store);
   }
 
 }

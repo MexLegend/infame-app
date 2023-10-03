@@ -7,12 +7,16 @@ import { Category } from './category';
 import { Billboard } from './billboard';
 
 export type Store = {
+    name: string;
+    userId: string;
+}
+
+export interface SafeStore extends User {
     billboards: Billboard[];
     categories: Category[];
     colors: Color[];
     createdAt: Date;
     id: string;
-    name: string;
     orders: Order[];
     products: Product[];
     sizes: Size[];

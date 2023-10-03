@@ -83,3 +83,9 @@ body {
 .form-field .mdc-line-ripple {
     display: none !important;
 }
+
+// Spinner
+.mat-mdc-progress-spinner .mdc-circular-progress__determinate-circle,
+.mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic {
+    stroke: #e11d48 !important;
+}

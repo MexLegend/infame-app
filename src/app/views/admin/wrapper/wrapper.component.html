@@ -1,4 +1,4 @@
-<section class="tw-flex tw-flex-1 tw-flex-col tw-w-full">
+<section *ngIf="!isLoading && stores().length" class="tw-flex tw-flex-1 tw-flex-col tw-w-full">
     <app-navbar></app-navbar>
 
     <app-container>
@@ -6,4 +6,13 @@
             <router-outlet></router-outlet>
         </div>
     </app-container>
+</section>
+
+<section *ngIf="!isLoading && !stores().length"
+    class="tw-w-screen tw-h-screen tw-flex tw-items-center tw-justify-center">
+    <app-stores-form [stores]="stores"></app-stores-form>
+</section>
+
+<section *ngIf="isLoading" class="tw-w-screen tw-h-screen tw-flex tw-items-center tw-justify-center">
+    <app-loading></app-loading>
 </section>
