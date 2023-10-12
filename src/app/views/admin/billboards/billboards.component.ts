@@ -1,4 +1,4 @@
-import { Component, Inject, WritableSignal, signal } from '@angular/core';
+import { Component, Inject, Signal, WritableSignal, computed, signal } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { BreadcrumbComponent } from '../components/breadcrumb/breadcrumb.component';
 import { DataSource, DisplayedColumn, TableComponent } from 'src/app/components/table/table.component';
@@ -112,13 +112,12 @@ export class BillboardsComponent {
               !tw-p-0
               tw-justify-center
               active:tw-scale-95 
-              tw-text-haizenBlue-600
               tw-font-medium
               tw-leading-none
               tw-border
               tw-border-neutral-200
               tw-bg-neutral-100
-              hover:tw-bg-red-950
+              hover:tw-bg-black
               hover:tw-text-white
               `,
               click: undefined,
@@ -178,7 +177,7 @@ export class BillboardsComponent {
 
     if (!confirmDelete) return;
 
-    const deleteBillboardSub$ = this.billboardService.deleteStore(billboardId).subscribe(() => {
+    const deleteBillboardSub$ = this.billboardService.deleteBillboard(billboardId).subscribe(() => {
       this.billboardService.reloadDataEmitter.emit(true);
       deleteBillboardSub$.unsubscribe();
     });

@@ -11,7 +11,7 @@ interface ColorParams {
 }
 
 export interface ColorResponse {
-  colors: Color[];
+  data: Color[];
   ok: boolean;
   total: number;
 }

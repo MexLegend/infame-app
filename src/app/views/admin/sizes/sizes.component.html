@@ -4,6 +4,7 @@
         [reloadDataEmitter]="sizeService.reloadDataEmitter" [formatDataFunction]="formatDataSource"
         [displayedColumns]="displayedColumns" emptyRegistersLabel="There are not sizes"></app-table>
     <div class="tw-w-full tw-my-5">
-        <app-api-routes label="Sizes"></app-api-routes>
+        <app-api-routes label="Sizes" entityName="sizes" entityIdName="sizeId">
+        </app-api-routes>
     </div>
 </section>

@@ -11,7 +11,7 @@ interface StoreParams {
 }
 
 export interface StoreResponse {
-  stores: SafeStore[];
+  data: SafeStore[];
   ok: boolean;
   total: number;
 }
@@ -30,13 +30,13 @@ export class StoreService {
     private http: HttpClient
   ) { }
 
-  getStores(userId: string): Observable<SafeStore[]> {
+  getStores(userId: string): Observable<StoreResponse> {
     let url = `${environment.URI}/api/store`;
 
-    return this.http.get<SafeStore[]>(url, { params: { userId } }).pipe(
-      map(stores => {
-        if (stores.length) this.storesList.set(stores);
-        return stores;
+    return this.http.get<StoreResponse>(url, { params: { userId } }).pipe(
+      map(response => {
+        if (response.data.length) this.storesList.set(response.data);
+        return response;
       })
     )
   }

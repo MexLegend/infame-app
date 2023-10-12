@@ -6,7 +6,7 @@
     <ng-template matMenuContent let-items="menuItems">
         <div [ngClass]="containerClasses">
             <ng-container *ngFor="let item of items">
-                <div *ngIf="item.isDivider" class="tw-flex tw-w-full tw-h-0 tw-border-b tw-border-b-haizenBlue-950/10 tw-my-2"></div>
+                <div *ngIf="item.isDivider" class="tw-flex tw-w-full tw-h-0 tw-border-b tw-my-2"></div>
                 <button class="tw-font-semibold tw-text-sm" *ngIf="!item.isDivider" mat-menu-item
                     (click)="item.click?.()">
                     <div class="tw-flex tw-flex-1 tw-items-center">

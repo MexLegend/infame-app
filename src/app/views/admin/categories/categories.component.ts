@@ -6,12 +6,13 @@ import { Observable } from 'rxjs';
 import { CategoryResponse, CategoryService } from 'src/app/services/category.service';
 import { Category } from 'src/app/types/category';
 import { ApiRoutesComponent } from '../components/api-routes/api-routes.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-categories',
   standalone: true,
   providers: [DatePipe],
-  imports: [CommonModule, BreadcrumbComponent, TableComponent, ApiRoutesComponent],
+  imports: [CommonModule, BreadcrumbComponent, TableComponent, ApiRoutesComponent, MatIconModule],
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss']
 })

@@ -11,7 +11,7 @@ interface ProductParams {
 }
 
 export interface ProductResponse {
-  products: Product[];
+  data: Product[];
   ok: boolean;
   total: number;
 }

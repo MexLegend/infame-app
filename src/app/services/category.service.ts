@@ -11,7 +11,7 @@ interface CategoryParams {
 }
 
 export interface CategoryResponse {
-  categories: Category[];
+  data: Category[];
   ok: boolean;
   total: number;
 }

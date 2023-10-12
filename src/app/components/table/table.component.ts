@@ -228,11 +228,13 @@ export class TableComponent {
     const getDataSub$ = observable.subscribe({
       next: (response) => {
 
-        this.dataSource = new MatTableDataSource(this.formatDataFunction(response));
-        this.dataResults?.set(response.length);
+        const { total, data } = response;
+
+        this.dataSource = new MatTableDataSource(this.formatDataFunction(data));
+        this.dataResults?.set(data.length);
 
         this.dataSource.filterPredicate = this.getFilterPredicate();
-        this.resultsLength = response.total;
+        this.resultsLength = total;
 
         this.isLoadingResults = false;
         getDataSub$.unsubscribe();

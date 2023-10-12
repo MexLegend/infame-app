@@ -11,7 +11,7 @@ interface SizeParams {
 }
 
 export interface SizeResponse {
-  sizes: Size[];
+  data: Size[];
   ok: boolean;
   total: number;
 }

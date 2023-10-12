@@ -6,6 +6,7 @@
         [formatDataFunction]="formatDataSource" [displayedColumns]="displayedColumns"
         emptyRegistersLabel="There are not products"></app-table>
     <div class="tw-w-full tw-my-5">
-        <app-api-routes label="Products"></app-api-routes>
+        <app-api-routes label="Products" entityName="products" entityIdName="productId">
+        </app-api-routes>
     </div>
 </section>

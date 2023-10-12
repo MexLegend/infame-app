@@ -3,6 +3,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Billboard } from '../types/billboard';
 import { environment } from 'src/environments/environment';
+import { Image } from '../types/image';
 
 interface BillboardParams {
   storeId?: string;
@@ -10,8 +11,13 @@ interface BillboardParams {
   limit?: number;
 }
 
+interface BillboardImageParams {
+  image: Partial<Image>,
+  oldPublicId: string
+}
+
 export interface BillboardResponse {
-  billboards: Billboard[];
+  data: Billboard[];
   ok: boolean;
   total: number;
 }
@@ -53,10 +59,15 @@ export class BillboardService {
 
   }
 
-  deleteStore(storeId: string): Observable<BillboardResponse> {
-    const url = `${environment.URI}/api/billboard/${storeId}`;
+  updateBillboardImage(billboardId: string, image: BillboardImageParams): Observable<Billboard> {
+    const url = `${environment.URI}/api/billboard/${billboardId}/image`;
+
+    return this.http.patch<Billboard>(url, image);
+  }
+
+  deleteBillboard(billboardId: string): Observable<BillboardResponse> {
+    const url = `${environment.URI}/api/billboard/${billboardId}`;
 
     return this.http.delete<BillboardResponse>(url);
   }
-
 }

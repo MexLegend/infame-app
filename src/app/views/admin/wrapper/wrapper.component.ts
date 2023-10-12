@@ -37,9 +37,9 @@ export class WrapperComponent {
 
   getStores() {
     const getStoresSub$ = this.storeService.getStores(this.authService.getCurrentUser()!.id)
-      .subscribe((stores) => {
+      .subscribe(({ data }) => {
         this.isLoading = false;
-        this.handleRedirectToActiveStore(stores);
+        this.handleRedirectToActiveStore(data);
         getStoresSub$.unsubscribe();
       });
   }

@@ -1,37 +1,52 @@
-import { Component, Inject, Input } from '@angular/core';
+import { Component, Input, Signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NOTYF } from 'src/shared/utils/notyf.token';
-import { Notyf } from 'notyf';
-
-export type ApiMethod = "GET" | "POST" | "PATCH" | "DELETE" | "PUBLIC_API_URL";
+import { ApiRoute } from 'src/app/types/apiRoute';
+import { ApiRouteComponent } from '../api-route/api-route.component';
+import { environment } from 'src/environments/environment';
+import { StoreService } from '../../../../services/store.service';
 
 @Component({
   selector: 'app-api-routes',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ApiRouteComponent],
   templateUrl: './api-routes.component.html',
   styleUrls: ['./api-routes.component.scss']
 })
 export class ApiRoutesComponent {
 
   @Input() label: string = "";
-  @Input() isPublic: boolean = true;
-  @Input() route: string = "https://next-ecommerce-back.vercel.app/api/4406380b-bfdd-4c71-9962-3f2084e84ced/products";
-  @Input() method: ApiMethod = "GET";
+  @Input() entityName: string = "";
+  @Input() entityIdName: string = "";
 
-  constructor(@Inject(NOTYF) private notyf: Notyf) { }
+  constructor(private storeService: StoreService) { }
 
-  onCopy = () => {
-    navigator.clipboard.writeText(this.route);
-    this.notyf.success({
-      message: "API Route copied to clipboard.",
-      position: {
-        x: 'center',
-        y: 'top'
-      },
-      duration: 1500
-    });
-
-  };
+  baseUrl: Signal<string> = computed(() => environment.URI + "/api/" + this.storeService.currentStoreId());
+  apiRoutes: Signal<ApiRoute[]> = computed(() => [
+    {
+      route: `${this.baseUrl()}/${this.entityName}`,
+      method: "GET",
+      isPublic: true
+    },
+    {
+      route: `${this.baseUrl()}/${this.entityName}/{${this.entityIdName}}`,
+      method: "GET",
+      isPublic: true
+    },
+    {
+      route: `${this.baseUrl()}/${this.entityName}`,
+      method: "POST",
+      isPublic: false
+    },
+    {
+      route: `${this.baseUrl()}/${this.entityName}/{${this.entityIdName}}`,
+      method: "PATCH",
+      isPublic: false
+    },
+    {
+      route: `${this.baseUrl()}/${this.entityName}/{${this.entityIdName}}`,
+      method: "DELETE",
+      isPublic: false
+    }
+  ]);
 
 }

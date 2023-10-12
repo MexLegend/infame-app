@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, computed } from '@angular/core';
+import { Component, ElementRef, Inject, Signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BreadcrumbComponent } from '../components/breadcrumb/breadcrumb.component';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
@@ -17,6 +17,8 @@ import { ModalService } from 'src/app/services/modal.service';
 import { ConfirmDeleteModalComponent } from 'src/app/modals/confirm-delete-modal/confirm-delete-modal.component';
 import { first, lastValueFrom } from 'rxjs';
 import { LoadingComponent } from '../components/loading/loading.component';
+import { ApiRoute } from 'src/app/types/apiRoute';
+import { ApiRouteComponent } from '../components/api-route/api-route.component';
 
 @Component({
   selector: 'app-settings',
@@ -26,7 +28,7 @@ import { LoadingComponent } from '../components/loading/loading.component';
     BreadcrumbComponent,
     ReactiveFormsModule,
     MatIconModule,
-    ApiRoutesComponent,
+    ApiRouteComponent,
     InputComponent,
     ButtonComponent,
     LoadingComponent
@@ -38,7 +40,13 @@ export class SettingsComponent {
 
   form!: FormGroup;
   currentStore!: SafeStore;
-  route = computed(() => environment.URI + "/api/" + this.currentStore.id);
+  route: Signal<ApiRoute> = computed(() => (
+    {
+      route: environment.URI + "/api/" + this.currentStore.id,
+      method: "PUBLIC_API_URL",
+      isPublic: true
+    }
+  ));
   isSaving: boolean = false;
   isLoading: boolean = false;
 
@@ -50,7 +58,6 @@ export class SettingsComponent {
     private modalService: ModalService,
     private router: Router,
     @Inject(NOTYF) private notyf: Notyf
-
   ) {
     this.initForm();
   }

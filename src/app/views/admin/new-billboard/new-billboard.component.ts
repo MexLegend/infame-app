@@ -1,4 +1,4 @@
-import { Component, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BreadcrumbComponent } from '../components/breadcrumb/breadcrumb.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -16,6 +16,9 @@ import { Subscription, first, lastValueFrom } from 'rxjs';
 import { ConfirmDeleteModalComponent } from 'src/app/modals/confirm-delete-modal/confirm-delete-modal.component';
 import { ModalService } from 'src/app/services/modal.service';
 import { MatIconModule } from '@angular/material/icon';
+import { Image } from 'src/app/types/image';
+import { Notyf } from 'notyf';
+import { NOTYF } from 'src/shared/utils/notyf.token';
 
 type BillboardAction = "Create" | "Edit";
 
@@ -56,7 +59,8 @@ export class NewBillboardComponent {
     private modalService: ModalService,
     private formBuilder: FormBuilder,
     private router: Router,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    @Inject(NOTYF) private notyf: Notyf
   ) {
     this.initForm();
     this.getRouteDataSub$ = this.route.data.subscribe(data => {
@@ -94,16 +98,40 @@ export class NewBillboardComponent {
   }
 
   onImageUpload = ({ public_id, secure_url }: CloudinaryWidgetResponse) => {
-    this.form.patchValue({ image: { url: secure_url, publicId: public_id } });
+
+    const image = { url: secure_url, publicId: public_id };
+
+    if (this.action === "Create") this.form.patchValue({ image });
+    else this.handleUpdateImage(image);
   }
 
   handleOpenCloudinaryWidget() {
     this.openCloudinaryWidget.emit(true);
   }
 
-  handleDeleteImage = () => {
-    console.log("Deleting image...");
+  handleUpdateImage = (image?: Image) => {
 
+    const { publicId } = this.form.value.image;
+    const auxImage = image || { url: "", publicId: "" };
+
+    const billboardImage = {
+      image: auxImage,
+      oldPublicId: publicId
+    }
+
+    const updateImageSub$ = this.billboardService.updateBillboardImage(this.currentBillboardId!, billboardImage).subscribe(() => {
+      this.form.patchValue({ image: auxImage });
+      this.billboardService.reloadDataEmitter.emit(true);
+      this.notyf.success({
+        message: `Billboard image ${image ? 'updated' : 'deleted'}.`,
+        position: {
+          x: 'center',
+          y: 'top'
+        },
+        duration: 1500
+      });
+      updateImageSub$.unsubscribe();
+    });
   }
 
   handleAction() {
@@ -163,7 +191,7 @@ export class NewBillboardComponent {
 
     if (!confirmDelete) return;
 
-    const deleteBillboardSub$ = this.billboardService.deleteStore(this.currentBillboardId!).subscribe(() => {
+    const deleteBillboardSub$ = this.billboardService.deleteBillboard(this.currentBillboardId!).subscribe(() => {
       this.billboardService.reloadDataEmitter.emit(true);
       this.router.navigate(["/admin/" + this.storeService.currentStoreId() + "/billboards"]);
       deleteBillboardSub$.unsubscribe();

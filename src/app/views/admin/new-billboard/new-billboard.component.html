@@ -46,7 +46,7 @@
                             (click)="handleOpenCloudinaryWidget()">
                         </app-button>
                         <ng-container *ngIf="form.value.image?.url" [ngTemplateOutlet]="deleteButton"
-                            [ngTemplateOutletContext]="{$implicit: handleDeleteImage}">
+                            [ngTemplateOutletContext]="{$implicit: handleUpdateImage}">
                         </ng-container>
                     </div>
                     <span class="tw-text-sm">Must be JPEG, PNG, or GIF and cannot exceed 4MB.</span>

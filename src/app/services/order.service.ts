@@ -11,7 +11,7 @@ interface OrderParams {
 }
 
 export interface OrderResponse {
-  orders: Order[];
+  data: Order[];
   ok: boolean;
   total: number;
 }
