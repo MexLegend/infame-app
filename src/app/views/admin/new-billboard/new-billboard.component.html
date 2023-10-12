@@ -1,6 +1,7 @@
-<section class="tw-flex tw-flex-col tw-flex-1 tw-w-full">
+<section class="tw-flex tw-flex-col tw-flex-1 tw-w-full tw-mb-5">
     <app-breadcrumb [title]="action + ' billboard'"
-        [subtitle]="action === 'Create' ? 'Add a new billboard' : 'Edit a billboard'">
+        [subtitle]="action === 'Create' ? 'Add a new billboard' : 'Edit a billboard'"
+        [actionButtonRef]="action === 'Edit' ? deleteButton : undefined">
     </app-breadcrumb>
 
     <form [formGroup]="form" class="
@@ -38,11 +39,16 @@
                     <app-upload-widget [options]="cloudinaryWidgetOptions" [onOpen]="openCloudinaryWidget"
                         (onUpload)="onImageUpload($event)">
                     </app-upload-widget>
-                    <app-button class="tw-w-full"
-                        [label]="(form.value.image?.url ? 'Update' : 'Upload') + ' billboard picture'" type="button"
-                        customClasses="!tw-text-white !tw-bg-black tw-w-max tw-px-4 !tw-py-2"
-                        (click)="handleOpenCloudinaryWidget()">
-                    </app-button>
+                    <div class="tw-flex tw-gap-2 tw-w-full">
+                        <app-button class="tw-w-max"
+                            [label]="(form.value.image?.url ? 'Update' : 'Upload') + ' billboard picture'" type="button"
+                            customClasses="!tw-text-white !tw-bg-black tw-w-max tw-px-4 !tw-py-2"
+                            (click)="handleOpenCloudinaryWidget()">
+                        </app-button>
+                        <ng-container *ngIf="form.value.image?.url" [ngTemplateOutlet]="deleteButton"
+                            [ngTemplateOutletContext]="{$implicit: handleDeleteImage}">
+                        </ng-container>
+                    </div>
                     <span class="tw-text-sm">Must be JPEG, PNG, or GIF and cannot exceed 4MB.</span>
                 </div>
             </div>
@@ -55,10 +61,29 @@
                 id="billboardDescription" label="Billboard Phrase" [rows]="4">
             </app-textarea>
 
-            <app-button class="tw-w-full" label="Create" type="submit"
+            <app-button class="tw-w-full" [label]="action" type="submit"
                 customClasses="!tw-bg-black !tw-text-white disabled:tw-opacity-100" [disabled]="form.invalid"
-                (click)="!isLoading && handleSubmit()"></app-button>
+                (click)="!form.invalid && !isLoading && handleAction()"></app-button>
 
         </div>
     </form>
 </section>
+
+<ng-template #deleteButton let-action>
+    <button class="
+        tw-flex 
+        tw-items-center 
+        tw-justify-center 
+        tw-rounded-lg 
+        tw-w-10 
+        tw-h-10 
+        tw-text-white 
+        tw-bg-rose-600
+        tw-transition-all
+        tw-duration-200
+        hover:tw-bg-opacity-80
+        active:tw-scale-95
+        " (click)="action ? action() : handleDeleteBillboard()">
+        <mat-icon class="tw-text-xl tw-leading-tight tw-font-light" fontIcon="delete_outline"></mat-icon>
+    </button>
+</ng-template>

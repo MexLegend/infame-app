@@ -27,17 +27,30 @@ export class BillboardService {
     private http: HttpClient
   ) { }
 
-
   getBillboards(params: BillboardParams): Observable<BillboardResponse> {
     let url = `${environment.URI}/api/billboard`;
 
     return this.http.get<BillboardResponse>(url, { params: { ...params } });
   }
 
+  getOneBillboard(billboardId: string): Observable<Billboard> {
+    let url = `${environment.URI}/api/billboard/${billboardId}`;
+
+    return this.http.get<Billboard>(url);
+  }
+
   createBillboard(billboard: Billboard): Observable<Billboard> {
     let url = `${environment.URI}/api/billboard`;
 
     return this.http.post<Billboard>(url, billboard);
+  }
+
+  updateBillboard(billboard: Billboard, billboardId: string): Observable<Billboard> {
+
+    const url = `${environment.URI}/api/billboard/${billboardId}`;
+
+    return this.http.patch<Billboard>(url, billboard);
+
   }
 
   deleteStore(storeId: string): Observable<BillboardResponse> {

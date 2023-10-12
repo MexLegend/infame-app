@@ -12,7 +12,10 @@ import { StoreService } from 'src/app/services/store.service';
 import { TextareaComponent } from 'src/app/components/Inputs/textarea/textarea.component';
 import { BillboardService } from 'src/app/services/billboard.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, first, lastValueFrom } from 'rxjs';
+import { ConfirmDeleteModalComponent } from 'src/app/modals/confirm-delete-modal/confirm-delete-modal.component';
+import { ModalService } from 'src/app/services/modal.service';
+import { MatIconModule } from '@angular/material/icon';
 
 type BillboardAction = "Create" | "Edit";
 
@@ -27,6 +30,7 @@ type BillboardAction = "Create" | "Edit";
     ButtonComponent,
     UploadWidgetComponent,
     ReactiveFormsModule,
+    MatIconModule,
     ImgPipe
   ],
   templateUrl: './new-billboard.component.html',
@@ -43,11 +47,13 @@ export class NewBillboardComponent {
     maxImageFileSize: 4000000
   };
   action!: BillboardAction;
+  currentBillboardId?: string;
   isLoading: boolean = false;
 
   constructor(
     private storeService: StoreService,
     private billboardService: BillboardService,
+    private modalService: ModalService,
     private formBuilder: FormBuilder,
     private router: Router,
     public route: ActivatedRoute
@@ -55,6 +61,10 @@ export class NewBillboardComponent {
     this.initForm();
     this.getRouteDataSub$ = this.route.data.subscribe(data => {
       this.action = data['action'];
+      if (this.action === 'Edit') {
+        this.currentBillboardId = this.router.url.split("/").pop()!;
+        this.getCurrentBillboard(this.currentBillboardId);
+      }
     });
   }
 
@@ -62,8 +72,14 @@ export class NewBillboardComponent {
     this.getRouteDataSub$.unsubscribe();
   }
 
-  getCurrentBillboard(){
-    
+  getCurrentBillboard(billboardId: string) {
+    this.isLoading = true;
+
+    const getOneBillboardSub$ = this.billboardService.getOneBillboard(billboardId).subscribe((billboard) => {
+      this.form.patchValue(billboard);
+      this.isLoading = false;
+      getOneBillboardSub$.unsubscribe();
+    });
   }
 
   initForm() {
@@ -85,7 +101,17 @@ export class NewBillboardComponent {
     this.openCloudinaryWidget.emit(true);
   }
 
-  handleSubmit = () => {
+  handleDeleteImage = () => {
+    console.log("Deleting image...");
+
+  }
+
+  handleAction() {
+    if (this.action === "Create") this.handleCreateBillboard();
+    else this.handleUpdateBillboard();
+  }
+
+  handleCreateBillboard = () => {
 
     this.isLoading = true;
 
@@ -106,6 +132,60 @@ export class NewBillboardComponent {
 
       createBillboardSub$.unsubscribe();
     });
+  }
+
+  handleUpdateBillboard = () => {
+
+    this.isLoading = true;
+
+    const { image, label, description } = this.form.value;
+
+    const billboard: Billboard = {
+      image,
+      label,
+      description,
+      storeId: this.storeService.currentStoreId()
+    }
+
+    const updateBillboardSub$ = this.billboardService.updateBillboard(billboard, this.currentBillboardId!).subscribe(() => {
+
+      this.isLoading = false;
+      this.billboardService.reloadDataEmitter.emit(true);
+      this.router.navigate(["/admin/" + this.storeService.currentStoreId() + "/billboards"]);
+
+      updateBillboardSub$.unsubscribe();
+    });
+  }
+
+  async handleDeleteBillboard() {
+
+    const confirmDelete = await this.handleConfirmDelete();
+
+    if (!confirmDelete) return;
+
+    const deleteBillboardSub$ = this.billboardService.deleteStore(this.currentBillboardId!).subscribe(() => {
+      this.billboardService.reloadDataEmitter.emit(true);
+      this.router.navigate(["/admin/" + this.storeService.currentStoreId() + "/billboards"]);
+      deleteBillboardSub$.unsubscribe();
+    });
+  }
+
+  async handleConfirmDelete(): Promise<boolean> {
+    const onClose = this.modalService.setModalData({
+      component: ConfirmDeleteModalComponent,
+      title: 'Are you sure?',
+      data: {
+        action: 'Delete'
+      },
+      customClasses: "tw-max-w-[600px]",
+      enableClose: false,
+      closeModalButton: true
+    });
+
+    const value: boolean | null = await lastValueFrom(onClose.pipe(first()));
+
+    return !!value;
+
   }
 
 }
