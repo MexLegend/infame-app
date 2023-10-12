@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -12,5 +12,6 @@ export class BreadcrumbComponent {
 
   @Input() title: string = "";
   @Input() subtitle: string = "";
+  @Input() actionButtonRef?: TemplateRef<any>;
 
 }

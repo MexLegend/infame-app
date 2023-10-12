@@ -6,10 +6,12 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HttpClientModule } from '@angular/common/http';
 import { TOKEN_PROVIDER } from './app/interceptors/token.interceptor';
 import { ERROR_PROVIDER } from './app/interceptors/error.interceptor';
+import { NOTYF, notyfFactory } from './shared/utils/notyf.token';
 
 bootstrapApplication(AppComponent, {
   providers: [
     importProvidersFrom(BrowserAnimationsModule, BrowserModule, AppRoutingModule, HttpClientModule),
+    { provide: NOTYF, useFactory: notyfFactory },
     TOKEN_PROVIDER,
     ERROR_PROVIDER
   ]

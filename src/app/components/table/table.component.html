@@ -69,8 +69,7 @@
     </table>
 
     <mat-paginator [length]="resultsLength" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons
-        [attr.aria-label]="'Select page'"
-        class="tw-border-t tw-botder-t-[rgba(0,0,0,0.12)]"></mat-paginator>
+        [attr.aria-label]="'Select page'" class="tw-border-t tw-botder-t-[rgba(0,0,0,0.12)]"></mat-paginator>
 </div>
 
 <ng-template #cellContent let-column let-row="row">
@@ -80,7 +79,8 @@
         <i *ngIf="row[column.label].fsIcon" [ngClass]="row[column.label].fsIcon"></i>
 
         <!-- Render Material Icon -->
-        <i *ngIf="row[column.label].materialIcon">{{row[column.label].materialIcon}}</i>
+        <mat-icon *ngIf="row[column.label].materialIcon" [fontIcon]="row[column.label].materialIcon">
+        </mat-icon>
 
         <!-- Render Single Image -->
         <img *ngIf="row[column.label].image !== undefined"
@@ -153,7 +153,8 @@
     <button class="tw-flex tw-flex-1 tw-items-center tw-text-left tw-py-1 tw-pl-1"
         [ngClass]="action.customWrapperClasses" (click)="action.click?.()">
         <i *ngIf="action.fsIcon" [ngClass]="action.fsIcon"></i>
-        <i *ngIf="action.materialIcon">{{action.materialIcon}}</i>
+        <mat-icon *ngIf="action.materialIcon" [fontIcon]="action.materialIcon">
+        </mat-icon>
         <img *ngIf="action.image !== undefined" class="tw-w-11 tw-h-11 tw-mr-2 tw-rounded-full tw-overflow-clip"
             [src]="action.image | img" alt="Table cell avatar" width="60" height="60">
         <span *ngIf="action.label" class="tw-line-clamp-2">{{action.label}}</span>
@@ -166,7 +167,8 @@
         <button class="tw-flex tw-flex-1 tw-items-center tw-text-left tw-py-1 tw-pl-1"
             [ngClass]="action.customWrapperClasses">
             <i *ngIf="action.fsIcon" [ngClass]="action.fsIcon"></i>
-            <i *ngIf="action.materialIcon">{{action.materialIcon}}</i>
+            <mat-icon *ngIf="action.materialIcon" [fontIcon]="action.materialIcon">
+            </mat-icon>
             <img *ngIf="action.image !== undefined" class="tw-w-11 tw-h-11 tw-mr-2 tw-rounded-full tw-overflow-clip"
                 [src]="action.image | img" alt="Table cell avatar" width="60" height="60">
             <span *ngIf="action.label" class="tw-line-clamp-2">{{action.label}}</span>

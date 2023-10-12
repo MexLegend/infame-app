@@ -27,7 +27,7 @@
                 <line x1="6" x2="6.01" y1="18" y2="18"></line>
             </svg>
             <h5 class="tw-mb-1 tw-font-medium tw-leading-none tw-tracking-tight tw-flex tw-items-center tw-gap-x-2">
-                GET
+                {{method}}
                 <div class="
                     tw-inline-flex 
                     tw-items-center 
@@ -46,13 +46,13 @@
                     tw-bg-secondary 
                     tw-bg-slate-100
                     hover:tw-bg-secondary/80">
-                    Public
+                    {{isPublic ? "Public" : "Private"}}
                 </div>
             </h5>
             <div class="tw-text-sm [&_p]:tw-leading-relaxed tw-mt-4 tw-flex tw-items-center tw-justify-between">
                 <code
                     class="tw-relative tw-rounded tw-bg-muted tw-px-[0.3rem] tw-py-[0.2rem] tw-font-mono tw-text-sm tw-font-semibold tw-bg-slate-100">
-                    https://next-ecommerce-back.vercel.app/api/4406380b-bfdd-4c71-9962-3f2084e84ced/products
+                   {{route}}
                 </code>
                 <button class="
                         tw-inline-flex 
@@ -74,7 +74,7 @@
                         hover:tw-bg-slate-100
                         tw-h-9 
                         tw-rounded-md 
-                        tw-px-3">
+                        tw-px-3" (click)="onCopy()">
                     <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round"
                         stroke-linejoin="round" class="h-4 w-4" height="1em" width="1em"
                         xmlns="http://www.w3.org/2000/svg">

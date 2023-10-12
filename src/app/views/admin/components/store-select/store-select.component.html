@@ -1,4 +1,4 @@
-<button class="
+<button #menuTrigger="matMenuTrigger" class="
     tw-flex 
     tw-gap-2 
     tw-items-center 
@@ -10,20 +10,20 @@
     tw-rounded-lg
     tw-transition
     tw-duration-200
-    hover:tw-shadow-md
+    hover:tw-shadow-md  
     hover:tw-opacity-80
     " [matMenuTriggerFor]="menu">
     <mat-icon class="tw-text-xl tw-leading-tight tw-text-gray-700" fontIcon="store"></mat-icon>
-    <span class="tw-text-sm tw-flex tw-flex-1">Vsionary</span>
+    <span class="tw-text-sm tw-flex tw-flex-1">{{selectedStore()}}</span>
     <mat-icon class="tw-text-xl tw-leading-tight tw-text-gray-400" fontIcon="unfold_more"></mat-icon>
 </button>
 
 <mat-menu class="dropdown-menu" #menu="matMenu" xPosition="before">
     <div class="tw-flex tw-flex-col tw-w-full" (click)="$event.stopPropagation()">
-        <div class="flex tw-items-center tw-justify-center tw-border-b tw-p-2">
+        <form [formGroup]="filterForm" class="flex tw-items-center tw-justify-center tw-border-b tw-p-2">
             <label for="searchStore" class="tw-flex tw-gap-3">
                 <mat-icon class="tw-text-xl tw-leading-tight tw-text-gray-400" fontIcon="search"></mat-icon>
-                <input class="
+                <input formControlName="search" class="
                     tw-text-sm 
                     tw-font-normal 
                     placeholder:tw-font-light 
@@ -31,19 +31,31 @@
                     tw-bg-transparent 
                     tw-outline-none" id="searchStore" type="text" placeholder="Search store...">
             </label>
-        </div>
-        <div class="tw-flex tw-flex-col tw-border-b tw-p-2 ">
-            <h4 class="tw-text-gray-700 tw-text-xs tw-font-light tw-px-1 tw-mb-1">Stores</h4>
-            <button class="tw-flex tw-items-center tw-px-1 tw-py-2 tw-gap-1 hover:tw-bg-slate-100 tw-rounded-md">
-                <mat-icon class="tw-text-xl tw-leading-tight tw-font-light tw-text-gray-700"
-                    fontIcon="store"></mat-icon>
-                <span class="tw-text-sm tw-flex tw-flex-1">Vsionary</span>
-                <mat-icon class="tw-text-xl tw-leading-tight tw-text-gray-600" fontIcon="check"></mat-icon>
-            </button>
-        </div>
-        <button class="tw-flex tw-items-center tw-px-1 tw-py-2 tw-m-2 tw-mb-0 tw-gap-1 hover:tw-bg-slate-100 tw-rounded-md">
-            <mat-icon class="tw-text-xl tw-leading-tight tw-font-light tw-text-gray-700" fontIcon="add_circle_outline"></mat-icon>
-            <span class="tw-text-sm tw-flex tw-flex-1">Create Store</span>
-        </button>
+        </form>
+        <ng-container *ngIf="storesList() | filterArray : filterForm.value.search; let stores">
+            <ng-container *ngIf="stores.length; else storeNotFound" [ngTemplateOutlet]="storesListWrapper"
+                [ngTemplateOutletContext]="{$implicit: stores}"></ng-container>
+        </ng-container>
     </div>
 </mat-menu>
+
+<ng-template #storesListWrapper let-stores>
+    <div class="tw-flex tw-flex-col tw-border-b tw-p-2 ">
+        <h4 class="tw-text-gray-700 tw-text-xs tw-font-light tw-px-1 tw-mb-1">Stores</h4>
+        <app-store-select-item class="tw-w-full" *ngFor="let store of stores; let i = index" [store]="store"
+            [storeIndex]="i" [activeStore]="activeStore" [menuTrigger]="menuTrigger">
+        </app-store-select-item>
+    </div>
+    <button class="tw-flex tw-items-center tw-px-1 tw-py-2 tw-m-2 tw-mb-0 tw-gap-1 hover:tw-bg-slate-100 tw-rounded-md"
+        (click)="handleCreateStore()">
+        <mat-icon class="tw-text-xl tw-leading-tight tw-font-light tw-text-gray-700"
+            fontIcon="add_circle_outline"></mat-icon>
+        <span class="tw-text-sm tw-flex tw-flex-1">Create Store</span>
+    </button>
+</ng-template>
+
+<ng-template #storeNotFound>
+    <div class="tw-flex tw-flex-col tw-items-center tw-justify-center tw-px-2 tw-pt-5 tw-pb-4">
+        <p class="tw-text-gray-700 tw-text-sm">Store not found.</p>
+    </div>
+</ng-template>

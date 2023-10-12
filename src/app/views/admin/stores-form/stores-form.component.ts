@@ -57,12 +57,13 @@ export class StoresFormComponent {
       userId: this.authService.getCurrentUser()!.id
     }
 
-    const loginSub = this.storeService.createStore(store).subscribe((store) => {
+    const createStoreSub$ = this.storeService.createStore(store).subscribe((store) => {
 
       this.isLoading = false;
       this.stores.set([store]);
-      this.router.navigate(["/admin"]);
-      loginSub.unsubscribe();
+
+      this.router.navigate(["/admin/" + store.id]);
+      createStoreSub$.unsubscribe();
     });
   }
 

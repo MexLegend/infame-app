@@ -1,0 +1,49 @@
+<section class="tw-flex tw-flex-col tw-px-4">
+    <div class="tw-mt-6 tw-mb-4 tw-flex tw-flex-col tw-flex-1">
+        <ng-container [ngTemplateOutlet]="body"></ng-container>
+        <ng-container [ngTemplateOutlet]="actions"></ng-container>
+    </div>
+</section>
+
+<ng-template #body>
+    <div class="tw-flex tw-flex-1 tw-flex-col ">
+        <form class="tw-flex tw-flex-1 tw-items-center tw-flex-col tw-gap-6 tw-my-5" [formGroup]="form">
+
+            <app-input class="tw-w-full" [formGroupRef]="form" formControlName="name" ngDefaultControl id="store_name"
+                label="E-Commerce Name" type="text" [autoComplete]="false"></app-input>
+
+        </form>
+    </div>
+</ng-template>
+
+<ng-template #actions>
+    <div class="tw-flex tw-w-full tw-items-center tw-justify-end tw-gap-2 tw-mt-4">
+        <button class="
+                tw-rounded-lg 
+                tw-bg-haizenBlue-400/10 
+                tw-text-haizenBlue-950 
+                tw-px-8 
+                tw-py-2 
+                active:tw-scale-95 
+                tw-transition 
+                tw-duration-200 
+                tw-font-medium" (click)="handleClose()">
+            Cancel
+        </button>
+        <div [ngClass]="{'tw-cursor-not-allowed': form.invalid}">
+            <button class="
+                tw-rounded-lg 
+                tw-bg-slate-950
+                tw-text-white 
+                tw-px-8 
+                tw-py-2 
+                active:tw-scale-95 
+                tw-transition 
+                tw-duration-200
+                tw-font-medium" [ngClass]="{'tw-pointer-events-none tw-opacity-50': form.invalid || isLoading}"
+                (click)="handleCreate()">
+                Create
+            </button>
+        </div>
+    </div>
+</ng-template>

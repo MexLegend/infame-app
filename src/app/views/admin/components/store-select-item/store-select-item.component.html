@@ -1,0 +1,6 @@
+<button class="tw-flex tw-items-start tw-px-1 tw-py-1 tw-gap-1 hover:tw-bg-slate-100 tw-rounded-md tw-w-full"
+    (click)="handleSetActiveStore()">
+    <mat-icon class="tw-text-xl tw-leading-tight tw-font-light tw-text-gray-700" fontIcon="store"></mat-icon>
+    <span class="tw-text-sm tw-flex tw-flex-1 tw-items-center tw-text-left tw-min-h-[24px]">{{store.name}}</span>
+    <mat-icon *ngIf="activeStore() === storeIndex" class="tw-text-xl tw-leading-tight tw-text-gray-600" fontIcon="check"></mat-icon>
+</button>

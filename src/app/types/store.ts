@@ -9,9 +9,10 @@ import { Billboard } from './billboard';
 export type Store = {
     name: string;
     userId: string;
+    web?: string;
 }
 
-export interface SafeStore extends User {
+export interface SafeStore extends Store {
     billboards: Billboard[];
     categories: Category[];
     colors: Color[];
@@ -22,5 +23,4 @@ export interface SafeStore extends User {
     sizes: Size[];
     updatedAt: Date;
     user: User;
-    web: string;
 }

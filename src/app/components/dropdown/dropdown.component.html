@@ -10,7 +10,7 @@
                 <button class="tw-font-semibold tw-text-sm" *ngIf="!item.isDivider" mat-menu-item
                     (click)="item.click?.()">
                     <div class="tw-flex tw-flex-1 tw-items-center">
-                        <mat-icon *ngIf="item.icon" class="tw-transition group-hover:tw-opacity-80"
+                        <mat-icon *ngIf="item.icon" class="tw-transition group-hover:tw-opacity-80 tw-text-xl !tw-mr-2"
                             [fontIcon]="item.icon"></mat-icon>
                         <span class="tw-leading-none" *ngIf="item.label"
                             [ngClass]="item.customClasses">{{item.label}}</span>

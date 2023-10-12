@@ -1,44 +1,47 @@
-<div class="relative w-full">
+<div class="tw-relative tw-w-full">
   <textarea class="
-    bg-white 
-    border-2 
-    disabled:cursor-not-allowed 
-    disabled:opacity-70 
-    font-light 
-    outline-none 
-    p-4 peer 
-    pt-6 
-    rounded-md
-    transition
-    text-haizenBlue-950
-      w-full" [ngClass]="[
-      resizable ? 'resize-y' : 'resize-none',
+    tw-bg-white 
+    tw-border-2 
+    disabled:tw-cursor-not-allowed 
+    disabled:tw-opacity-70 
+    tw-font-normal 
+    tw-text-[17px]
+    tw-outline-none 
+    tw-p-4 
+    tw-peer 
+    tw-pt-6 
+    tw-rounded-md
+    tw-transition
+    tw-text-black/80
+    tw-w-full" [ngClass]="[
+      resizable ? 'tw-resize-y' : 'tw-resize-none',
     errors
-      ? 'border-rose-500 focus:border-rose-500'
-      : 'border-neutral-300 focus:border-black',
+      ? 'tw-border-rose-500 focus:tw-border-rose-500'
+      : 'tw-border-neutral-300 focus:tw-border-black',
     ]" [rows]="rows" [formControl]="formGroupRef.get(formControlName)! | formControlPipe" [required]="required"
     [id]="id" placeholder=" " autocomplete="" [autofocus]="autofocus">
     </textarea>
-  <div class="w-[calc(100%-18px)] bg-white absolute h-6 left-[2px] top-[2px] rounded-t-md pointer-events-none"></div>
+  <div class="tw-w-[calc(100%-18px)] tw-bg-white tw-absolute tw-h-6 tw-left-[2px] tw-top-[2px] tw-rounded-t-md tw-pointer-events-none"></div>
   <label class="
-      font-roboto-slab
-      left-4
-      pointer-events-none
-      -translate-y-[10px] 
-      absolute 
-      duration-150 
-      origin-[0] 
-      peer-focus:-translate-y-[14px]
-      peer-focus:scale-75 
-      peer-placeholder-shown:scale-100 
-      peer-placeholder-shown:translate-y-0 
-      peer-autofill:-translate-y-[14px]
-      peer-autofill:scale-75 
-      text-md 
-      top-3
-      transform z-10" [ngClass]="[
-      formGroupRef.get(formControlName)?.value ? 'scale-75 -translate-y-[14px]' : '',
-      errors ? 'text-rose-500' : 'text-haizenBlue-950/80'
+      tw-font-normal
+      tw-left-4
+      tw-pointer-events-none
+      tw--translate-y-[10px] 
+      tw-absolute 
+      tw-duration-150 
+      tw-origin-[0] 
+      peer-focus:-tw-translate-y-[14px]
+      peer-focus:tw-scale-75 
+      peer-placeholder-shown:tw-scale-100 
+      peer-placeholder-shown:tw-translate-y-0 
+      peer-autofill:-tw-translate-y-[14px]
+      peer-autofill:tw-scale-75 
+      tw-text-[17px] 
+      tw-top-3
+      tw-transform 
+      tw-z-10" [ngClass]="[
+      formGroupRef.get(formControlName)?.value ? 'tw-scale-75 -tw-translate-y-[14px]' : '',
+      errors ? 'tw-text-rose-500' : 'tw-text-black/75'
     ]">
     {{ label }}
   </label>

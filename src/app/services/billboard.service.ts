@@ -34,4 +34,16 @@ export class BillboardService {
     return this.http.get<BillboardResponse>(url, { params: { ...params } });
   }
 
+  createBillboard(billboard: Billboard): Observable<Billboard> {
+    let url = `${environment.URI}/api/billboard`;
+
+    return this.http.post<Billboard>(url, billboard);
+  }
+
+  deleteStore(storeId: string): Observable<BillboardResponse> {
+    const url = `${environment.URI}/api/billboard/${storeId}`;
+
+    return this.http.delete<BillboardResponse>(url);
+  }
+
 }

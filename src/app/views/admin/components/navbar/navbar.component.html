@@ -4,8 +4,8 @@
         <div class="tw-flex tw-h-16 tw-w-full tw-items-center tw-justify-between tw-gap-7">
             <app-store-select></app-store-select>
             <ul class="tw-flex tw-flex-1 tw-gap-4 tw-justify-start tw-items-center">
-                <app-navbar-link [label]="navLink.label" [route]="'admin' + navLink.link"
-                    [isActive]="router.url === ('/admin' + navLink.link)" [isAdminLink]="true"
+                <app-navbar-link [label]="navLink.label" [route]="navLink.link"
+                    [isActive]="router.url.includes(navLink.link)" [isAdminLink]="true"
                     *ngFor="let navLink of navLinks"></app-navbar-link>
             </ul>
             <ul class="tw-flex tw-gap-5 tw-justify-center tw-items-center">

@@ -1,13 +1,14 @@
 import { Category } from "./category";
+import { Image } from "./image";
 
 export type Billboard = {
     createdAt?: Date;
     updatedAt?: Date;
-    categories: Category[];
+    categories?: Category[];
     id?: string;
-    imageUrl: string;
+    image: Image;
     label: string;
     description: string;
-    store: string;
+    store?: string;
     storeId: string;
 }

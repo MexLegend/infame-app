@@ -1,0 +1,62 @@
+<div class="
+    tw-pointer-events-auto
+    tw-flex 
+    tw-w-screen 
+    tw-h-screen 
+    tw-bg-slate-950/50 
+    tw-justify-center 
+    tw-items-center
+    tw-overflow-hidden
+    tw-transition-opacity
+    tw-opacity-0
+    tw-duration-75
+    " [ngClass]="{
+        'tw-opacity-100': showModal,
+        'tw-delay-[250ms]': !showModal
+    }" (click)="closeOnBackdropClick && handleClose()">
+    <section class="
+        tw-relative 
+        tw-w-full 
+        tw-shadow-lg 
+        tw-mx-auto 
+        tw-rounded-lg
+        tw-overflow-hidden 
+        tw-animate-duration-[400ms] 
+        tw-animate-delay-[75ms]
+        tw-bg-white
+        " [ngClass]="[
+            customClasses,
+            showModal ? 'tw-animate-jump-in': '',
+            !showModal ? 'tw-duration-[250ms] tw-animate-duration-[250ms] tw-animate-delay-0 tw-animate-jump-out tw-opacity-0': ''
+        ]" (click)="$event.stopPropagation()">
+        <div class="tw-flex tw-w-full tw-px-4 tw-py-3 tw-border-b tw-border-b-haizenBlue-800/10 tw-bg-white"
+            [ngClass]="{'tw-hidden': !showModal}">
+            <button *ngIf="closeModalButton" class="
+                tw-z-10
+                tw-absolute 
+                tw-right-2 
+                tw-top-2 
+                tw-rounded-full 
+                tw-h-10 
+                tw-w-10 
+                tw-flex
+                active:tw-scale-95
+                tw-transition
+                tw-duration-200
+                tw-items-center 
+                tw-justify-center 
+                hover:tw-bg-slate-700/10
+                tw-text-slate-950
+                tw-text-haizenBlue-950" (click)="handleClose()">
+                <mat-icon class="tw-text-xl tw-leading-tight tw-font-bold" fontIcon="close"></mat-icon>
+            </button>
+            <h1
+                class="tw-!text-haizenBlue-950 tw-font-lora tw-text-xl tw-font-medium max-sm:tw-text-base tw-line-clamp-1">
+                {{title}}
+            </h1>
+        </div>
+        <div class="tw-flex tw-flex-1 tw-w-full tw-max-h-[80vh]">
+            <ng-template dynamicContent></ng-template>
+        </div>
+    </section>
+</div>
