@@ -1,11 +1,12 @@
+import { Billboard } from "./billboard";
+
 export type Category = {
-    billboard: string;
+    billboard?: Billboard;
     billboardId: string;
     createdAt?: Date;
     id?: string;
     name: string;
-    products: string[];
-    store: string;
+    products?: string[];
     storeId: string;
     updatedAt?: Date;
 }

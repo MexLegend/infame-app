@@ -19,8 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Image } from 'src/app/types/image';
 import { Notyf } from 'notyf';
 import { NOTYF } from 'src/shared/utils/notyf.token';
-
-type BillboardAction = "Create" | "Edit";
+import { CrudAction } from 'src/app/types/crudAction';
 
 @Component({
   selector: 'app-new-billboard',
@@ -49,7 +48,7 @@ export class NewBillboardComponent {
     folder: "Ecommerce",
     maxImageFileSize: 4000000
   };
-  action!: BillboardAction;
+  action!: CrudAction;
   currentBillboardId?: string;
   isLoading: boolean = false;
 

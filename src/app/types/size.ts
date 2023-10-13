@@ -1,10 +1,9 @@
 
 export type Size = {
     createdAt?: Date;
-    id: string;
+    id?: string;
     name: string;
-    products: string[];
-    store: string;
+    products?: string[];
     storeId: string;
     updatedAt?: Date;
     value: string;

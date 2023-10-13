@@ -34,7 +34,7 @@ export class MultiSelectComponent {
   @Input() label = '';
   @Input() options: SelectOptions[] = [];
   @Input() multiple = true;
-  @Input() limit: number = 1;
+  @Input() limit: number = 0;
   @Input() customClasses: string = "";
   @Input() formControlName: string = "";
   @Input() formGroupRef: FormGroup = new FormGroup({});

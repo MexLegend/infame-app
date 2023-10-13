@@ -33,4 +33,30 @@ export class CategoryService {
     return this.http.get<CategoryResponse>(url, { params: { ...params } });
   }
 
+  getOneCategory(categoryId: string): Observable<Category> {
+    let url = `${environment.URI}/api/category/${categoryId}`;
+
+    return this.http.get<Category>(url);
+  }
+
+  createCategory(category: Category): Observable<Category> {
+    let url = `${environment.URI}/api/category`;
+
+    return this.http.post<Category>(url, category);
+  }
+
+  updateCategory(category: Category, categoryId: string): Observable<Category> {
+
+    const url = `${environment.URI}/api/category/${categoryId}`;
+
+    return this.http.patch<Category>(url, category);
+
+  }
+
+  deleteCategory(categoryId: string): Observable<CategoryResponse> {
+    const url = `${environment.URI}/api/category/${categoryId}`;
+
+    return this.http.delete<CategoryResponse>(url);
+  }
+
 }

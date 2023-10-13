@@ -33,4 +33,30 @@ export class ColorService {
     return this.http.get<ColorResponse>(url, { params: { ...params } });
   }
 
+  getOneColor(colorId: string): Observable<Color> {
+    let url = `${environment.URI}/api/color/${colorId}`;
+
+    return this.http.get<Color>(url);
+  }
+
+  createColor(color: Color): Observable<Color> {
+    let url = `${environment.URI}/api/color`;
+
+    return this.http.post<Color>(url, color);
+  }
+
+  updateColor(color: Color, colorId: string): Observable<Color> {
+
+    const url = `${environment.URI}/api/color/${colorId}`;
+
+    return this.http.patch<Color>(url, color);
+
+  }
+
+  deleteColor(colorId: string): Observable<ColorResponse> {
+    const url = `${environment.URI}/api/color/${colorId}`;
+
+    return this.http.delete<ColorResponse>(url);
+  }
+
 }

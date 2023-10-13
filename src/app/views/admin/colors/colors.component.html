@@ -1,6 +1,7 @@
 <section class="tw-flex tw-flex-col tw-flex-1 tw-w-full">
-    <app-breadcrumb [title]="'Colors (' + colorsLength() + ')'"
-        subtitle="Manage colors for your products"></app-breadcrumb>
+    <app-breadcrumb [title]="'Colors (' + colorsLength() + ')'" subtitle="Manage colors for your products"
+        [actionButtonRef]="addButton">
+    </app-breadcrumb>
     <app-table searchFilterLabel="colors" activeSortLabel="Name" [getData]="getColorsObservable"
         [dataResults]="colorsLength" [reloadDataEmitter]="colorsService.reloadDataEmitter"
         [formatDataFunction]="formatDataSource" [displayedColumns]="displayedColumns"
@@ -10,3 +11,25 @@
         </app-api-routes>
     </div>
 </section>
+
+
+<ng-template #addButton>
+    <button class="
+        tw-flex 
+        tw-items-center 
+        tw-justify-center 
+        tw-rounded-lg 
+        tw-w-max
+        tw-px-3
+        tw-h-10 
+        tw-text-white 
+        tw-bg-black
+        tw-transition-all
+        tw-duration-200
+        hover:tw-bg-opacity-80
+        active:tw-scale-95
+        " routerLink="new">
+        <mat-icon class="tw-text-xl tw-leading-tight tw-font-light" fontIcon="add"></mat-icon>
+        <span class="tw-text-sm tw-w-max">Add New</span>
+    </button>
+</ng-template>

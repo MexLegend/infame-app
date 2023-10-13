@@ -1,11 +1,11 @@
+import { Image } from "./image";
 
 export type Color = {
     createdAt?: Date;
-    id: string;
+    id?: string;
     name: string;
-    products: string[];
-    store: string;
+    color: string;
+    products?: string[];
     storeId: string;
     updatedAt?: Date;
-    value: string;
 }
