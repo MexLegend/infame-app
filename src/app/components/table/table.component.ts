@@ -25,6 +25,7 @@ export interface DataSource {
     subtitle?: string;
     customContainerClasses?: string;
     customWrapperClasses?: string;
+    customWrapperBg?: string;
     image?: string | null;
     images?: string[];
     isHtml?: boolean;
@@ -37,6 +38,7 @@ export interface DataSource {
 
 export interface DataSourceAction {
   customWrapperClasses?: string;
+  customWrapperBg?: string;
   label: string;
   image?: string;
   isMenu?: boolean;

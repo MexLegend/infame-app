@@ -73,7 +73,8 @@
 </div>
 
 <ng-template #cellContent let-column let-row="row">
-    <div class="tw-flex tw-flex-1 tw-items-center" [ngClass]="row[column.label].customWrapperClasses">
+    <div class="tw-flex tw-flex-1 tw-items-center" [ngClass]="row[column.label].customWrapperClasses"
+        [style.background-color]="row[column.label].customWrapperBg || ''">
 
         <!-- Render Font Awesome Icon -->
         <i *ngIf="row[column.label].fsIcon" [ngClass]="row[column.label].fsIcon"></i>
@@ -151,7 +152,8 @@
 
 <ng-template #cellClickAction let-action>
     <button class="tw-flex tw-flex-1 tw-items-center tw-text-left tw-py-1 tw-pl-1"
-        [ngClass]="action.customWrapperClasses" (click)="action.click?.()">
+        [ngClass]="action.customWrapperClasses" [style.background-color]="action.customWrapperBg || ''"
+        (click)="action.click?.()">
         <i *ngIf="action.fsIcon" [ngClass]="action.fsIcon"></i>
         <mat-icon *ngIf="action.materialIcon" [fontIcon]="action.materialIcon">
         </mat-icon>
@@ -165,7 +167,7 @@
 
     <ng-template #actionMenuTrigger>
         <button class="tw-flex tw-flex-1 tw-items-center tw-text-left tw-py-1 tw-pl-1"
-            [ngClass]="action.customWrapperClasses">
+            [ngClass]="action.customWrapperClasses" [style.background-color]="action.customWrapperBg || ''">
             <i *ngIf="action.fsIcon" [ngClass]="action.fsIcon"></i>
             <mat-icon *ngIf="action.materialIcon" [fontIcon]="action.materialIcon">
             </mat-icon>

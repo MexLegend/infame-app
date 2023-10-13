@@ -90,7 +90,8 @@ export class ColorsComponent {
         "Color": {
           label: color.color,
           customContainerClasses: `tw-max-w-[60px]`,
-          customWrapperClasses: `tw-justify-center tw-px-3 tw-py-1 tw-text-white tw-bg-rose-600 tw-rounded-lg`
+          customWrapperClasses: `tw-justify-center tw-px-3 tw-py-1 tw-text-white tw-border tw-border-[rgb(212,212,212)] tw-text-transparent tw-rounded-lg`,
+          customWrapperBg: color.color
         },
         "Products Quantity": {
           label: (color.products?.length || 0).toString()
