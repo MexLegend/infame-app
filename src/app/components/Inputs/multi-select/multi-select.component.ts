@@ -10,6 +10,7 @@ export interface SelectOptions {
   key: string;
   icon?: string;
   image?: string;
+  colorIcon?: string;
   value: any;
 }
 

@@ -33,4 +33,30 @@ export class ProductService {
     return this.http.get<ProductResponse>(url, { params: { ...params } });
   }
 
+  getOneProduct(productId: string): Observable<Product> {
+    let url = `${environment.URI}/api/product/${productId}`;
+
+    return this.http.get<Product>(url);
+  }
+
+  createProduct(product: Product): Observable<Product> {
+    let url = `${environment.URI}/api/product`;
+
+    return this.http.post<Product>(url, product);
+  }
+
+  updateProduct(product: Product, productId: string): Observable<Product> {
+
+    const url = `${environment.URI}/api/product/${productId}`;
+
+    return this.http.patch<Product>(url, product);
+
+  }
+
+  deleteProduct(productId: string): Observable<ProductResponse> {
+    const url = `${environment.URI}/api/product/${productId}`;
+
+    return this.http.delete<ProductResponse>(url);
+  }
+
 }

@@ -10,6 +10,10 @@
                 <img *ngIf="option.image !== undefined" [src]="option.image | img" alt="option_image"
                     class="tw-rounded-full tw-w-10 tw-h-10" width="30" height="30">
 
+                <div *ngIf="option.colorIcon" class="tw-w-6 tw-h-6 tw-rounded-full tw-border"
+                    [style.background-color]="option.colorIcon">
+                </div>
+
                 <span>{{option.key}}</span>
             </div>
 

@@ -1,0 +1,128 @@
+<section class="tw-flex tw-flex-col tw-flex-1 tw-w-full tw-mb-5">
+    <app-breadcrumb [title]="action + ' product'"
+        [subtitle]="action === 'Create' ? 'Add a new product' : 'Edit a product'"
+        [actionButtonRef]="action === 'Edit' ? deleteButton : undefined">
+    </app-breadcrumb>
+
+    <form [formGroup]="form" class="
+        tw-flex
+        tw-flex-col 
+        tw-gap-4
+        tw-justify-start
+        tw-items-center
+        tw-self-center
+        tw-rounded-xl 
+        tw-bg-white
+        tw-w-full
+        tw-max-w-[800px]
+        tw-px-5
+        tw-py-8
+        tw-border
+        tw-transition
+        tw-duration-200
+        ">
+        <div class="tw-flex tw-flex-col tw-items-center tw-gap-7 tw-mt-3 tw-w-full tw-max-w-[700px]">
+
+            <div class="
+                    tw-flex 
+                    tw-flex-col
+                    tw-w-full 
+                    tw-gap-6 
+                    tw-items-center 
+                    tw-py-6 
+                    tw-px-4 
+                    tw-border-2 
+                    tw-border-[rgb(212,212,212)] 
+                    tw-rounded-xl">
+                <div *ngIf="(form | formArray: 'images').controls.length"
+                    class="tw-grid tw-grid-cols-[repeat(auto-fill,minmax(160px,1fr))] tw-items-center tw-gap-6 tw-w-full">
+                    <div *ngFor="let image of (form | formArray: 'images').controls; let i = index"
+                        class="tw-relative tw-w-max tw-mx-auto">
+                        <img class="tw-w-40 tw-h-40 tw-rounded-lg tw-aspect-square tw-object-cover"
+                            [src]="image?.value.url | img" alt="billboard_img">
+                        <div *ngIf="image?.value.url" class="tw-absolute tw-right-1 tw-top-1">
+                            <ng-container [ngTemplateOutlet]="deleteButton"
+                                [ngTemplateOutletContext]="{$implicit: handleDeleteImage, publicId: image?.value.publicId, index: i}">
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+                <div class="tw-flex tw-flex-1 tw-flex-col tw-gap-1 tw-w-full">
+                    <app-upload-widget [options]="cloudinaryWidgetOptions" [onOpen]="openCloudinaryWidget"
+                        (onUpload)="onImageUpload($event)">
+                    </app-upload-widget>
+                    <div class="tw-flex tw-gap-2 tw-w-full">
+                        <app-button class="tw-w-max" [label]="'Upload product images'" type="button"
+                            customClasses="!tw-text-white !tw-bg-black tw-w-max tw-px-4 !tw-py-2"
+                            (click)="handleOpenCloudinaryWidget()">
+                        </app-button>
+                    </div>
+                    <span class="tw-text-sm">Each image must be JPEG, PNG, or GIF and cannot exceed 4MB.</span>
+                </div>
+            </div>
+
+            <app-input class="tw-w-full" [formGroupRef]="form" formControlName="name" ngDefaultControl id="productName"
+                label="Product Name" type="text" [autofocus]="true">
+            </app-input>
+
+            <app-input class="tw-w-full" [formGroupRef]="form" formControlName="price" ngDefaultControl
+                id="productPrice" label="Product Price" type="number" [autofocus]="true">
+            </app-input>
+
+            <app-multi-select class="tw-w-full" id="productCategory" label="Select category" [formGroupRef]="form"
+                formControlName="categoryId" ngDefaultControl [options]="categoriesOptions" [limit]="0"
+                [multiple]="false">
+            </app-multi-select>
+
+            <app-multi-select class="tw-w-full" id="productSizes" label="Select sizes" [formGroupRef]="form"
+                formControlName="sizeIds" ngDefaultControl [options]="sizesOptions" [limit]="0" [multiple]="true">
+            </app-multi-select>
+
+            <app-multi-select class="tw-w-full" id="productColors" label="Select colors" [formGroupRef]="form"
+                formControlName="colorIds" ngDefaultControl [options]="colorsOptions" [limit]="0" [multiple]="true">
+            </app-multi-select>
+
+            <app-textarea class="tw-w-full" [formGroupRef]="form" formControlName="description" ngDefaultControl
+                id="productDescription" label="Product description" [rows]="4">
+            </app-textarea>
+
+            <app-input class="tw-w-full" [formGroupRef]="form" formControlName="stock" ngDefaultControl
+                id="productStock" label="Product Stock" type="number" [autofocus]="true">
+            </app-input>
+
+            <app-checkbox class="tw-w-full" id="productIsFeatured" label="Featured"
+                description="This product will appear on the home page" [formGroupRef]="form"
+                formControlName="isFeatured" ngDefaultControl>
+            </app-checkbox>
+
+            <app-checkbox class="tw-w-full" id="productIsArchived" label="Archived"
+                description="This product will not appear anywhere in the store" [formGroupRef]="form"
+                formControlName="isArchived" ngDefaultControl>
+            </app-checkbox>
+
+            <app-button class="tw-w-full" [label]="action" type="submit"
+                customClasses="!tw-bg-black !tw-text-white disabled:tw-opacity-100" [disabled]="form.invalid"
+                (click)="!form.invalid && !isLoading && handleAction()"></app-button>
+
+        </div>
+    </form>
+</section>
+
+<ng-template #deleteButton let-action let-publicId="publicId" let-index="index">
+    <button class="
+        tw-flex 
+        tw-items-center 
+        tw-justify-center 
+        tw-rounded-lg 
+        tw-w-10 
+        tw-h-10 
+        tw-text-white 
+        tw-bg-rose-600
+        tw-transition-all
+        tw-duration-200
+        hover:tw-bg-opacity-80
+        active:tw-scale-95
+        " (click)="action ? action(publicId, index) : handleDeleteProduct()">
+        <mat-icon class="tw-text-xl tw-leading-tight tw-font-light" fontIcon="delete_outline"></mat-icon>
+    </button>
+</ng-template>

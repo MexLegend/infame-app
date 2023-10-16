@@ -3,7 +3,7 @@
 @tailwind utilities;
 @import "https://fonts.googleapis.com/icon?family=Material+Icons";
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
-@import 'notyf/notyf.min.css';
+@import "notyf/notyf.min.css";
 
 html,
 body {
@@ -89,4 +89,18 @@ body {
 .mat-mdc-progress-spinner .mdc-circular-progress__determinate-circle,
 .mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic {
     stroke: #e11d48 !important;
+}
+
+// Checkbox
+.mdc-checkbox .mdc-checkbox__native-control:enabled:checked ~ .mdc-checkbox__background {
+    border-color: #0068f0 !important;
+    background-color: #0068f0 !important;
+}
+
+.mdc-checkbox .mdc-checkbox__native-control:enabled ~ .mdc-checkbox__background .mdc-checkbox__checkmark {
+    color: white !important;
+}
+
+.mdc-checkbox:active .mdc-checkbox__native-control:checked ~ .mdc-checkbox__ripple {
+    background-color: #0068f0 !important;
 }

@@ -12,6 +12,7 @@ import { NewBillboardComponent } from "./new-billboard/new-billboard.component";
 import { NewCategoryComponent } from "./new-category/new-category.component";
 import { NewSizeComponent } from "./new-size/new-size.component";
 import { NewColorComponent } from "./new-color/new-color.component";
+import { NewProductComponent } from "./new-product/new-product.component";
 
 
 export const ADMIN_ROUTES: Route[] = [
@@ -61,6 +62,14 @@ export const ADMIN_ROUTES: Route[] = [
                 data: { action: 'Edit' }
             },
             { path: 'products', component: ProductsComponent },
+            {
+                path: 'products/new', component: NewProductComponent,
+                data: { action: 'Create' }
+            },
+            {
+                path: 'products/:id', component: NewProductComponent,
+                data: { action: 'Edit' }
+            },
             { path: 'orders', component: OrdersComponent },
             { path: 'settings', component: SettingsComponent }
         ]

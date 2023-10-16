@@ -1,0 +1,15 @@
+<div class="
+    tw-flex 
+    tw-flex-col
+    tw-w-full 
+    tw-gap-1
+    tw-items-start 
+    tw-p-4 
+    tw-border-2 
+    tw-border-[rgb(212,212,212)] 
+    tw-rounded-xl">
+    <mat-checkbox [formControl]="formGroupRef.get(formControlName)! | formControlPipe" [id]="id">
+        <span class="tw-text-lg">{{label}}</span>
+    </mat-checkbox>
+    <p class="tw-text-gray-500 tw-ml-11">{{description}}</p>
+</div>
