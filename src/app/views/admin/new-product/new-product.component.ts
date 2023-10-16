@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, EventEmitter, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BreadcrumbComponent } from '../components/breadcrumb/breadcrumb.component';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -7,7 +7,6 @@ import { ButtonComponent } from 'src/app/components/button/button.component';
 import { ImgPipe } from 'src/app/pipes/img.pipe';
 import { UploadWidgetComponent } from 'src/app/components/upload-widget/upload-widget.component';
 import { CloudinaryWidgetOptions, CloudinaryWidgetResponse } from '../../../types/cloudinary';
-import { Billboard } from 'src/app/types/billboard';
 import { StoreService } from 'src/app/services/store.service';
 import { TextareaComponent } from 'src/app/components/Inputs/textarea/textarea.component';
 import { BillboardService } from 'src/app/services/billboard.service';
@@ -28,6 +27,7 @@ import { CheckboxComponent } from 'src/app/components/Inputs/checkbox/checkbox.c
 import { FormArrayPipe } from 'src/app/pipes/form-array.pipe';
 import { CloudinaryService, ResourceType } from 'src/app/services/cloudinary.service';
 import { Product } from 'src/app/types/product';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @Component({
   selector: 'app-new-product',
@@ -43,11 +43,13 @@ import { Product } from 'src/app/types/product';
     UploadWidgetComponent,
     ReactiveFormsModule,
     MatIconModule,
+    NgxSkeletonLoaderModule,
     ImgPipe,
     FormArrayPipe
   ],
   templateUrl: './new-product.component.html',
-  styleUrls: ['./new-product.component.scss']
+  styleUrls: ['./new-product.component.scss'],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class NewProductComponent {
 
@@ -65,7 +67,8 @@ export class NewProductComponent {
   categoriesOptions: SelectOptions[] = [];
   sizesOptions: SelectOptions[] = [];
   colorsOptions: SelectOptions[] = [];
-  isLoading: boolean = false;
+  isLoading: boolean = true;
+  isSaving: boolean = false;
 
   constructor(
     private storeService: StoreService,
@@ -90,7 +93,7 @@ export class NewProductComponent {
       if (this.action === 'Edit') {
         this.currentProductId = this.router.url.split("/").pop()!;
         this.getCurrentProduct(this.currentProductId);
-      }
+      } else this.isLoading = false;
     });
   }
 
@@ -142,10 +145,20 @@ export class NewProductComponent {
   }
 
   getCurrentProduct(productId: string) {
-    this.isLoading = true;
+    const getOneProductSub$ = this.productService.getOneProduct(productId).subscribe(({ images, ...product }) => {
 
-    const getOneProductSub$ = this.productService.getOneProduct(productId).subscribe((product) => {
+      const imagesArrayControl = this.form.get("images") as FormArray;
+
+      if (images.length) {
+        images.forEach(image => {
+          const imageGroupControl = this.formBuilder.group({ url: image.url, publicId: image.publicId });
+
+          imagesArrayControl.push(imageGroupControl)
+        });
+      }
+
       this.form.patchValue(product);
+
       this.isLoading = false;
       getOneProductSub$.unsubscribe();
     });
@@ -205,14 +218,14 @@ export class NewProductComponent {
     });
   }
 
-  handleAction() {
+  handleAction() {   
     if (this.action === "Create") this.handleCreateProduct();
     else this.handleUpdateProduct();
   }
 
   handleCreateProduct = () => {
 
-    this.isLoading = true;
+    this.isSaving = true;
 
     const {
       images,
@@ -243,7 +256,7 @@ export class NewProductComponent {
 
     const createProductSub$ = this.productService.createProduct(product).subscribe(() => {
 
-      this.isLoading = false;
+      this.isSaving = false;
       this.productService.reloadDataEmitter.emit(true);
       this.router.navigate(["/admin/" + this.storeService.currentStoreId() + "/products"]);
 
@@ -253,7 +266,7 @@ export class NewProductComponent {
 
   handleUpdateProduct = () => {
 
-    this.isLoading = true;
+    this.isSaving = true;
 
     const {
       images,
@@ -284,7 +297,7 @@ export class NewProductComponent {
 
     const updateProductSub$ = this.productService.updateProduct(product, this.currentProductId!).subscribe(() => {
 
-      this.isLoading = false;
+      this.isSaving = false;
       this.productService.reloadDataEmitter.emit(true);
       this.router.navigate(["/admin/" + this.storeService.currentStoreId() + "/products"]);
 

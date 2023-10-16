@@ -41,6 +41,12 @@ export class StoreService {
     )
   }
 
+  getStoreBySlug(storeSlug: string): Observable<SafeStore> {
+    let url = `${environment.URI}/api/store/slug/${storeSlug}`;
+
+    return this.http.get<SafeStore>(url);
+  }
+
   createStore(store: Store): Observable<SafeStore> {
     let url = `${environment.URI}/api/store`;
 

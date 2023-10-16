@@ -7,10 +7,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { TOKEN_PROVIDER } from './app/interceptors/token.interceptor';
 import { ERROR_PROVIDER } from './app/interceptors/error.interceptor';
 import { NOTYF, notyfFactory } from './shared/utils/notyf.token';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 bootstrapApplication(AppComponent, {
   providers: [
-    importProvidersFrom(BrowserAnimationsModule, BrowserModule, AppRoutingModule, HttpClientModule),
+    importProvidersFrom(
+      BrowserAnimationsModule, 
+      BrowserModule, 
+      AppRoutingModule, 
+      HttpClientModule,
+      NgxSkeletonLoaderModule.forRoot({ animation: 'pulse' }),
+      ),
     { provide: NOTYF, useFactory: notyfFactory },
     TOKEN_PROVIDER,
     ERROR_PROVIDER

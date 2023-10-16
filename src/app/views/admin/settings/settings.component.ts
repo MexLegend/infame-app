@@ -90,7 +90,15 @@ export class SettingsComponent {
     const { name, web } = this.form.value;
     const { id, userId } = this.currentStore;
 
-    const updateStoreSub$ = this.storeService.updateStore({ name, web, userId }, id).subscribe((updatedStore) => {
+    const updateStoreSub$ = this.storeService.updateStore(
+      {
+        name,
+        slug: name.toLocaleLowerCase().replaceAll(" ", "_").replaceAll("-", "_"),
+        web,
+        userId
+      },
+      id
+    ).subscribe((updatedStore) => {
 
       this.notyf.success({
         message: "Store updated.",

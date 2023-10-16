@@ -112,7 +112,7 @@ export class ProductsComponent {
           customContainerClasses: `tw-max-w-[400px]`,
         },
         "Price": {
-          label: product.price.toString(),
+          label: new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(product.price),
           customContainerClasses: `tw-max-w-[400px]`,
         },
         "Category": {
@@ -120,11 +120,11 @@ export class ProductsComponent {
           customContainerClasses: `tw-max-w-[400px]`,
         },
         "Sizes": {
-          label: product.sizes!.join(", "),
+          label: product.sizes!.map(size => size.name).join(", "),
           customContainerClasses: `tw-max-w-[400px]`,
         },
         "Colors": {
-          label: product.colors!.join(", "),
+          label: product.colors!.map(color => color.name).join(", "),
           customContainerClasses: `tw-max-w-[400px]`,
         },
         "Date": {

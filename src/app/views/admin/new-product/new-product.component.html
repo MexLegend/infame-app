@@ -21,7 +21,8 @@
         tw-transition
         tw-duration-200
         ">
-        <div class="tw-flex tw-flex-col tw-items-center tw-gap-7 tw-mt-3 tw-w-full tw-max-w-[700px]">
+        <div *ngIf="!isLoading; else loading"
+            class="tw-flex tw-flex-col tw-items-center tw-gap-7 tw-mt-3 tw-w-full tw-max-w-[700px]">
 
             <div class="
                     tw-flex 
@@ -102,7 +103,7 @@
 
             <app-button class="tw-w-full" [label]="action" type="submit"
                 customClasses="!tw-bg-black !tw-text-white disabled:tw-opacity-100" [disabled]="form.invalid"
-                (click)="!form.invalid && !isLoading && handleAction()"></app-button>
+                (click)="!form.invalid && !isSaving && handleAction()"></app-button>
 
         </div>
     </form>
@@ -125,4 +126,28 @@
         " (click)="action ? action(publicId, index) : handleDeleteProduct()">
         <mat-icon class="tw-text-xl tw-leading-tight tw-font-light" fontIcon="delete_outline"></mat-icon>
     </button>
+</ng-template>
+
+<ng-template #loading>
+    <ngx-skeleton-loader class="tw-h-max tw-w-full tw-max-w-[700px] tw-flex tw-items-center tw-justify-center tw-mt-3"
+        appearance="custom-content">
+        <div class="tw-flex tw-flex-col tw-gap-4 tw-w-full">
+            <div class="tw-grid tw-grid-cols-[repeat(auto-fill,minmax(160px,1fr))] tw-items-center tw-gap-6 tw-w-full">
+                <div class="tw-relative tw-w-max tw-mx-auto">
+                    <div class="tw-w-40 tw-h-40 tw-rounded-lg tw-aspect-square tw-bg-black/10"></div>
+                </div>
+                <div class="tw-relative tw-w-max tw-mx-auto">
+                    <div class="tw-w-40 tw-h-40 tw-rounded-lg tw-aspect-square tw-bg-black/10"></div>
+                </div>
+                <div class="tw-relative tw-w-max tw-mx-auto">
+                    <div class="tw-w-40 tw-h-40 tw-rounded-lg tw-aspect-square tw-bg-black/10"></div>
+                </div>
+            </div>
+            <div class="tw-flex tw-flex-col tw-gap-6 tw-mt-4">
+                <div class="tw-flex tw-h-14 tw-w-full tw-rounded-[5px] tw-bg-black/10"></div>
+                <div class="tw-flex tw-h-14 tw-w-full tw-rounded-[5px] tw-bg-black/10"></div>
+                <div class="tw-flex tw-h-14 tw-w-full tw-rounded-[5px] tw-bg-black/10"></div>
+            </div>
+        </div>
+    </ngx-skeleton-loader>
 </ng-template>

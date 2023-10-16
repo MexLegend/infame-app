@@ -39,6 +39,18 @@ export class ProductService {
     return this.http.get<Product>(url);
   }
 
+  getBestSellingProducts(params: ProductParams): Observable<Product[]> {
+    let url = `${environment.URI}/api/product/best/selling`;
+
+    return this.http.get<Product[]>(url, { params: { ...params } });
+  }
+
+  getProductsInStock(params: ProductParams): Observable<Number> {
+    let url = `${environment.URI}/api/product/in/stock`;
+
+    return this.http.get<Number>(url, { params: { ...params } });
+  }
+
   createProduct(product: Product): Observable<Product> {
     let url = `${environment.URI}/api/product`;
 

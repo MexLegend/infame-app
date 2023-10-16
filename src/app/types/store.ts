@@ -10,6 +10,7 @@ export type Store = {
     name: string;
     userId: string;
     web?: string;
+    slug: string;
 }
 
 export interface SafeStore extends Store {

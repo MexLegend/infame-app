@@ -57,6 +57,7 @@ export class StoreModalComponent {
 
     const storeData: Store = {
       name,
+      slug: name.toLocaleLowerCase().replaceAll(" ", "_").replaceAll("-", "_"),
       userId: this.authService.getCurrentUser()!.id
     }
 

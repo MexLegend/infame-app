@@ -50,10 +50,11 @@ export class StoresFormComponent {
 
     this.isLoading = true;
 
-    const { name } = this.form.value;
+    const { name }: { name: string } = this.form.value;
 
     const store: Store = {
       name,
+      slug: name.toLocaleLowerCase().replaceAll(" ", "_").replaceAll("-", "_"),
       userId: this.authService.getCurrentUser()!.id
     }
 
