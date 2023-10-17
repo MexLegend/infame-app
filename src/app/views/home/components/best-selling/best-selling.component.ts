@@ -27,8 +27,6 @@ export class BestSellingComponent {
       limit: 4,
       page: 1
     }).subscribe(products => {
-      console.log(products);
-      
       this.bestSellingProducts = products;
       getBestSellingProductsSub$.unsubscribe();
     });

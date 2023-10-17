@@ -30,8 +30,14 @@ export class StoreService {
     private http: HttpClient
   ) { }
 
-  getStores(userId: string): Observable<StoreResponse> {
+  getStores(params: StoreParams): Observable<StoreResponse> {
     let url = `${environment.URI}/api/store`;
+
+    return this.http.get<StoreResponse>(url, { params: { ...params } });
+  }
+
+  getUserStores(userId: string): Observable<StoreResponse> {
+    let url = `${environment.URI}/api/store/user/stores/list`;
 
     return this.http.get<StoreResponse>(url, { params: { userId } }).pipe(
       map(response => {

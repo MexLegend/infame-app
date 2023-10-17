@@ -6,9 +6,7 @@
             </h1>
         </div>
         <div class="tw-grid tw-grid-cols-[repeat(auto-fill,minmax(260px,1fr))] tw-gap-5">
-            <app-product-card></app-product-card>
-            <app-product-card></app-product-card>
-            <app-product-card></app-product-card>
+            <app-store-card *ngFor="let store of stores" [store]="store"></app-store-card>
         </div>
     </div>
 </app-container>

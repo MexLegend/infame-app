@@ -16,7 +16,7 @@ export const STORE_ROUTES: Route[] = [
         ]
     },
     {
-        path: ":slug",
+        path: "store/:slug",
         component: WrapperComponent,
         children: [
             { path: '', component: StoreComponent, data: { transparentNavbar: true } },

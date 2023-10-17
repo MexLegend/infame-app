@@ -112,7 +112,7 @@ export class ProductsComponent {
           customContainerClasses: `tw-max-w-[400px]`,
         },
         "Price": {
-          label: new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(product.price),
+          label: new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(product.price),
           customContainerClasses: `tw-max-w-[400px]`,
         },
         "Category": {

@@ -35,10 +35,12 @@ export class NavbarComponent {
   isScrolling: boolean = false;
 
   constructor(
-    public router: Router, 
+    public router: Router,
     private route: ActivatedRoute,
     public authService: AuthService
-    ) { }
+  ) {
+    this.handleTransparentNavbar();
+  }
 
   ngOnDestroy(): void {
     this.getRouteDataSub$.unsubscribe();
@@ -54,7 +56,7 @@ export class NavbarComponent {
     }
   }
 
-  handleTransparentNavbar(){
+  handleTransparentNavbar() {
     this.getRouteDataSub$ = this.route.data.subscribe(data => {
       this.transparentNavbar = data['transparentNavbar'];
     });
