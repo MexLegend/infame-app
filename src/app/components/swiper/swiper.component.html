@@ -8,57 +8,74 @@
 
 <ng-template #actions>
     <div *ngIf="!swiper?.isLocked" class="tw-flex tw-w-full tw-items-center tw-pointer-events-none" [ngClass]="{
-        'tw-absolute tw-px-4 tw-top-[calc(50%-16px)] tw-left-0 tw-justify-between': innerActions,
-        'tw-justify-end tw-gap-2 tw-mb-8': !innerActions,
+        'tw-absolute tw-px-4 tw-top-[calc(50%-16px)] tw-left-0': innerActions,
+        'tw-mb-8': !innerActions,
         'md:tw-h-full md:!tw-top-0 max-md:tw-opacity-0': expandedControls
     }">
-        <button *ngIf="swiperRef" class="
-            group/leftNav
-            tw-flex
-            tw-items-center
-            tw-justify-center
-            tw-z-10 
-            tw-transition-all
-            tw-duration-200
-            tw-h-8 
-            tw-w-8 
-            tw-bg-white/80 
-            tw-rounded-full 
-            tw-opacity-0 
-            tw-pointer-events-none
-        " [ngClass]="{
+        <h1 *ngIf="label" class="
+            tw-text-2xl 
+            tw-w-full 
+            tw-font-bold 
+            tw-leading-tight 
+            tw-text-rose-600 
+            tw-mr-auto 
+            [text-wrap:balance]">
+            {{label}}
+        </h1>
+        <div class="tw-flex tw-w-max tw-h-full" [ngClass]="{
+            'tw-justify-between': innerActions,
+            'tw-justify-end tw-gap-2': !innerActions
+        }">
+            <button *ngIf="swiperRef" class="
+                group/leftNav
+                tw-flex
+                tw-items-center
+                tw-justify-center
+                tw-z-10 
+                tw-transition-all
+                tw-duration-200
+                tw-h-8 
+                tw-w-8 
+                tw-bg-white/80 
+                tw-rounded-full 
+                tw-opacity-0 
+                tw-pointer-events-none
+            " [ngClass]="{
+                'md:!tw-h-full md:!tw-w-16 md:!tw-bg-transparent max-sm:!tw-w-10 max-sm:!tw-h-10 !tw-opacity-100 max-md:!tw-pointer-events-none': expandedControls,
+                'group-hover:tw-opacity-100 group-hover:tw-pointer-events-auto' : !swiper?.isBeginning  && innerActions,
+                'tw-pointer-events-auto tw-opacity-100 tw-border tw-border-brown-200' : !innerActions,
+                'tw-opacity-50 tw-cursor-not-allowed' : swiper?.isBeginning && !innerActions
+            }" (click)="!swiper?.isBeginning && handlePrevSlide($event, swiperRef)">
+                <mat-icon
+                    class="!tw-flex tw-items-center tw-justify-end tw-text-xl tw-leading-tight tw-text-black tw-font-bold"
+                    fontIcon="arrow_back_ios"
+                    [ngClass]="{'md:!tw-text-white/50 md:group-hover/leftNav:!tw-text-white md:tw-text-3xl' : expandedControls}">
+                </mat-icon>
+            </button>
+            <button *ngIf="swiperRef" class="
+                group/rightNav
+                tw-flex
+                tw-items-center
+                tw-justify-center
+                tw-z-10
+                tw-transition-all
+                tw-duration-200
+                tw-h-8 
+                tw-w-8 
+                tw-bg-white/80 
+                tw-rounded-full 
+                tw-opacity-0 
+                tw-pointer-events-none
+            " [ngClass]="{
             'md:!tw-h-full md:!tw-w-16 md:!tw-bg-transparent max-sm:!tw-w-10 max-sm:!tw-h-10 !tw-opacity-100 max-md:!tw-pointer-events-none': expandedControls,
-            'group-hover:tw-opacity-100 group-hover:tw-pointer-events-auto' : !swiper?.isBeginning  && innerActions,
+            'group-hover:tw-opacity-100 group-hover:tw-pointer-events-auto' : !swiper?.isEnd && innerActions,
             'tw-pointer-events-auto tw-opacity-100 tw-border tw-border-brown-200' : !innerActions,
-            'tw-opacity-50 tw-cursor-not-allowed' : swiper?.isBeginning && !innerActions
-        }" (click)="!swiper?.isBeginning && handlePrevSlide($event, swiperRef)">
-            <mat-icon class="!tw-flex tw-items-center tw-justify-end tw-text-xl tw-leading-tight tw-text-black tw-font-bold" fontIcon="arrow_back_ios"
-                [ngClass]="{'md:!tw-text-white/50 md:group-hover/leftNav:!tw-text-white md:tw-text-3xl' : expandedControls}">
-            </mat-icon>
-        </button>
-        <button *ngIf="swiperRef" class="
-            group/rightNav
-            tw-flex
-            tw-items-center
-            tw-justify-center
-            tw-z-10
-            tw-transition-all
-            tw-duration-200
-            tw-h-8 
-            tw-w-8 
-            tw-bg-white/80 
-            tw-rounded-full 
-            tw-opacity-0 
-            tw-pointer-events-none
-    " [ngClass]="{
-        'md:!tw-h-full md:!tw-w-16 md:!tw-bg-transparent max-sm:!tw-w-10 max-sm:!tw-h-10 !tw-opacity-100 max-md:!tw-pointer-events-none': expandedControls,
-        'group-hover:tw-opacity-100 group-hover:tw-pointer-events-auto' : !swiper?.isEnd && innerActions,
-        'tw-pointer-events-auto tw-opacity-100 tw-border tw-border-brown-200' : !innerActions,
-        'tw-opacity-50 tw-cursor-not-allowed' : !innerActions && swiper?.isEnd,
-    }" (click)="!swiper?.isEnd && handleNextSlide($event, swiperRef)">
-            <mat-icon class="tw-text-xl tw-leading-tight tw-text-black tw-font-bold" fontIcon="arrow_forward_ios"
-                [ngClass]="{'md:!tw-text-white/50 md:group-hover/rightNav:!tw-text-white md:tw-text-3xl' : expandedControls}">
-            </mat-icon>
-        </button>
+            'tw-opacity-50 tw-cursor-not-allowed' : !innerActions && swiper?.isEnd,
+            }" (click)="!swiper?.isEnd && handleNextSlide($event, swiperRef)">
+                <mat-icon class="tw-text-xl tw-leading-tight tw-text-black tw-font-bold" fontIcon="arrow_forward_ios"
+                    [ngClass]="{'md:!tw-text-white/50 md:group-hover/rightNav:!tw-text-white md:tw-text-3xl' : expandedControls}">
+                </mat-icon>
+            </button>
+        </div>
     </div>
 </ng-template>

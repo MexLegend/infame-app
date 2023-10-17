@@ -1,5 +1,5 @@
 <div class="tw-grid tw-grid-cols-[repeat(auto-fill,minmax(70px,1fr))] tw-gap-1">
-    <button class="
+    <label class="
         tw-h-12
         tw-flex 
         tw-justify-center 
@@ -14,7 +14,11 @@
         hover:tw-outline
         hover:tw-outline-1
         hover:tw-outline-black
-        " *ngFor="let size of sizes">
-        <span class="tw-font-normal">{{size}}</span>
-    </button>
+        "
+        [ngClass]="{'tw-border-black tw-outline tw-outline-1 tw-outline-black': formGroupRef.get(formControlName)?.value === size.id}"
+        *ngFor="let size of sizes" (click)="handleSetSelectedSize(size.id!, $event)">
+        <input class="tw-hidden" type="radio" [value]="size.id"
+            [formControl]="formGroupRef.get(formControlName)! | formControlPipe">
+        <span class="tw-font-normal">{{size.value}}</span>
+    </label>
 </div>

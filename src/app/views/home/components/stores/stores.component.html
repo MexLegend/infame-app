@@ -1,12 +1,14 @@
 <app-container class="tw-w-full">
-    <div class="tw-flex tw-flex-1 tw-flex-col tw-mb-12">
-        <div class="tw-flex tw-flex-col tw-items-start tw-justify-center tw-w-full tw-gap-4 tw-pr-16">
-            <h1 class="tw-text-3xl tw-w-full tw-font-bold tw-leading-tight tw-text-rose-600 tw-mb-3">
-                The best stores await you
-            </h1>
-        </div>
-        <div class="tw-grid tw-grid-cols-[repeat(auto-fill,minmax(260px,1fr))] tw-gap-5">
-            <app-store-card *ngFor="let store of stores" [store]="store"></app-store-card>
+    <div class="tw-flex tw-flex-1 tw-flex-col tw-mb-12 tw-w-full">
+        <div class="tw-flex tw-w-full">
+            <app-swiper class="tw-w-full" [innerActions]="false" [showPagination]="false"
+                label="The best stores await you">
+                <swiper-slide
+                    class="tw-max-w-[32%] max-sm:tw-max-w-full tw-min-w-[300px] max-sm:tw-min-w-full tw-h-full"
+                    *ngFor="let store of stores">
+                    <app-store-card [store]="store"></app-store-card>
+                </swiper-slide>
+            </app-swiper>
         </div>
     </div>
 </app-container>

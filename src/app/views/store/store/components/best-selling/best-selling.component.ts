@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContainerComponent } from 'src/app/components/container/container.component';
 import { ProductCardComponent } from 'src/app/components/product-card/product-card.component';
+import { Product } from 'src/app/types/product';
 
 @Component({
   selector: 'app-best-selling',
@@ -11,5 +12,7 @@ import { ProductCardComponent } from 'src/app/components/product-card/product-ca
   styleUrls: ['./best-selling.component.scss']
 })
 export class BestSellingComponent {
+
+  @Input() products!: Product[];
 
 }

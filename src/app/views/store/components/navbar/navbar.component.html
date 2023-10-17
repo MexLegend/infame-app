@@ -7,9 +7,6 @@
                 <app-navbar-link [label]="navLink.label" [route]="navLink.link" [isActive]="true"
                     *ngFor="let navLink of navLinks">
                 </app-navbar-link>
-                <!-- <app-navbar-link label="Jeans" route="category/jeans" [isActive]="false"></app-navbar-link>
-                <app-navbar-link label="Skirts" route="category/skirt" [isActive]="false"></app-navbar-link>
-                <app-navbar-link label="Shoes" route="category/shoes" [isActive]="false"></app-navbar-link> -->
             </ul>
             <ul class="tw-flex tw-gap-5 tw-justify-center tw-items-center">
                 <app-bag-btn *ngIf="authService.isLoggedIn()"></app-bag-btn>

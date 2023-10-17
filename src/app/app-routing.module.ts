@@ -9,6 +9,7 @@ import { LoginComponent } from './views/auth/login/login.component';
 
 const routes: Routes = [
   { path: 'admin', canActivate: [authGuard, adminGuard], loadChildren: () => import('./views/admin/routes').then(mod => mod.ADMIN_ROUTES) },
+  { path: '', loadChildren: () => import('./views/home/routes').then(mod => mod.HOME_ROUTES) },
   { path: '', loadChildren: () => import('./views/store/routes').then(mod => mod.STORE_ROUTES) },
   { path: 'signup', canActivate: [loggedInGuard], component: RegisterComponent },
   { path: 'signin', canActivate: [loggedInGuard], component: LoginComponent },

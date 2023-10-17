@@ -11,7 +11,7 @@
     hover:tw-shadow-lg
     tw-transition-all
     tw-duration-200
-" [routerLink]="[store.id]">
+" [routerLink]="['store/' + store.slug]">
     <div class="tw-relative tw-h-36 tw-w-full tw-rounded-t-xl tw-overflow-clip">
         <img class="tw-aspect-square tw-object-cover tw-rounded-t-md tw-w-full tw-h-full"
             [src]="store.billboards[0].image.url" alt="product_img" width="100" height="100">
@@ -35,7 +35,7 @@
                     hover:tw-outline-1
                     hover:tw-outline-black
                     hover:tw-border-black
-                    active:tw-scale-95">
+                    active:tw-scale-95" (click)="$event.stopPropagation()" [routerLink]="['product/' + product.id]">
                 <img [src]="product.images[0].url" alt="store_featured_product_thumbnail"
                     class="tw-aspect-square tw-w-full tw-h-full tw-rounded-lg border tw-object-contain">
             </button>

@@ -3,6 +3,7 @@ import { EventEmitter, Injectable, WritableSignal, signal, computed, Signal } fr
 import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { SafeStore, Store } from '../types/store';
+import { Category } from '../types/category';
 
 interface StoreParams {
   userId?: string;
@@ -25,6 +26,7 @@ export class StoreService {
   storesList: WritableSignal<SafeStore[]> = signal([]);
   activeStore: WritableSignal<number> = signal(0);
   currentStoreId: Signal<string> = computed(() => this.storesList()[this.activeStore()].id);
+  storeCategoriesEmiter: EventEmitter<Category[]> = new EventEmitter();
 
   constructor(
     private http: HttpClient

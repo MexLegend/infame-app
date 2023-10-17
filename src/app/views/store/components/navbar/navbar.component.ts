@@ -27,7 +27,7 @@ import { Subscription } from 'rxjs';
 })
 export class NavbarComponent {
 
-  @Input() navLinks: NavLink[] = [];
+  @Input() navLinks!: NavLink[];
 
   getRouteDataSub$!: Subscription;
 

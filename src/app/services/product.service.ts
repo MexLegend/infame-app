@@ -6,6 +6,8 @@ import { Product } from '../types/product';
 
 interface ProductParams {
   storeId?: string;
+  categoryId?: string;
+  productId?: string;
   page?: number;
   limit?: number;
 }
@@ -49,6 +51,12 @@ export class ProductService {
     let url = `${environment.URI}/api/product/in/stock`;
 
     return this.http.get<Number>(url, { params: { ...params } });
+  }
+
+  getProductsByCategory(params: ProductParams): Observable<Product[]> {
+    let url = `${environment.URI}/api/product/related/category`;
+
+    return this.http.get<Product[]>(url, { params: { ...params } });
   }
 
   createProduct(product: Product): Observable<Product> {

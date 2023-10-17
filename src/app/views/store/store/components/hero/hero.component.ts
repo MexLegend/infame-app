@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContainerComponent } from '../../../../../components/container/container.component';
+import { Billboard } from 'src/app/types/billboard';
 
 @Component({
   selector: 'app-hero',
@@ -10,5 +11,7 @@ import { ContainerComponent } from '../../../../../components/container/containe
   styleUrls: ['./hero.component.scss']
 })
 export class HeroComponent {
+
+  @Input() billboard!: Billboard;
 
 }

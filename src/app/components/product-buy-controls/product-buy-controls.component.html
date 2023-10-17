@@ -1,7 +1,7 @@
 <section class="tw-w-full tw-flex tw-flex-col">
-    <h2 class="tw-font-semibold tw-text-2xl tw-tracking-tight">NikeCourt Dri-FIT Victory</h2>
-    <span class="tw-my-5 tw-font-medium tw-text-lg">$949</span>
-    <div class="tw-grid tw-grid-cols-[repeat(auto-fill,minmax(70px,1fr))] tw-gap-1">
+    <h2 class="tw-font-semibold tw-text-2xl tw-tracking-tight">{{product.name}}</h2>
+    <span class="tw-my-5 tw-font-medium tw-text-lg">{{product.price | formatPrice}}</span>
+    <!-- <div class="tw-grid tw-grid-cols-[repeat(auto-fill,minmax(70px,1fr))] tw-gap-1">
         <button class="
             tw-flex 
             tw-justify-center 
@@ -44,10 +44,18 @@
                 src="https://res.cloudinary.com/dtqijixar/image/upload/v1691711281/Shoes_1_b0koqx.jpg"
                 alt="product_preview_control">
         </button>
+    </div> -->
+    <div class="tw-flex tw-flex-col tw-w-full tw-mt-7 tw-gap-2">
+        <h4 class="tw-font-medium tw-text-[17px]">Color</h4>
+        <app-multi-select class="tw-w-full" id="orderProductColor" label="Select color" [formGroupRef]="form"
+            formControlName="color" ngDefaultControl [options]="colorsOptions" [multiple]="false">
+        </app-multi-select>
     </div>
     <div class="tw-flex tw-flex-col tw-w-full tw-mt-7 tw-gap-2">
         <h4 class="tw-font-medium tw-text-[17px]">Select your size</h4>
-        <app-product-select-size-controls></app-product-select-size-controls>
+        <app-product-select-size-controls [sizes]="product.sizes!" [formGroupRef]="form"
+            formControlName="size">
+        </app-product-select-size-controls>
     </div>
     <div class="tw-flex tw-flex-col tw-gap-3 tw-mt-4">
         <button class="
@@ -64,7 +72,7 @@
             tw-transition
             tw-duration-200
             hover:tw-opacity-80
-            active:tw-scale-95">
+            active:tw-scale-95" (click)="handleOrder()">
             Add to shopping bag
         </button>
         <button class="

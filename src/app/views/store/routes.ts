@@ -9,13 +9,6 @@ import { CategoryDetailsComponent } from "./category-details/category-details.co
 
 export const STORE_ROUTES: Route[] = [
     {
-        path: "",
-        component: WrapperComponent,
-        children: [
-            { path: '', component: HomeComponent },
-        ]
-    },
-    {
         path: "store/:slug",
         component: WrapperComponent,
         children: [

@@ -9,9 +9,7 @@
             </p>
         </div>
         <div class="tw-grid tw-grid-cols-[repeat(auto-fill,minmax(260px,1fr))] tw-gap-5">
-            <app-product-card></app-product-card>
-            <app-product-card></app-product-card>
-            <app-product-card></app-product-card>
+            <app-product-card *ngFor="let product of products" [product]="product"></app-product-card>
         </div>
     </div>
 </app-container>

@@ -2,30 +2,15 @@
     <app-container class="tw-w-full">
         <div class="tw-w-full tw-flex">
             <div class="tw-flex tw-flex-col tw-w-3/6 tw-gap-4 tw-pr-16">
-                <h1 class="tw-text-6xl tw-w-full tw-font-extrabold tw-leading-tight tw-text-red-900 tw-font-mayennesans">
-                    Discover and Find Your Own Fashion!
+                <h1
+                    class="tw-text-6xl tw-w-full tw-font-extrabold tw-leading-tight tw-text-red-900 tw-font-mayennesans">
+                    {{billboard.label}}
                 </h1>
                 <p class="tw-text-lg tw-text-red-950">
-                    Explore our curated collection of stylish clothing and accessories tailored to your unique taste.
+                    {{billboard.description}}
                 </p>
-                <button class="
-                        tw-bg-red-900 
-                        tw-uppercase 
-                        tw-w-fit 
-                        tw-shadow-lg 
-                        tw-rounded-lg
-                        tw-text-white 
-                        tw-py-3 
-                        tw-px-8 
-                        tw-mt-7 
-                        hover:tw-bg-red-950 
-                        tw-transition 
-                        tw-duration-200 
-                        active:tw-scale-95">
-                    Explore now
-                </button>
             </div>
-            <div class="tw-flex tw-justify-center tw-w-3/6 tw-items-end">
+            <div class="tw-flex tw-justify-center flex-1 tw-items-end">
                 <div class="
                     tw-rounded-tl-[80px] 
                     tw-rounded-tr-[30px] 
@@ -34,7 +19,7 @@
                     tw-ml-auto 
                     tw-bg-rose-700 
                     tw-h-[400px] 
-                    tw-w-4/5
+                    tw-w-full
                     tw-overflow-clip">
                     <img class="
                         tw-h-full 
@@ -46,7 +31,7 @@
                         hover:tw-scale-105
                         tw-origin-bottom
                         trans
-                        tw-drop-shadow-lg" src="../../../../assets/images/2.jpg" alt="hero_img">
+                        tw-drop-shadow-lg" [src]="billboard.image.url" alt="billboard_img">
                 </div>
             </div>
         </div>

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input, WritableSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Image } from 'src/app/types/image';
 
 @Component({
   selector: 'app-product-preview-controls',
@@ -9,5 +10,12 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./product-preview-controls.component.scss']
 })
 export class ProductPreviewControlsComponent {
+
+  @Input() productImages: Image[] = [];
+  @Input() activeProductImage!: WritableSignal<number>;
+
+  handleSetActiveProductImage(index: number) {
+    this.activeProductImage.set(index);
+  }
 
 }

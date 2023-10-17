@@ -1,5 +1,5 @@
 <section class="tw-flex tw-flex-col tw-gap-2 tw-w-[60px]">
-    <button class="
+    <button *ngFor="let productImage of productImages; let i = index" class="
         tw-flex 
         tw-justify-center 
         tw-items-center 
@@ -7,6 +7,7 @@
         tw-overflow-clip
         tw-aspect-square 
         tw-border
+        tw-p-1
         tw-bg-gray-100
         tw-transition
         tw-duration-200
@@ -15,9 +16,9 @@
         hover:tw-outline
         hover:tw-outline-1
         hover:tw-outline-black
-        ">
-        <img class="tw-w-full tw-h-full tw-object-contain tw-aspect-square tw-rounded-xl"
-            src="https://res.cloudinary.com/dtqijixar/image/upload/v1691711281/Shoes_1_b0koqx.jpg"
+        " [ngClass]="{'tw-outline tw-outline-1 tw-outline-black tw-border-black': activeProductImage() === i}"
+        (click)="handleSetActiveProductImage(i)">
+        <img class="tw-w-full tw-h-full tw-object-contain tw-aspect-square tw-rounded-xl" [src]="productImage.url"
             alt="product_preview_control">
     </button>
 </section>

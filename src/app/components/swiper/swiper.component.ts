@@ -24,6 +24,7 @@ export class SwiperComponent {
   @Input() innerActions: boolean = true;
   @Input() customClasses: string = "";
   @Input() slides?: Image[];
+  @Input() label?: string;
   @Input() slidesPerView?: number;
   @Input() showPagination: boolean = true;
   @Input() centeredSlides: boolean = false;
