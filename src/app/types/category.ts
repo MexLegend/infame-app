@@ -1,4 +1,5 @@
 import { Billboard } from "./billboard";
+import { Product } from "./product";
 
 export type Category = {
     billboard?: Billboard;
@@ -6,7 +7,7 @@ export type Category = {
     createdAt?: Date;
     id?: string;
     name: string;
-    products?: string[];
+    products?: Product[];
     storeId: string;
     updatedAt?: Date;
 }
