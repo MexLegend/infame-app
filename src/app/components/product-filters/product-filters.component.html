@@ -1,30 +1,12 @@
-<section class="tw-flex tw-flex-col tw-w-52 tw-gap-10 tw-sticky">
+<form class="tw-flex tw-flex-col tw-w-52 tw-gap-10 tw-sticky" [formGroup]="form">
     <div class="tw-flex tw-flex-col tw-gap-5 tw-w-full">
         <h4 class="tw-font-medium tw-text-[17px] tw-border-b tw-pb-3">Sizes</h4>
-        <div class="tw-flex tw-flex-wrap tw-gap-1">
-            <button class="
-                tw-py-2
-                tw-px-6
-                tw-flex 
-                tw-justify-center 
-                tw-items-center 
-                tw-rounded-md
-                tw-overflow-clip
-                tw-border
-                tw-transition
-                tw-duration-200
-                active:tw-scale-95
-                hover:tw-border-black
-                hover:tw-outline
-                hover:tw-outline-1
-                hover:tw-outline-black
-                " *ngFor="let size of sizes()">
-                <span class="tw-font-normal">{{size.value}}</span>
-            </button>
-        </div>
+        <app-product-size-filter [sizes]="sizes" [formGroupRef]="form" formControlName="sizes" ngDefaultControl>
+        </app-product-size-filter>
     </div>
     <div class="tw-flex tw-flex-col tw-w-full">
         <h4 class="tw-font-medium tw-text-[17px] tw-border-b tw-pb-3 tw-mb-3">Colors</h4>
-        <app-product-color-filter [colors]="colors()"></app-product-color-filter>
+        <app-product-color-filter [colors]="colors" [formGroupRef]="form" formControlName="colors" ngDefaultControl>
+        </app-product-color-filter>
     </div>
-</section>
+</form>

@@ -104,3 +104,20 @@ body {
 .mdc-checkbox:active .mdc-checkbox__native-control:checked ~ .mdc-checkbox__ripple {
     background-color: #0068f0 !important;
 }
+
+// Chips
+.mdc-evolution-chip__action {
+    padding: 0 24px !important;
+}
+
+.mdc-evolution-chip__graphic {
+    display: none !important;
+}
+
+.mat-mdc-standard-chip.mat-mdc-chip-selected {
+    background-color: black !important;
+
+    .color-checked {
+        display: block !important;
+    }
+}

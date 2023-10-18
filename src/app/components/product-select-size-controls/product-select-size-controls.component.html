@@ -15,7 +15,7 @@
         hover:tw-outline-1
         hover:tw-outline-black
         "
-        [ngClass]="{'tw-border-black tw-outline tw-outline-1 tw-outline-black': formGroupRef.get(formControlName)?.value === size.id}"
+        [ngClass]="{'tw-bg-black tw-text-white': formGroupRef.get(formControlName)?.value === size.id}"
         *ngFor="let size of sizes" (click)="handleSetSelectedSize(size.id!, $event)">
         <input class="tw-hidden" type="radio" [value]="size.id"
             [formControl]="formGroupRef.get(formControlName)! | formControlPipe">

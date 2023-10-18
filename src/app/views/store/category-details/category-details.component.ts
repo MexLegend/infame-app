@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { ContainerComponent } from 'src/app/components/container/container.component';
 import { ProductCardComponent } from 'src/app/components/product-card/product-card.component';
 import { ProductFiltersComponent } from 'src/app/components/product-filters/product-filters.component';
-import { ProductService } from 'src/app/services/product.service';
 import { Product } from 'src/app/types/product';
 import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from '../../../services/category.service';
@@ -30,7 +29,6 @@ export class CategoryDetailsComponent {
   isLoading: boolean = true;
 
   constructor(
-    private productService: ProductService,
     private categoryService: CategoryService,
     private activatedRoute: ActivatedRoute
   ) {
@@ -47,4 +45,5 @@ export class CategoryDetailsComponent {
       getCategorySub$.unsubscribe();
     });
   }
+
 }

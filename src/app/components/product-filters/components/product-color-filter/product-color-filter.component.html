@@ -1,0 +1,31 @@
+<mat-chip-listbox multiple class="tw-flex tw-flex-wrap tw-gap-1"
+    [formControl]="formGroupRef.get(formControlName)! | formControlPipe">
+    <mat-chip-option class="
+        tw-group
+        tw-flex 
+        tw-flex-col
+        tw-gap-1
+        !tw-rounded-md
+        !tw-bg-transparent
+        tw-justify-center 
+        tw-items-center 
+        tw-overflow-clip
+        tw-transition
+        tw-duration-200
+        active:tw-scale-95
+        " *ngFor="let color of colors()" [value]="color.id" [ngStyle]="{'--mdc-chip-container-height' : '55px'}">
+        <div class="tw-flex tw-items-center tw-justify-center tw-rounded-full tw-border tw-w-7 tw-aspect-square tw-bg-[var(--bg-color)]"
+            [ngStyle]="{'--bg-color': color.color}">
+            <mat-icon class="
+                !tw-hidden 
+                color-checked 
+                tw-text-xl 
+                tw-leading-tight 
+                tw-text-center 
+                tw-text-white 
+                tw-font-bold" fontIcon="check">
+            </mat-icon>
+        </div>
+        <span class="tw-font-medium tw-capitalize tw-transition tw-text-xs">{{color.name}}</span>
+    </mat-chip-option>
+</mat-chip-listbox>

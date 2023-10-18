@@ -1,17 +1,29 @@
 import { Component, Input, Signal, WritableSignal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductColorFilterComponent } from '../product-color-filter/product-color-filter.component';
-import { ActivatedRoute } from '@angular/router';
+import { ProductColorFilterComponent } from './components/product-color-filter/product-color-filter.component';
 import { ProductService } from 'src/app/services/product.service';
 import { Product } from 'src/app/types/product';
 import { Category } from 'src/app/types/category';
-import { Color, ColorFilter } from 'src/app/types/color';
+import { Color } from 'src/app/types/color';
 import { Size } from 'src/app/types/size';
+import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { ProductSizeFilterComponent } from './components/product-size-filter/product-size-filter.component';
+import { Subscription } from 'rxjs';
+
+type ProductFilterType = {
+  type: "Color" | "Size";
+  id: string;
+}
 
 @Component({
   selector: 'app-product-filters',
   standalone: true,
-  imports: [CommonModule, ProductColorFilterComponent],
+  imports: [
+    CommonModule,
+    ProductColorFilterComponent,
+    ProductSizeFilterComponent,
+    ReactiveFormsModule
+  ],
   templateUrl: './product-filters.component.html',
   styleUrls: ['./product-filters.component.scss']
 })
@@ -20,29 +32,36 @@ export class ProductFiltersComponent {
   @Input() categoryProducts!: WritableSignal<Product[]>;
   @Input() category!: WritableSignal<Category | null>;
 
-  colors: Signal<ColorFilter[]> = computed(() => this.getCategoryColors());
+  formFiltersChangesSub$!: Subscription;
+
+  colors: Signal<Color[]> = computed(() => this.getCategoryColors());
   sizes: Signal<Size[]> = computed(() => this.getCategorySizes());
+  form!: FormGroup;
 
   constructor(
-    private productService: ProductService,
-    private activatedRoute: ActivatedRoute
-  ) { }
+    private formBuilder: FormBuilder,
+    private productService: ProductService
+  ) {
+    this.initForm();
+    this.pathFormFiltersFormLocalStorage();
+    this.handleFormFiltersChanges();
+  }
 
-  getCategoryColors(): ColorFilter[] {
+  ngOnDestroy(): void {
+    this.formFiltersChangesSub$.unsubscribe();
+  }
+
+  getCategoryColors(): Color[] {
     const colorsList = this.category()?.products!.reduce((acc, curr) => {
 
       curr.colors!.forEach(color => {
-        if (!acc.find(item => item.key === color.name)) {
-          const colorFilter: ColorFilter = {
-            key: color.name,
-            value: color.color
-          }
-          acc.push(colorFilter);
+        if (!acc.find(item => item.id === color.id)) {
+          acc.push(color);
         }
       });
 
       return acc;
-    }, new Array<ColorFilter>);
+    }, new Array<Color>);
 
     return colorsList || [];
   }
@@ -60,18 +79,27 @@ export class ProductFiltersComponent {
     return sizesList || [];
   }
 
-  getProductsByCategory() {
-
-    const { id } = this.activatedRoute.snapshot.params;
-
-    const getRelatedProductsSub$ = this.productService.getProductsByCategory({
-      limit: 20,
-      page: 1,
-      categoryId: id
-    }).subscribe(products => {
-      this.categoryProducts.set(products);
-      getRelatedProductsSub$.unsubscribe();
+  initForm() {
+    this.form = this.formBuilder.group({
+      colors: [null],
+      sizes: [null]
     });
+  }
+
+  pathFormFiltersFormLocalStorage() {
+    const productFiltersStorage = JSON.parse(localStorage.getItem('product_filters') || "");
+
+    this.form.patchValue(productFiltersStorage);
+  }
+
+  handleFormFiltersChanges() {
+    this.formFiltersChangesSub$ = this.form.valueChanges.subscribe(value => {
+      localStorage.setItem('product_filters', JSON.stringify(value));
+    })
+  }
+
+  handleFilterProducts(params: ProductFilterType) {
+
   }
 
 }
