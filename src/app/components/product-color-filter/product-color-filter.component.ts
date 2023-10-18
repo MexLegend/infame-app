@@ -1,10 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-export type ColorFilter = {
-  key: string;
-  value: string;
-}
+import { ColorFilter } from 'src/app/types/color';
 
 @Component({
   selector: 'app-product-color-filter',
@@ -15,23 +11,6 @@ export type ColorFilter = {
 })
 export class ProductColorFilterComponent {
 
-  @Input() colors: ColorFilter[] = [
-    {
-      key: "white",
-      value: "#ffffff"
-    },
-    {
-      key: "black",
-      value: "#000000"
-    },
-    {
-      key: "red",
-      value: "#ff0000"
-    },
-    {
-      key: "yellow",
-      value: "#ffff00"
-    }
-  ];
+  @Input() colors!: ColorFilter[];
 
 }

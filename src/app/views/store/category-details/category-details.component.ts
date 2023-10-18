@@ -25,7 +25,7 @@ import { LoadingComponent } from '../../admin/components/loading/loading.compone
 })
 export class CategoryDetailsComponent {
 
-  category?: Category;
+  category: WritableSignal<Category | null> = signal(null);
   categoryProducts: WritableSignal<Product[]> = signal([]);
   isLoading: boolean = true;
 
@@ -41,25 +41,10 @@ export class CategoryDetailsComponent {
     const { id } = this.activatedRoute.snapshot.params;
 
     const getCategorySub$ = this.categoryService.getOneCategory(id).subscribe(category => {
-      this.category = category;
+      this.category.set(category);
       this.categoryProducts.set(category.products!);
       this.isLoading = false;
       getCategorySub$.unsubscribe();
     });
   }
-
-  getProductsByCategory() {
-
-    const { id } = this.activatedRoute.snapshot.params;
-
-    const getRelatedProductsSub$ = this.productService.getProductsByCategory({
-      limit: 20,
-      page: 1,
-      categoryId: id
-    }).subscribe(products => {
-      this.categoryProducts.set(products);
-      getRelatedProductsSub$.unsubscribe();
-    });
-  }
-
 }

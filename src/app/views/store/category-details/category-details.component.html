@@ -17,10 +17,10 @@
                     tw-object-cover 
                     tw-object-top 
                     tw-origin-center
-                    tw-drop-shadow-lg" [src]="category?.billboard!.image.url" alt="hero_img">
+                    tw-drop-shadow-lg" [src]="category()?.billboard!.image.url" alt="hero_img">
             </div>
             <div class="tw-flex tw-w-full tw-gap-12 tw-mt-20 tw-relative">
-                <app-product-filters></app-product-filters>
+                <app-product-filters [categoryProducts]="categoryProducts" [category]="category"></app-product-filters>
                 <div class="tw-grid tw-grid-cols-[repeat(auto-fill,minmax(260px,1fr))] tw-gap-5">
                     <app-product-card *ngFor="let categoryProduct of categoryProducts()" [product]="categoryProduct">
                     </app-product-card>

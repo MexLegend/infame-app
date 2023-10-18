@@ -1,5 +1,3 @@
-import { Image } from "./image";
-
 export type Color = {
     createdAt?: Date;
     id?: string;
@@ -8,4 +6,9 @@ export type Color = {
     products?: string[];
     storeId: string;
     updatedAt?: Date;
+}
+
+export type ColorFilter = {
+    key: string;
+    value: string;
 }

@@ -18,13 +18,13 @@
                 hover:tw-outline
                 hover:tw-outline-1
                 hover:tw-outline-black
-                " *ngFor="let size of sizes">
-                <span class="tw-font-normal">{{size}}</span>
+                " *ngFor="let size of sizes()">
+                <span class="tw-font-normal">{{size.value}}</span>
             </button>
         </div>
     </div>
     <div class="tw-flex tw-flex-col tw-w-full">
         <h4 class="tw-font-medium tw-text-[17px] tw-border-b tw-pb-3 tw-mb-3">Colors</h4>
-        <app-product-color-filter></app-product-color-filter>
+        <app-product-color-filter [colors]="colors()"></app-product-color-filter>
     </div>
 </section>
