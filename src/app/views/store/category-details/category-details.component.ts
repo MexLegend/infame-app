@@ -1,4 +1,4 @@
-import { Component, WritableSignal, signal } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, WritableSignal, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContainerComponent } from 'src/app/components/container/container.component';
 import { ProductCardComponent } from 'src/app/components/product-card/product-card.component';
@@ -20,13 +20,15 @@ import { LoadingComponent } from '../../admin/components/loading/loading.compone
     LoadingComponent
   ],
   templateUrl: './category-details.component.html',
-  styleUrls: ['./category-details.component.scss']
+  styleUrls: ['./category-details.component.scss'],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class CategoryDetailsComponent {
 
   category: WritableSignal<Category | null> = signal(null);
   categoryProducts: WritableSignal<Product[]> = signal([]);
   isLoading: boolean = true;
+  isLoadingProducts: WritableSignal<boolean> = signal(true);
 
   constructor(
     private categoryService: CategoryService,

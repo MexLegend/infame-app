@@ -62,14 +62,14 @@ export class ProductDetailsComponent {
   }
 
   getRelatedProducts(categoryId: string, productId: string) {
-    const getRelatedProductsSub$ = this.productService.getProductsByCategory({
+    const getFilteredProductsSub$ = this.productService.getFilteredProducts({
       limit: 4,
       page: 1,
       categoryId,
       productId
     }).subscribe(products => {
       this.relatedProducts = products;
-      getRelatedProductsSub$.unsubscribe();
+      getFilteredProductsSub$.unsubscribe();
     });
   }
 

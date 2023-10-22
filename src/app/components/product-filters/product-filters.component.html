@@ -1,12 +1,12 @@
 <form class="tw-flex tw-flex-col tw-w-52 tw-gap-10 tw-sticky" [formGroup]="form">
     <div class="tw-flex tw-flex-col tw-gap-5 tw-w-full">
         <h4 class="tw-font-medium tw-text-[17px] tw-border-b tw-pb-3">Sizes</h4>
-        <app-product-size-filter [sizes]="sizes" [formGroupRef]="form" formControlName="sizes" ngDefaultControl>
+        <app-product-size-filter [sizes]="sizes" [formGroupRef]="form" formControlName="sizeIds" ngDefaultControl>
         </app-product-size-filter>
     </div>
     <div class="tw-flex tw-flex-col tw-w-full">
         <h4 class="tw-font-medium tw-text-[17px] tw-border-b tw-pb-3 tw-mb-3">Colors</h4>
-        <app-product-color-filter [colors]="colors" [formGroupRef]="form" formControlName="colors" ngDefaultControl>
+        <app-product-color-filter [colors]="colors" [formGroupRef]="form" formControlName="colorIds" ngDefaultControl>
         </app-product-color-filter>
     </div>
 </form>

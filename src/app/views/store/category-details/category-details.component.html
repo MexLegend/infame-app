@@ -9,6 +9,7 @@
                 tw-ml-auto 
                 tw-bg-rose-700 
                 tw-h-[400px] 
+                tw-max-h-[400px] 
                 tw-w-full
                 tw-overflow-clip">
                 <img class="
@@ -19,12 +20,31 @@
                     tw-origin-center
                     tw-drop-shadow-lg" [src]="category()?.billboard!.image.url" alt="hero_img">
             </div>
-            <div class="tw-flex tw-w-full tw-gap-12 tw-mt-20 tw-relative">
-                <app-product-filters [categoryProducts]="categoryProducts" [category]="category"></app-product-filters>
-                <div class="tw-grid tw-grid-cols-[repeat(auto-fill,minmax(260px,1fr))] tw-gap-5">
+            <div class="tw-flex tw-w-full tw-gap-12 tw-mt-20 tw-relative tw-min-h-[500px]">
+                <app-product-filters [categoryProducts]="categoryProducts" [category]="category"
+                    [isLoadingProducts]="isLoadingProducts">
+                </app-product-filters>
+                <div *ngIf="!isLoadingProducts()"
+                    class="tw-grid tw-grid-cols-[repeat(auto-fill,minmax(250px,1fr))] tw-gap-3 tw-w-full">
                     <app-product-card *ngFor="let categoryProduct of categoryProducts()" [product]="categoryProduct">
                     </app-product-card>
                 </div>
+                <ngx-skeleton-loader *ngIf="isLoadingProducts()" class="flex tw-w-full" appearance="custom-content">
+                    <div class="tw-grid tw-grid-cols-[repeat(auto-fill,minmax(250px,1fr))] tw-gap-3">
+                        <div class="tw-relative tw-w-full tw-mx-auto">
+                            <div class="tw-w-full tw-max-w-xs tw-mx-auto tw-rounded-lg tw-aspect-square tw-bg-black/10">
+                            </div>
+                        </div>
+                        <div class="tw-relative tw-w-full tw-mx-auto">
+                            <div class="tw-w-full tw-max-w-xs tw-mx-auto tw-rounded-lg tw-aspect-square tw-bg-black/10">
+                            </div>
+                        </div>
+                        <div class="tw-relative tw-w-full tw-mx-auto">
+                            <div class="tw-w-full tw-max-w-xs tw-mx-auto tw-rounded-lg tw-aspect-square tw-bg-black/10">
+                            </div>
+                        </div>
+                    </div>
+                </ngx-skeleton-loader>
             </div>
         </div>
     </app-container>

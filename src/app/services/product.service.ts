@@ -8,6 +8,8 @@ interface ProductParams {
   storeId?: string;
   categoryId?: string;
   productId?: string;
+  colorIds?: string;
+  sizeIds?: string;
   page?: number;
   limit?: number;
 }
@@ -53,9 +55,8 @@ export class ProductService {
     return this.http.get<Number>(url, { params: { ...params } });
   }
 
-  getProductsByCategory(params: ProductParams): Observable<Product[]> {
-    let url = `${environment.URI}/api/product/related/category`;
-
+  getFilteredProducts(params: ProductParams): Observable<Product[]> {
+    let url = `${environment.URI}/api/product/filtered/list`;
     return this.http.get<Product[]>(url, { params: { ...params } });
   }
 

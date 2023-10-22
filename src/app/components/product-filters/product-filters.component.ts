@@ -9,6 +9,7 @@ import { Size } from 'src/app/types/size';
 import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ProductSizeFilterComponent } from './components/product-size-filter/product-size-filter.component';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 type ProductFilterType = {
   type: "Color" | "Size";
@@ -31,6 +32,7 @@ export class ProductFiltersComponent {
 
   @Input() categoryProducts!: WritableSignal<Product[]>;
   @Input() category!: WritableSignal<Category | null>;
+  @Input() isLoadingProducts!: WritableSignal<boolean>;
 
   formFiltersChangesSub$!: Subscription;
 
@@ -40,7 +42,8 @@ export class ProductFiltersComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private productService: ProductService
+    private productService: ProductService,
+    private activatedRoute: ActivatedRoute
   ) {
     this.initForm();
     this.pathFormFiltersFormLocalStorage();
@@ -81,24 +84,45 @@ export class ProductFiltersComponent {
 
   initForm() {
     this.form = this.formBuilder.group({
-      colors: [null],
-      sizes: [null]
+      colorIds: [null],
+      sizeIds: [null]
     });
   }
 
   pathFormFiltersFormLocalStorage() {
-    const productFiltersStorage = JSON.parse(localStorage.getItem('product_filters') || "");
-
+    const productFiltersStorage = localStorage.getItem('product_filters') ? JSON.parse(localStorage.getItem('product_filters')!) : null;
     this.form.patchValue(productFiltersStorage);
+    this.handleFilterProducts();
   }
 
   handleFormFiltersChanges() {
     this.formFiltersChangesSub$ = this.form.valueChanges.subscribe(value => {
       localStorage.setItem('product_filters', JSON.stringify(value));
+      this.handleFilterProducts();
     })
   }
 
-  handleFilterProducts(params: ProductFilterType) {
+  handleFilterProducts() {
+    const { colorIds, sizeIds } = this.form.value;
+    
+    setTimeout(() => {
+      this.isLoadingProducts.set(true);
+      const { id, storeId } = this.category()!;
+      
+      const getFilteredProductsSub$ = this.productService.getFilteredProducts({
+        limit: 20,
+        page: 1,
+        storeId,
+        categoryId: id,
+        ...(colorIds && colorIds.length && { colorIds: JSON.stringify(colorIds) }),
+        ...(sizeIds && sizeIds.length && { sizeIds: JSON.stringify(sizeIds) })
+      }).subscribe(products => {
+        this.categoryProducts.set(products);
+        this.isLoadingProducts.set(false);
+        getFilteredProductsSub$.unsubscribe();
+      });
+    }, 50);
+
 
   }
 
