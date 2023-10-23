@@ -10,7 +10,7 @@
 " [routerLink]="['/product/' + product.id]">
     <div class="tw-relative tw-aspect-square tw-rounded-xl tw-bg-gray-100 tw-overflow-clip">
         <div class="tw-absolute tw-right-2 tw-top-2">
-            <app-favorites-btn></app-favorites-btn>
+            <app-favorites-btn [productId]="product.id!"></app-favorites-btn>
         </div>
         <img class="tw-aspect-square tw-object-contain tw-rounded-md tw-w-full tw-h-full" [src]="product.images[0].url"
             alt="product_img" width="100" height="100">

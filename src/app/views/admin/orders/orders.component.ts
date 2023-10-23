@@ -65,19 +65,19 @@ export class OrdersComponent {
 
       const product = (data as Order);
 
-      const totalPrice = product.orderItems.reduce((acc, curr) => acc += (curr.productId.price * curr.quantity), 0);
+      const totalPrice = product.orderItems.reduce((acc, curr) => acc += (curr.product!.price * curr.quantity), 0);
 
       return {
         "Products": {
-          label: product.orderItems.map(e => e.productId.name).join(", "),
+          label: product.orderItems.map(e => e.product!.name).join(", "),
           customContainerClasses: `max-w-[210px] !font-semibold`,
         },
         "Phone": {
-          label: product.phone,
+          label: product.phone ?? "",
           customContainerClasses: `max-w-[200px]`,
         },
         "Address": {
-          label: product.address,
+          label: product.address ?? "",
           customContainerClasses: `max-w-[400px]`,
         },
         "Total price": {

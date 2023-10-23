@@ -48,17 +48,17 @@
     <div class="tw-flex tw-flex-col tw-w-full tw-mt-7 tw-gap-2">
         <h4 class="tw-font-medium tw-text-[17px]">Color</h4>
         <app-multi-select class="tw-w-full" id="orderProductColor" label="Select color" [formGroupRef]="form"
-            formControlName="color" ngDefaultControl [options]="colorsOptions" [multiple]="false">
+            formControlName="colorId" ngDefaultControl [options]="colorsOptions" [multiple]="false">
         </app-multi-select>
     </div>
     <div class="tw-flex tw-flex-col tw-w-full tw-mt-7 tw-gap-2">
         <h4 class="tw-font-medium tw-text-[17px]">Select your size</h4>
-        <app-product-select-size-controls [sizes]="product.sizes!" [formGroupRef]="form"
-            formControlName="size">
+        <app-product-select-size-controls [sizes]="product.sizes!" [formGroupRef]="form" formControlName="sizeId">
         </app-product-select-size-controls>
     </div>
     <div class="tw-flex tw-flex-col tw-gap-3 tw-mt-4">
-        <button class="
+        <div [ngClass]="{'tw-cursor-not-allowed': form.invalid}">
+            <button class="
             tw-flex 
             tw-items-center 
             tw-justify-center 
@@ -72,9 +72,10 @@
             tw-transition
             tw-duration-200
             hover:tw-opacity-80
-            active:tw-scale-95" (click)="handleOrder()">
-            Add to shopping bag
-        </button>
+            active:tw-scale-95" [ngClass]="{'tw-pointer-events-none tw-opacity-70': form.invalid}" (click)="handleOrder()">
+                Add to shopping bag
+            </button>
+        </div>
         <button class="
             tw-flex 
             tw-gap-3

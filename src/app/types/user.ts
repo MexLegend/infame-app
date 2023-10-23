@@ -1,3 +1,4 @@
+import { Favorite } from "./favorite";
 import { Image } from "./image";
 
 export type UserRole = "ADMIN" | "CLIENT";
@@ -11,6 +12,7 @@ export interface SafeUser extends Partial<User>, Partial<Tokens> {
     createdAt: Date;
     id: string;
     updatedAt: Date;
+    favoriteProducts: Favorite;
 }
 
 export type User = {

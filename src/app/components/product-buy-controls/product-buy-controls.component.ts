@@ -1,4 +1,4 @@
-import { Component, Input, WritableSignal, signal, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductSelectSizeControlsComponent } from '../product-select-size-controls/product-select-size-controls.component';
 import { MatIconModule } from '@angular/material/icon';
@@ -6,6 +6,7 @@ import { Product } from 'src/app/types/product';
 import { FormatPricePipe } from 'src/app/pipes/format-price.pipe';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MultiSelectComponent, SelectOptions } from '../Inputs/multi-select/multi-select.component';
+import { OrderService } from '../../services/order.service';
 
 @Component({
   selector: 'app-product-buy-controls',
@@ -29,7 +30,8 @@ export class ProductBuyControlsComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private orderService: OrderService
   ) {
     this.initForm();
   }
@@ -40,8 +42,8 @@ export class ProductBuyControlsComponent {
 
   initForm() {
     this.form = this.formBuilder.group({
-      color: [null, Validators.required],
-      size: [null, Validators.required]
+      colorId: [null, Validators.required],
+      sizeId: [null, Validators.required]
     });
   }
 
@@ -55,7 +57,18 @@ export class ProductBuyControlsComponent {
   }
 
   handleOrder() {
-    console.log(this.form.value);
+
+    const { colorId, sizeId } = this.form.value;
+
+    this.orderService.setCurrentOrder(
+      {
+        colorId,
+        sizeId,
+        productId: this.product.id!,
+        quantity: 1
+      },
+      ""
+    );
 
   }
 

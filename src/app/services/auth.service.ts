@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { EventEmitter, Injectable } from '@angular/core';
+import { EventEmitter, Injectable, WritableSignal, signal } from '@angular/core';
 import { Observable, map } from 'rxjs';
 
 import { environment } from '../../environments/environment';
@@ -31,6 +31,7 @@ export class AuthService {
   private accessToken: string | null = null;
   private refreshToken: string | null = null;
 
+  favoritedProducts: WritableSignal<string[]> = signal(this.getCurrentUser()?.favoriteProducts?.productIds || []);
   userEmitter: EventEmitter<SafeUser | null> = new EventEmitter();
 
   setCurrentUserAndTokens(user: SafeUser | null, tokens: Tokens | null) {
@@ -44,6 +45,7 @@ export class AuthService {
     this.user = user;
     this.accessToken = tokens?.access_token || null;
     this.refreshToken = tokens?.refresh_token || null;
+    this.favoritedProducts.set(user?.favoriteProducts.productIds || []);
     this.userEmitter.emit(user);
   }
 
