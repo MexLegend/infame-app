@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, WritableSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContainerComponent } from 'src/app/components/container/container.component';
 import { CheckoutComponent } from 'src/app/components/checkout/checkout.component';
 import { MatIconModule } from '@angular/material/icon';
 import { CartProductComponent } from 'src/app/components/cart-product/cart-product.component';
+import { Order } from 'src/app/types/order';
+import { OrderService } from '../../../services/order.service';
 
 @Component({
   selector: 'app-cart',
@@ -13,5 +15,15 @@ import { CartProductComponent } from 'src/app/components/cart-product/cart-produ
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent {
+
+  constructor(private orderService: OrderService) {}
+
+  order: WritableSignal<Order | null> = this.orderService.order;
+
+  handleRemoveOrderItem(index: number) {
+    this.order()?.orderItems.splice(index, 1);
+    this.order.set(this.order());
+    localStorage.setItem("order", JSON.stringify(this.order()));
+  }
 
 }

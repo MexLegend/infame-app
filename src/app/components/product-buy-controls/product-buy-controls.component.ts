@@ -63,11 +63,14 @@ export class ProductBuyControlsComponent {
     this.orderService.setCurrentOrder(
       {
         colorId,
+        colorName: this.product.colors?.find(c => c.id === colorId)!.name!,
         sizeId,
+        sizeName: this.product.sizes?.find(s => s.id === sizeId)!.name!,
         productId: this.product.id!,
+        product: this.product,
         quantity: 1
       },
-      ""
+      this.product.storeId
     );
 
   }

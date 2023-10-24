@@ -1,10 +1,26 @@
 <app-container class="tw-w-full">
     <div class="tw-flex tw-flex-1 tw-flex-col tw-mb-12 tw-w-full">
         <div class="tw-flex tw-w-full">
-            <app-swiper [innerActions]="false" [showPagination]="false" label="Offers">
-                <swiper-slide class="tw-max-w-[260px]" *ngFor="let bestSellingProduct of bestSellingProducts">
-                    <app-product-card [product]="bestSellingProduct"></app-product-card>
-                </swiper-slide>
+            <app-swiper class="tw-w-full" [innerActions]="false" [showPagination]="false" label="Offers">
+                <ng-container *ngIf="!isLoading">
+                    <swiper-slide class="tw-max-w-[260px]" *ngFor="let bestSellingProduct of bestSellingProducts">
+                        <app-product-card [product]="bestSellingProduct"></app-product-card>
+                    </swiper-slide>
+                </ng-container>
+                <ng-container *ngIf="isLoading">
+                    <swiper-slide
+                        class="tw-w-full tw-max-w-[260px] tw-h-full"
+                        *ngFor="let elem of dummyArray">
+                        <ngx-skeleton-loader class="flex tw-w-full" appearance="custom-content">
+                            <div class="tw-flex tw-flex-col">
+                                <div class="tw-relative tw-w-full tw-mx-auto">
+                                    <div class="tw-w-full tw-h-[375px] tw-rounded-lg tw-bg-black/10">
+                                    </div>
+                                </div>
+                            </div>
+                        </ngx-skeleton-loader>
+                    </swiper-slide>
+                </ng-container>
             </app-swiper>
         </div>
     </div>

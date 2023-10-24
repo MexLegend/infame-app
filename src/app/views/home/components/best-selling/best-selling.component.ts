@@ -17,6 +17,8 @@ import { SwiperComponent } from 'src/app/components/swiper/swiper.component';
 export class BestSellingComponent {
 
   bestSellingProducts: Product[] = [];
+  isLoading: boolean = true;
+  dummyArray: string[] = new Array(3);
 
   constructor(private productService: ProductService) {
     this.getBestSellingProducts();
@@ -28,6 +30,7 @@ export class BestSellingComponent {
       page: 1
     }).subscribe(products => {
       this.bestSellingProducts = products;
+      this.isLoading = false;
       getBestSellingProductsSub$.unsubscribe();
     });
   }

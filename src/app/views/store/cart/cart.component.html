@@ -6,9 +6,17 @@
             </h1>
             <div class="lg:tw-grid lg:tw-grid-cols-12 lg:tw-items-start tw-gap-x-12">
                 <div class="lg:tw-col-span-7 tw-flex tw-gap-5">
-                    <app-cart-product class="tw-w-full"></app-cart-product>
+                    <div *ngIf="order()?.orderItems?.length" class="tw-flex tw-flex-1 tw-flex-col tw-gap-5">
+                        <app-cart-product class="tw-w-full" *ngFor="let orderItem of order()?.orderItems; let i = index"
+                            [orderItem]="orderItem" [orderItemIndex]="i" (handleRemove)="handleRemoveOrderItem($event)">
+                        </app-cart-product>
+                    </div>
+                    <div class="tw-w-full" *ngIf="!order()?.orderItems?.length">
+                        <span class="tw-text-2xl tw-text-gray-500">No products added to cart.</span>
+                    </div>
                 </div>
-                <app-checkout class="tw-w-full lg:tw-col-span-5"></app-checkout>
+                <app-checkout class="tw-w-full lg:tw-col-span-5" [order]="order">
+                </app-checkout>
             </div>
         </div>
     </app-container>

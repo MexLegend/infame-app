@@ -1,33 +1,35 @@
-<div class="tw-flex tw-flex-col tw-rounded-lg tw-bg-gray-50 tw-px-4 tw-py-6 sm:tw-p-6 tw-w-full lg:tw-mt-0 lg:tw-p-8 tw-h-[400px]">
+<div
+    class="tw-flex tw-flex-col tw-rounded-lg tw-bg-gray-50 tw-px-4 tw-py-6 sm:tw-p-6 tw-w-full lg:tw-mt-0 lg:tw-p-8 tw-h-[400px]">
     <h2 class="tw-text-lg tw-font-medium tw-text-gray-900">Order summary</h2>
     <div class="tw-mt-6 tw-space-y-4">
         <div class="tw-flex tw-items-center tw-justify-between tw-border-t tw-border-gray-200 tw-pt-4">
             <div class="tw-text-base tw-font-medium tw-text-gray-600">No. Products</div>
-            <p>1</p>
+            <p>{{orderTotalProducts()}}</p>
         </div>
         <div class="tw-flex tw-items-center tw-justify-between tw-pt-4">
             <div class="tw-text-base tw-font-medium tw-text-gray-600">Order total</div>
-            <div class="tw-font-semibold">$1,349.00</div>
+            <div class="tw-font-semibold">{{orderTotal() | formatPrice}}</div>
         </div>
     </div>
-    <button class="
-        active:tw-scale-95  
-        disabled:tw-cursor-not-allowed 
-        disabled:tw-opacity-50 
-        tw-duration-200 flex 
-        tw-font-semibold 
-        hover:tw-border-2 
-        hover:tw-border-black 
-        hover:tw-opacity-75 
-        tw-items-center 
-        tw-justify-center 
-        tw-transition 
-        tw-w-full 
-        tw-mt-auto
-        tw-h-14
-        tw-rounded-xl
-        tw-bg-black 
-        tw-text-white" type="button">
-        Checkout
-    </button>
+    <div class="tw-mt-auto" [ngClass]="{'tw-cursor-not-allowed': !order()}">
+        <button class="
+            active:tw-scale-95  
+            disabled:tw-cursor-not-allowed 
+            disabled:tw-opacity-50 
+            tw-duration-200 flex 
+            tw-font-semibold 
+            hover:tw-border-2 
+            hover:tw-border-black 
+            hover:tw-opacity-75 
+            tw-items-center 
+            tw-justify-center 
+            tw-transition 
+            tw-w-full 
+            tw-h-14
+            tw-rounded-xl
+            tw-bg-black 
+            tw-text-white" type="button" [ngClass]="{'tw-pointer-events-none': !order()}" (click)="handleCheckOut()">
+            Checkout
+        </button>
+    </div>
 </div>

@@ -9,7 +9,7 @@ import { SwiperComponent } from 'src/app/components/swiper/swiper.component';
 @Component({
   selector: 'app-stores',
   standalone: true,
-  imports: [CommonModule, ContainerComponent, StoreCardComponent, SwiperComponent],
+  imports: [CommonModule, ContainerComponent, StoreCardComponent, SwiperComponent,],
   templateUrl: './stores.component.html',
   styleUrls: ['./stores.component.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
@@ -17,6 +17,8 @@ import { SwiperComponent } from 'src/app/components/swiper/swiper.component';
 export class StoresComponent {
 
   stores: SafeStore[] = [];
+  isLoading: boolean = true;
+  dummyArray: string[] = new Array(3);
 
   constructor(private storeService: StoreService) {
     this.getStores();
@@ -28,6 +30,7 @@ export class StoresComponent {
       page: 1
     }).subscribe(({ data }) => {
       this.stores = data;
+      this.isLoading = false;
       getStoresSub$.unsubscribe();
     });
   }

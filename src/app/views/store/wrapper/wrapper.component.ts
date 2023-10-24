@@ -1,12 +1,13 @@
 import { Component, WritableSignal, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../components/navbar/navbar.component';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { FooterComponent } from '../components/footer/footer.component';
 import { SafeStore } from 'src/app/types/store';
 import { StoreService } from 'src/app/services/store.service';
 import { NavLink } from 'src/app/types/navLink';
 import { Subscription } from 'rxjs';
+import { OrderService } from 'src/app/services/order.service';
 
 @Component({
   selector: 'app-wrapper',
@@ -25,8 +26,10 @@ export class WrapperComponent {
 
   constructor(
     private storeService: StoreService,
+    private orderService: OrderService
   ) {
     this.getStoreCategories();
+    this.getStoreCurrentOrder();
   }
 
   ngOnDestroy(): void {
@@ -40,5 +43,9 @@ export class WrapperComponent {
         link: 'category/' + category.id!
       })));
     });
+  }
+
+  getStoreCurrentOrder() {
+    this.orderService.getCurrentOrderFromStore()
   }
 }

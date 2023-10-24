@@ -19,5 +19,7 @@ export type OrderItem = {
   product?: Product;
   quantity: number;
   colorId: string;
+  colorName: string;
   sizeId: string;
+  sizeName: string;
 }
