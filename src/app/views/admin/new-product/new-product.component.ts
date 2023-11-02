@@ -149,9 +149,17 @@ export class NewProductComponent {
 
       const imagesArrayControl = this.form.get("images") as FormArray;
 
+      console.log(images);
+
+
       if (images.length) {
         images.forEach(image => {
-          const imageGroupControl = this.formBuilder.group({ url: image.url, publicId: image.publicId });
+          const imageGroupControl = this.formBuilder.group({
+            url: image.url,
+            publicId: image.publicId,
+            color: image.color?.color,
+            colorName: image.color?.name
+          });
 
           imagesArrayControl.push(imageGroupControl)
         });
@@ -163,6 +171,30 @@ export class NewProductComponent {
       getOneProductSub$.unsubscribe();
     });
   }
+
+  // handleCreateStore() {
+
+  //   const onClose = this.modalService.setModalData({
+  //     component: StoreModalComponent,
+  //     title: 'Create store',
+  //     data: {
+  //       action: 'Create'
+  //     },
+  //     customClasses: "tw-max-w-[600px]",
+  //     enableClose: false,
+  //     closeModalButton: true
+  //   });
+
+  //   const onCloseSub$ = onClose.subscribe((store: SafeStore | null) => {
+  //     if (store) {
+  //       this.storesList.update(stores => [...stores, store]);
+  //       this.activeStore.set(this.storesList().length - 1);
+  //     }
+  //     onCloseSub$.unsubscribe();
+  //   });
+
+  //   this.menuTrigger.closeMenu();
+  // }
 
   initForm() {
     this.form = this.formBuilder.group({
@@ -218,7 +250,7 @@ export class NewProductComponent {
     });
   }
 
-  handleAction() {   
+  handleAction() {
     if (this.action === "Create") this.handleCreateProduct();
     else this.handleUpdateProduct();
   }

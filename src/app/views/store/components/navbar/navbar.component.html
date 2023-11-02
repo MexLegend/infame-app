@@ -9,7 +9,7 @@
                 </app-navbar-link>
             </ul>
             <ul class="tw-flex tw-gap-5 tw-justify-center tw-items-center">
-                <app-bag-btn *ngIf="authService.isLoggedIn()"></app-bag-btn>
+                <app-bag-btn></app-bag-btn>
                 <app-profile-btn *ngIf="authService.isLoggedIn()"
                     [user]="authService.getCurrentUser()!"></app-profile-btn>
                 <button *ngIf="!authService.isLoggedIn()" class="

@@ -1,4 +1,5 @@
 import { Product } from "./product";
+import { SafeUser } from "./user";
 
 export type Order = {
   address?: string;
@@ -9,7 +10,8 @@ export type Order = {
   phone?: string;
   storeId: string;
   updatedAt?: Date;
-  userId: string;
+  userId: string | null;
+  user?: SafeUser;
 }
 
 export type OrderItem = {
@@ -19,7 +21,21 @@ export type OrderItem = {
   product?: Product;
   quantity: number;
   colorId: string;
-  colorName: string;
+  colorName?: string;
   sizeId: string;
-  sizeName: string;
+  sizeName?: string;
+}
+
+export type UpdateOrderProductQuantity = {
+  index: number;
+  quantity: number;
+}
+
+export type GraphData = {
+  name: string;
+  value: number;
+}
+
+export type OrderCheckoutResponse = {
+  url: string;
 }

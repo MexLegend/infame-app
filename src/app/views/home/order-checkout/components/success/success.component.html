@@ -1,0 +1,64 @@
+<div class="tw-flex tw-flex-1 tw-flex-col tw-items-center">
+    <div class="
+        tw-flex 
+        tw-flex-1 
+        tw-flex-col
+        tw-mb-12 
+        tw-border 
+        tw-bg-gray-50
+        tw-rounded-lg 
+        tw-mx-auto 
+        tw-max-w-2xl 
+        tw-p-8">
+        <div class="tw-flex tw-flex-1 tw-gap-6 tw-border-b tw-pb-8">
+            <div class="
+                tw-w-[55px] 
+                tw-h-[55px] 
+                tw-border-[3px]
+                tw-border-teal-500 
+                tw-rounded-full 
+                tw-flex 
+                tw-items-center 
+                tw-justify-center">
+                <mat-icon
+                    class="!tw-w-auto !tw-h-auto tw-flex tw-items-center tw-justify-center tw-text-teal-500 tw-text-3xl"
+                    fontIcon="check" />
+            </div>
+            <div class="tw-flex tw-flex-1 tw-flex-col">
+                <h1
+                    class="tw-text-3xl tw-flex-1 tw-font-bold tw-font-sans tw-leading-tight tw-tracking-wide tw-text-teal-500">
+                    Payment Successful
+                </h1>
+                <p>Your payment has been processed! Details of the transaction are included below</p>
+            </div>
+        </div>
+        <div class="tw-flex tw-flex-1 tw-flex-col tw-gap-2 tw-mt-8">
+            <div class="tw-flex tw-flex-1 tw-font-bold">
+                <h5 class="tw-w-52">Amount</h5>
+                <span>{{orderTotal() | currency : 'USD'}}</span>
+            </div>
+            <div class="tw-flex tw-flex-1">
+                <h5 class="tw-w-52">Order ID</h5>
+                <span>{{order.id}}</span>
+            </div>
+            <div class="tw-flex tw-flex-1">
+                <h5 class="tw-w-52">Transaction Time</h5>
+                <span>{{order.createdAt | date: 'medium'}}</span>
+            </div>
+        </div>
+    </div>
+    <button class="
+        tw-bg-slate-900
+        tw-text-white 
+        tw-px-8 
+        tw-py-4 
+        tw-rounded-lg 
+        tw-min-w-0
+        tw-w-max
+        hover:tw-bg-rose-900
+        tw-transition-all 
+        tw-duration-300
+        tw-font-roboto-slab
+        active:tw-scale-95
+        " routerLink="/">Back to home</button>
+</div>

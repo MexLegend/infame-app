@@ -49,10 +49,10 @@ export class ProductService {
     return this.http.get<Product[]>(url, { params: { ...params } });
   }
 
-  getProductsInStock(params: ProductParams): Observable<Number> {
+  getProductsInStock(params: ProductParams): Observable<number> {
     let url = `${environment.URI}/api/product/in/stock`;
 
-    return this.http.get<Number>(url, { params: { ...params } });
+    return this.http.get<number>(url, { params: { ...params } });
   }
 
   getFilteredProducts(params: ProductParams): Observable<Product[]> {

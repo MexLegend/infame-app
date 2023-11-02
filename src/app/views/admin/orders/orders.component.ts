@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { DataSource, DisplayedColumn, TableComponent } from 'src/app/components/table/table.component';
 import { Order } from 'src/app/types/order';
 import { OrderResponse, OrderService } from 'src/app/services/order.service';
+import { StoreService } from 'src/app/services/store.service';
 
 @Component({
   selector: 'app-orders',
@@ -17,6 +18,10 @@ import { OrderResponse, OrderService } from 'src/app/services/order.service';
 export class OrdersComponent {
 
   displayedColumns: DisplayedColumn[] = [
+    {
+      label: 'User',
+      isSortable: true
+    },
     {
       label: 'Products',
       isSortable: true
@@ -47,13 +52,14 @@ export class OrdersComponent {
   isLoadingResults: boolean = true;
 
   constructor(
+    private storeService: StoreService,
     public ordersService: OrderService,
     private datePipe: DatePipe
   ) { }
 
   getOrdersObservable = (page: number, limit: number): Observable<OrderResponse> => {
     return this.ordersService.getOrders({
-      storeId: "61edd0fa6458af2d6422557f",
+      storeId: this.storeService.currentStoreId(),
       page,
       limit
     });
@@ -63,33 +69,38 @@ export class OrdersComponent {
 
     const formatedSource: DataSource[] = dataSource.map((data) => {
 
-      const product = (data as Order);
+      const order = (data as Order);
 
-      const totalPrice = product.orderItems.reduce((acc, curr) => acc += (curr.product!.price * curr.quantity), 0);
+      const totalPrice = order.orderItems.reduce((acc, curr) => acc += (curr.product!.price * curr.quantity), 0);
 
       return {
+        "User": {
+          image: order.user!.image?.url || '',
+          label: order.user!.email!,
+          customContainerClasses: `max-w-[210px] !font-semibold`,
+        },
         "Products": {
-          label: product.orderItems.map(e => e.product!.name).join(", "),
+          label: `${order.orderItems.length} products`,
           customContainerClasses: `max-w-[210px] !font-semibold`,
         },
         "Phone": {
-          label: product.phone ?? "",
+          label: order.phone || "- - - - - - -",
           customContainerClasses: `max-w-[200px]`,
         },
         "Address": {
-          label: product.address ?? "",
+          label: order.address || "- - - - - - -",
           customContainerClasses: `max-w-[400px]`,
         },
         "Total price": {
-          label: new Intl.NumberFormat("es-MX").format(totalPrice),
+          label: `$${new Intl.NumberFormat("es-MX").format(totalPrice)}`,
           customContainerClasses: `max-w-[400px]`,
         },
         "Paid": {
-          label: product.isPaid ? 'True' : 'False',
+          label: order.isPaid ? 'True' : 'False',
           customContainerClasses: `max-w-[400px]`,
         },
         "Date": {
-          label: this.datePipe.transform(product.createdAt, "dd MMM yyyy")!
+          label: this.datePipe.transform(order.createdAt, "dd MMM yyyy")!
         }
       }
     });

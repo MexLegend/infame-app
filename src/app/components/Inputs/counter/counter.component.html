@@ -1,0 +1,61 @@
+<div
+    class="tw-inline-flex tw-justify-between tw-items-center tw-rounded-lg tw-bg-transparent tw-w-max tw-gap-2 max-md:tw-gap-2">
+    <div class="rounded-full"
+        [ngClass]="{'cursor-not-allowed opacity-50': formGroupRef.get(controlName)?.value <= min}">
+        <button class=" 
+            tw-bg-white 
+            tw-border
+            tw-border-neutral-300
+            hover:tw-border-neutral-700
+            tw-transition
+            tw-duration-200
+            active:tw-scale-95
+            tw-flex
+            tw-flex-col
+            tw-items-center
+            tw-justify-center
+            tw-rounded-full
+            tw-p-2
+            " [ngClass]="[buttonClasses, formGroupRef.get(controlName)?.value <= min ? 'tw-pointer-events-none' : '']"
+            (click)="decrement()">
+            <mat-icon class="tw-flex tw-items-center tw-justify-center tw-text-neutral-500 hover:tw-text-zinc-900"
+                fontIcon="remove" />
+        </button>
+    </div>
+    <div class="tw-flex tw-relative">
+        <input type="number" [readOnly]="readOnly" autocomplete="off" placeholder="0"
+            [formControl]="formGroupRef.get(controlName)! | formControlPipe" class="
+            tw-text-center 
+            tw-h-10 
+            tw-w-16
+            tw-rounded-xl
+            tw-text-2xl
+            tw-px-3
+            [appearance:textfield] 
+            [&::-webkit-outer-spin-button]:tw-appearance-none 
+            [&::-webkit-inner-spin-button]:tw-appearance-none"
+            [ngClass]="[inputClasses, readOnly ? 'tw-pointer-events-none' : '' ]">
+    </div>
+    <div class="tw-rounded-full"
+        [ngClass]="{'tw-cursor-not-allowed tw-opacity-50': formGroupRef.get(controlName)?.value >= max}">
+        <button class="
+            tw-bg-white
+            tw-border
+            tw-border-neutral-300
+            hover:tw-border-neutral-700
+            tw-transition
+            tw-duration-200
+            active:tw-scale-95
+            tw-flex
+            tw-flex-col
+            tw-items-center
+            tw-justify-center
+            tw-rounded-full
+            tw-p-2"
+            [ngClass]="[buttonClasses, formGroupRef.get(controlName)?.value >= max ? 'tw-pointer-events-none' : '']"
+            (click)="increment()">
+            <mat-icon class="tw-flex tw-items-center tw-justify-center tw-text-neutral-500 hover:tw-text-zinc-900"
+                fontIcon="add" />
+        </button>
+    </div>
+</div>

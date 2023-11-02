@@ -39,12 +39,17 @@
                     class="tw-grid tw-grid-cols-[repeat(auto-fill,minmax(160px,1fr))] tw-items-center tw-gap-6 tw-w-full">
                     <div *ngFor="let image of (form | formArray: 'images').controls; let i = index"
                         class="tw-relative tw-w-max tw-mx-auto">
-                        <img class="tw-w-40 tw-h-40 tw-rounded-lg tw-aspect-square tw-object-cover"
+                        <img class="tw-w-40 tw-h-40 tw-rounded-lg tw-aspect-square tw-object-contain tw-bg-gray-100"
                             [src]="image?.value.url | img" alt="billboard_img">
                         <div *ngIf="image?.value.url" class="tw-absolute tw-right-1 tw-top-1">
                             <ng-container [ngTemplateOutlet]="deleteButton"
                                 [ngTemplateOutletContext]="{$implicit: handleDeleteImage, publicId: image?.value.publicId, index: i}">
                             </ng-container>
+                        </div>
+                        <div class="tw-flex tw-flex-1 tw-items-center tw-justify-center tw-gap-2 tw-mt-2">
+                            <div class="tw-h-4 tw-w-4 tw-rounded-full" [style.background-color]="image.value.color">
+                            </div>
+                            <span>{{image.value.colorName}}</span>
                         </div>
                     </div>
                 </div>

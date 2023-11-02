@@ -12,24 +12,8 @@
         </div>
     </div>
     <div class="tw-mt-auto" [ngClass]="{'tw-cursor-not-allowed': !order()}">
-        <button class="
-            active:tw-scale-95  
-            disabled:tw-cursor-not-allowed 
-            disabled:tw-opacity-50 
-            tw-duration-200 flex 
-            tw-font-semibold 
-            hover:tw-border-2 
-            hover:tw-border-black 
-            hover:tw-opacity-75 
-            tw-items-center 
-            tw-justify-center 
-            tw-transition 
-            tw-w-full 
-            tw-h-14
-            tw-rounded-xl
-            tw-bg-black 
-            tw-text-white" type="button" [ngClass]="{'tw-pointer-events-none': !order()}" (click)="handleCheckOut()">
-            Checkout
-        </button>
+        <app-button label="Checkout" customClasses="!tw-bg-black tw-h-14 tw-font-semibold"
+            [disabled]="!order() || orderTotalProducts() === 0 || isLoading" [isLoading]="isLoading"
+            [onClick]="handleCheckOut" />
     </div>
 </div>

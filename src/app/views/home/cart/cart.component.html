@@ -8,8 +8,8 @@
                 <div class="lg:tw-col-span-7 tw-flex tw-gap-5">
                     <div *ngIf="order()?.orderItems?.length" class="tw-flex tw-flex-1 tw-flex-col tw-gap-5">
                         <app-cart-product class="tw-w-full" *ngFor="let orderItem of order()?.orderItems; let i = index"
-                            [orderItem]="orderItem" [orderItemIndex]="i" (handleRemove)="handleRemoveOrderItem($event)">
-                        </app-cart-product>
+                            [orderItem]="orderItem" [orderItemIndex]="i" (handleRemove)="handleRemoveOrderItem($event)"
+                            (handleUpdate)="handleUpdateOrderItemQuantity($event)" />
                     </div>
                     <div class="tw-w-full" *ngIf="!order()?.orderItems?.length">
                         <span class="tw-text-2xl tw-text-gray-500">No products added to cart.</span>

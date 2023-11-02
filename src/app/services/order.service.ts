@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable, Signal, WritableSignal, computed, signal } from '@angular/core';
-import { Order, OrderItem } from '../types/order';
+import { GraphData, Order, OrderCheckoutResponse, OrderItem } from '../types/order';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -24,16 +24,22 @@ export class OrderService {
 
   reloadDataEmitter: EventEmitter<boolean> = new EventEmitter();
   order: WritableSignal<Order | null> = signal(null);
-  orderTotalProducts: Signal<number> = computed(() => this.getOrderTotalProducts());
+  orderTotalProducts: Signal<number> = computed(() => this.order()?.orderItems.length || 0);
 
   constructor(
     private http: HttpClient,
     private authService: AuthService
   ) { }
 
-  getCurrentOrderFromStore(){
+  getCurrentOrderFromStore() {
     const currentOrderStorage = localStorage.getItem("order");
     if (currentOrderStorage) this.order.set(JSON.parse(currentOrderStorage));
+  }
+
+  getOneOrder(orderId: string): Observable<Order> {
+    let url = `${environment.URI}/api/order/${orderId}`;
+
+    return this.http.get<Order>(url);
   }
 
   getOrders(params: OrderParams): Observable<OrderResponse> {
@@ -42,8 +48,22 @@ export class OrderService {
     return this.http.get<OrderResponse>(url, { params: { ...params } });
   }
 
-  getOrderTotalProducts(): number {
-    return this.order()?.orderItems.reduce((acc, curr) => acc += curr.quantity, 0) ?? 0
+  getSalesCount(soreId: string): Observable<number> {
+    let url = `${environment.URI}/api/order/sales-count/${soreId}`;
+
+    return this.http.get<number>(url);
+  }
+
+  getTotalRevenue(soreId: string): Observable<number> {
+    let url = `${environment.URI}/api/order/total/revenue/${soreId}`;
+
+    return this.http.get<number>(url);
+  }
+
+  getGraphRevenue(soreId: string): Observable<GraphData[]> {
+    let url = `${environment.URI}/api/order/graph/revenue/${soreId}`;
+
+    return this.http.get<GraphData[]>(url);
   }
 
   setCurrentOrder(orderItem: OrderItem, storeId: string) {
@@ -56,25 +76,24 @@ export class OrderService {
 
       const parsedOrder: Order = JSON.parse(currentOrderStorage);
 
-      const productInOrder = parsedOrder.orderItems.find(e => e.productId === orderItem.productId);
+      const productInOrderIndex = parsedOrder.orderItems.findIndex(e =>
+        e.productId === orderItem.productId
+        && e.colorId === orderItem.colorId
+        && e.sizeId === orderItem.sizeId
+      );
 
-      let updatedOrderItems: OrderItem[];
-
-      if (productInOrder) {
-        updatedOrderItems = parsedOrder.orderItems.map(orderItem =>
-          orderItem.productId === productInOrder.productId
-            ? { ...orderItem, quantity: orderItem.quantity += 1 }
-            : orderItem)
+      if (productInOrderIndex > -1) {
+        parsedOrder.orderItems[productInOrderIndex].quantity++;
       } else {
-        updatedOrderItems = [...parsedOrder.orderItems, orderItem];
+        parsedOrder.orderItems.push(orderItem);
       }
 
-      currentOrder = { ...parsedOrder, orderItems: updatedOrderItems }
+      currentOrder = parsedOrder
 
     } else {
 
       currentOrder = {
-        userId: this.authService.getCurrentUser()!.id!,
+        userId: this.authService.getCurrentUser()?.id || null,
         storeId,
         orderItems: [orderItem]
       }
@@ -84,4 +103,11 @@ export class OrderService {
     localStorage.setItem("order", JSON.stringify(currentOrder));
 
   }
+
+  orderCheckout(order: Order): Observable<OrderCheckoutResponse> {
+    const url = `${environment.URI}/api/order`;
+
+    return this.http.post<OrderCheckoutResponse>(url, order);
+  }
+
 }

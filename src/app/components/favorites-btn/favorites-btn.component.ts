@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { FavoriteService } from '../../services/favorite.service';
 import { AuthService } from '../../services/auth.service';
 import { SafeUser } from 'src/app/types/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-favorites-btn',
@@ -18,7 +19,8 @@ export class FavoritesBtnComponent {
 
   constructor(
     private favoriteService: FavoriteService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   favoritedProducts: WritableSignal<string[]> = this.authService.favoritedProducts;
@@ -30,6 +32,12 @@ export class FavoritesBtnComponent {
     event.stopPropagation();
 
     const user = this.authService.getCurrentUser()!;
+
+    if (!user) {
+      this.redirectoToLogin();
+      return;
+    }
+
     const updatedUserFavorites = this.isProductFavorited()
       ? [...this.favoritedProducts().filter(e => e !== this.productId)]
       : [...this.favoritedProducts(), this.productId];
@@ -45,6 +53,10 @@ export class FavoritesBtnComponent {
       this.authService.setCurrentUserData(userWithUpdatedFavorites);
       toogleFavoriteSub$.unsubscribe();
     });
+  }
+
+  redirectoToLogin() {
+    this.router.navigateByUrl("signin");
   }
 }
 

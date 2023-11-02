@@ -1,0 +1,10 @@
+<section *ngIf="!isLoading" class="tw-flex tw-flex-col tw-flex-1 tw-w-full tw-h-[calc(100vh-80px)] tw-pt-36 tw-pb-16">
+    <app-container class="tw-w-full">
+        <app-success *ngIf="showSuccessMessage" class="tw-mx-auto" [order]="order" />
+        <app-error *ngIf="!showSuccessMessage" class="tw-mx-auto" />
+    </app-container>
+</section>
+
+<section *ngIf="isLoading" class="tw-w-full tw-h-[calc(100vh-80px)] tw-flex tw-items-center tw-justify-center">
+    <app-loading></app-loading>
+</section>

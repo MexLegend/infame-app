@@ -4,7 +4,7 @@ import { ContainerComponent } from 'src/app/components/container/container.compo
 import { CheckoutComponent } from 'src/app/components/checkout/checkout.component';
 import { MatIconModule } from '@angular/material/icon';
 import { CartProductComponent } from 'src/app/components/cart-product/cart-product.component';
-import { Order } from 'src/app/types/order';
+import { Order, UpdateOrderProductQuantity } from 'src/app/types/order';
 import { OrderService } from '../../../services/order.service';
 
 @Component({
@@ -16,12 +16,18 @@ import { OrderService } from '../../../services/order.service';
 })
 export class CartComponent {
 
-  constructor(private orderService: OrderService) {}
+  constructor(private orderService: OrderService) { }
 
   order: WritableSignal<Order | null> = this.orderService.order;
 
   handleRemoveOrderItem(index: number) {
     this.order()?.orderItems.splice(index, 1);
+    this.order.set(this.order());
+    localStorage.setItem("order", JSON.stringify(this.order()));
+  }
+
+  handleUpdateOrderItemQuantity({ index, quantity }: UpdateOrderProductQuantity) {
+    this.order()!.orderItems[index].quantity = quantity;
     this.order.set(this.order());
     localStorage.setItem("order", JSON.stringify(this.order()));
   }
