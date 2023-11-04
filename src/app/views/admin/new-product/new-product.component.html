@@ -54,16 +54,12 @@
                     </div>
                 </div>
                 <div class="tw-flex tw-flex-1 tw-flex-col tw-gap-1 tw-w-full">
-                    <app-upload-widget [options]="cloudinaryWidgetOptions" [onOpen]="openCloudinaryWidget"
-                        (onUpload)="onImageUpload($event)">
-                    </app-upload-widget>
                     <div class="tw-flex tw-gap-2 tw-w-full">
                         <app-button class="tw-w-max" [label]="'Upload product images'" type="button"
                             customClasses="!tw-text-white !tw-bg-black tw-w-max tw-px-4 !tw-py-2"
-                            (click)="handleOpenCloudinaryWidget()">
+                            (click)="handleOpenImagesModal()">
                         </app-button>
                     </div>
-                    <span class="tw-text-sm">Each image must be JPEG, PNG, or GIF and cannot exceed 4MB.</span>
                 </div>
             </div>
 

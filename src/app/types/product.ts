@@ -31,3 +31,8 @@ export type Product = {
     updatedAt?: Date;
     favoriteProducts?: FavoriteProducts[];
 }
+
+export interface UploadedProductImages {
+    images: Image[];
+    color: Color;
+}

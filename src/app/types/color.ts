@@ -4,7 +4,7 @@ export type Color = {
     name: string;
     color: string;
     products?: string[];
-    storeId: string;
+    storeId?: string;
     updatedAt?: Date;
 }
 

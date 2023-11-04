@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, Component, EventEmitter, Inject } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BreadcrumbComponent } from '../components/breadcrumb/breadcrumb.component';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -6,7 +6,6 @@ import { InputComponent } from 'src/app/components/Inputs/input/input.component'
 import { ButtonComponent } from 'src/app/components/button/button.component';
 import { ImgPipe } from 'src/app/pipes/img.pipe';
 import { UploadWidgetComponent } from 'src/app/components/upload-widget/upload-widget.component';
-import { CloudinaryWidgetOptions, CloudinaryWidgetResponse } from '../../../types/cloudinary';
 import { StoreService } from 'src/app/services/store.service';
 import { TextareaComponent } from 'src/app/components/Inputs/textarea/textarea.component';
 import { BillboardService } from 'src/app/services/billboard.service';
@@ -26,8 +25,10 @@ import { ColorService } from 'src/app/services/color.service';
 import { CheckboxComponent } from 'src/app/components/Inputs/checkbox/checkbox.component';
 import { FormArrayPipe } from 'src/app/pipes/form-array.pipe';
 import { CloudinaryService, ResourceType } from 'src/app/services/cloudinary.service';
-import { Product } from 'src/app/types/product';
+import { Product, UploadedProductImages } from 'src/app/types/product';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { ProductImagesComponent } from 'src/app/modals/product-images/product-images.component';
+import { Image } from 'src/app/types/image';
 
 @Component({
   selector: 'app-new-product',
@@ -56,12 +57,6 @@ export class NewProductComponent {
   getRouteDataSub$!: Subscription;
 
   form!: FormGroup;
-  openCloudinaryWidget: EventEmitter<boolean> = new EventEmitter<boolean>();
-  cloudinaryWidgetOptions: CloudinaryWidgetOptions = {
-    folder: "Ecommerce",
-    maxImageFileSize: 4000000,
-    multiple: true
-  };
   action!: CrudAction;
   currentProductId?: string;
   categoriesOptions: SelectOptions[] = [];
@@ -149,14 +144,12 @@ export class NewProductComponent {
 
       const imagesArrayControl = this.form.get("images") as FormArray;
 
-      console.log(images);
-
-
       if (images.length) {
         images.forEach(image => {
           const imageGroupControl = this.formBuilder.group({
             url: image.url,
             publicId: image.publicId,
+            colorId: image.colorId,
             color: image.color?.color,
             colorName: image.color?.name
           });
@@ -171,30 +164,6 @@ export class NewProductComponent {
       getOneProductSub$.unsubscribe();
     });
   }
-
-  // handleCreateStore() {
-
-  //   const onClose = this.modalService.setModalData({
-  //     component: StoreModalComponent,
-  //     title: 'Create store',
-  //     data: {
-  //       action: 'Create'
-  //     },
-  //     customClasses: "tw-max-w-[600px]",
-  //     enableClose: false,
-  //     closeModalButton: true
-  //   });
-
-  //   const onCloseSub$ = onClose.subscribe((store: SafeStore | null) => {
-  //     if (store) {
-  //       this.storesList.update(stores => [...stores, store]);
-  //       this.activeStore.set(this.storesList().length - 1);
-  //     }
-  //     onCloseSub$.unsubscribe();
-  //   });
-
-  //   this.menuTrigger.closeMenu();
-  // }
 
   initForm() {
     this.form = this.formBuilder.group({
@@ -211,18 +180,38 @@ export class NewProductComponent {
     });
   }
 
-  onImageUpload = ({ public_id, secure_url }: CloudinaryWidgetResponse) => {
+  handleOpenImagesModal() {
 
-    const image = { url: secure_url, publicId: public_id };
+    const onClose = this.modalService.setModalData({
+      component: ProductImagesComponent,
+      title: 'Add product images',
+      data: {
+        action: 'Create',
+        colorsOptions: this.colorsOptions
+      },
+      customClasses: "tw-max-w-[600px]",
+      enableClose: false,
+      closeModalButton: true
+    });
 
-    const imagesArrayControl = this.form.get("images") as FormArray;
+    const onCloseSub$ = onClose.subscribe((response: UploadedProductImages | null) => {
+      if (response) {
+        const imagesArrayControl = this.form.get("images") as FormArray;
 
-    imagesArrayControl.push(this.formBuilder.group(image));
+        for (const image of response.images) {
+          const formatedImage = {
+            url: image.url,
+            publicId: image.publicId,
+            colorId: response.color.id,
+            color: response.color.color,
+            colorName: response.color.name
+          };
+          imagesArrayControl.push(this.formBuilder.group(formatedImage));
+        }
 
-  }
-
-  handleOpenCloudinaryWidget() {
-    this.openCloudinaryWidget.emit(true);
+      }
+      onCloseSub$.unsubscribe();
+    });
   }
 
   handleDeleteImage = (publicId: string, index: number) => {
@@ -272,8 +261,10 @@ export class NewProductComponent {
       isArchived,
     } = this.form.value;
 
+    const formatedImages = images.map((image: Image) => ({ url: image.url, publicId: image.publicId, colorId: image.colorId }));
+
     const product: Product = {
-      images,
+      images: formatedImages,
       name,
       price,
       categoryId,
@@ -313,8 +304,10 @@ export class NewProductComponent {
       isArchived,
     } = this.form.value;
 
+    const formatedImages = images.map((image: Image) => ({ url: image.url, publicId: image.publicId, colorId: image.colorId }));
+
     const product: Product = {
-      images,
+      images: formatedImages,
       name,
       price,
       categoryId,
