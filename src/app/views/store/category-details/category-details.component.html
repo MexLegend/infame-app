@@ -10,6 +10,8 @@
                 tw-bg-rose-700 
                 tw-h-[400px] 
                 tw-max-h-[400px] 
+                max-xl:tw-h-auto
+                max-md:tw-min-h-[220px]
                 tw-w-full
                 tw-overflow-clip">
                 <img class="
@@ -20,7 +22,7 @@
                     tw-origin-center
                     tw-drop-shadow-lg" [src]="category()?.billboard!.image.url" alt="hero_img">
             </div>
-            <div class="tw-flex tw-w-full tw-gap-12 tw-mt-20 tw-relative tw-min-h-[500px]">
+            <div class="tw-flex tw-w-full tw-gap-12 tw-mt-20 tw-relative tw-min-h-[500px] max-md:tw-flex-col">
                 <app-product-filters [categoryProducts]="categoryProducts" [category]="category"
                     [isLoadingProducts]="isLoadingProducts">
                 </app-product-filters>

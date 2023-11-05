@@ -2,7 +2,7 @@
     <app-breadcrumb title="Store settings" subtitle="Manage store preferences" [actionButtonRef]="deleteButton">
     </app-breadcrumb>
     <form [formGroup]="form" action="" class="tw-flex tw-flex-col tw-gap-4">
-        <div class="md:tw-grid md:tw-grid-cols-3 tw-gap-8 max-md:tw-space-y-5">
+        <div class="md:tw-grid md:tw-grid-cols-3 tw-gap-8 max-md:tw-flex max-md:tw-flex-col">
             <app-input class="tw-w-full" [formGroupRef]="form" formControlName="name" ngDefaultControl id="settingsName"
                 label="Store Name" type="text" [autofocus]="true"></app-input>
             <app-input class="tw-w-full" [formGroupRef]="form" formControlName="web" ngDefaultControl

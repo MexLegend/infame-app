@@ -7,13 +7,14 @@
         tw-px-1 
         tw-py-1 
         tw-h-[52px] 
+        max-sm:tw-max-w-[175px]
         tw-border-2 
         tw-rounded-xl
         tw-border-[rgb(212,212,212)]
         focus-within:tw-border-black">
         <input (colorPickerChange)="onChangeColor($event)" [value]="color" [(colorPicker)]="color"
             [style.background]="color" [(cpToggle)]="tooglePicker"
-            class="tw-h-full tw-rounded-lg tw-px-4 !tw-border-none !tw-shadow-none !tw-outline-none">
+            class="tw-h-full tw-max-w-full tw-rounded-lg tw-px-4 !tw-border-none !tw-shadow-none !tw-outline-none">
     </div>
 
     <button type="button" (click)="tooglePicker=!tooglePicker" class="
@@ -24,11 +25,13 @@
         tw-text-white
         tw-py-3
         tw-px-6
+        tw-h-[52px]
         tw-rounded-xl
         tw-transition-all
         tw-duration-200
         hover:tw-bg-opacity-80
-        active:tw-scale-95">
+        active:tw-scale-95
+        tw-leading-[14px]">
         Select color
     </button>
 

@@ -67,7 +67,9 @@ export class ProductsComponent {
     },
     {
       label: 'Actions',
-      isSortable: false
+      isSortable: false,
+      isSticky: true,
+      isStickyEnd: true
     }
   ];
 

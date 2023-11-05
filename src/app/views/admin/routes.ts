@@ -24,7 +24,8 @@ export const ADMIN_ROUTES: Route[] = [
         path: ":storeId",
         component: WrapperComponent,
         children: [
-            { path: '', component: DashboardComponent },
+            { path: '', redirectTo: "overview", pathMatch: "full" },
+            { path: 'overview', component: DashboardComponent },
             { path: 'billboards', component: BillboardsComponent },
             {
                 path: 'billboards/new', component: NewBillboardComponent,

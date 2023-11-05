@@ -1,4 +1,4 @@
-<form class="tw-flex tw-flex-col tw-w-52 tw-gap-10 tw-sticky" [formGroup]="form">
+<form class="tw-flex tw-flex-col tw-w-52 tw-gap-10 tw-sticky max-md:tw-w-full" [formGroup]="form">
     <div class="tw-flex tw-flex-col tw-gap-5 tw-w-full">
         <h4 class="tw-font-medium tw-text-[17px] tw-border-b tw-pb-3">Sizes</h4>
         <app-product-size-filter [sizes]="sizes" [formGroupRef]="form" formControlName="sizeIds" ngDefaultControl>

@@ -27,6 +27,7 @@
                     tw-flex 
                     tw-w-full 
                     tw-gap-6 
+                    max-sm:tw-gap-3
                     tw-items-center 
                     tw-py-6 
                     tw-px-4 
@@ -41,8 +42,8 @@
                     </app-upload-widget>
                     <div class="tw-flex tw-gap-2 tw-w-full">
                         <app-button class="tw-w-max"
-                            [label]="(form.value.image?.url ? 'Update' : 'Upload') + ' billboard picture'" type="button"
-                            customClasses="!tw-text-white !tw-bg-black tw-w-max tw-px-4 !tw-py-2"
+                            [label]="(form.value.image?.url ? 'Update' : 'Upload') + ' picture'" type="button"
+                            customClasses="!tw-text-white !tw-bg-black tw-w-max tw-px-4 !tw-py-2 max-sm:tw-px-2"
                             (click)="handleOpenCloudinaryWidget()">
                         </app-button>
                         <ng-container *ngIf="form.value.image?.url" [ngTemplateOutlet]="deleteButton"

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, WritableSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -15,5 +15,11 @@ export class NavbarLinkComponent {
   @Input() route: string = "";
   @Input() isActive: boolean = false;
   @Input() isAdminLink: boolean = false;
+  @Input() isMenuLink: boolean = false;
+  @Input() isMenuOpen!: WritableSignal<boolean>;
+
+  closeMenu() {
+    this.isMenuOpen.set(false);
+  }
 
 }

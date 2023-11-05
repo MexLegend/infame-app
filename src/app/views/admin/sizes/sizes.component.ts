@@ -51,7 +51,9 @@ export class SizesComponent {
     },
     {
       label: 'Actions',
-      isSortable: false
+      isSortable: false,
+      isSticky: true,
+      isStickyEnd: true
     }
   ];
 

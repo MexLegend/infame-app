@@ -3,7 +3,7 @@ import { NavLink } from "../types/navLink"
 export const navLinks: NavLink[] = [
     {
         label: "Overview",
-        link: ""
+        link: "/overview"
     },
     {
         label: "Billboards",

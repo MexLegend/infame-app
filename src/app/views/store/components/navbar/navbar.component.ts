@@ -1,4 +1,4 @@
-import { Component, HostListener, Input } from '@angular/core';
+import { Component, HostListener, Input, WritableSignal, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LogoComponent } from 'src/app/components/logo/logo.component';
 import { ContainerComponent } from 'src/app/components/container/container.component';
@@ -9,6 +9,8 @@ import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../../services/auth.service';
 import { NavLink } from 'src/app/types/navLink';
 import { Subscription } from 'rxjs';
+import { MatIconModule } from '@angular/material/icon';
+import { NavbarMenuComponent } from 'src/app/components/navbar-menu/navbar-menu.component';
 
 @Component({
   selector: 'app-navbar',
@@ -20,7 +22,9 @@ import { Subscription } from 'rxjs';
     NavbarLinkComponent,
     BagBtnComponent,
     ProfileBtnComponent,
-    RouterModule
+    NavbarMenuComponent,
+    RouterModule,
+    MatIconModule
   ],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
@@ -33,6 +37,7 @@ export class NavbarComponent {
 
   transparentNavbar: boolean = false;
   isScrolling: boolean = false;
+  isNavbarMenuOpen: WritableSignal<boolean> = signal(false);
 
   constructor(
     public router: Router,
@@ -60,6 +65,10 @@ export class NavbarComponent {
     this.getRouteDataSub$ = this.route.data.subscribe(data => {
       this.transparentNavbar = data['transparentNavbar'];
     });
+  }
+
+  handleShowNavbarMenu() {
+    this.isNavbarMenuOpen.set(!this.isNavbarMenuOpen())
   }
 
 }

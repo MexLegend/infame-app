@@ -8,8 +8,9 @@
             'tw-text-red-950': !isAdminLink,
             'tw-text-black tw-font-semibold': isActive && !isAdminLink,
             'tw-text-sm tw-font-normal tw-transition-colors tw-text-gray-500': isAdminLink,
-            '!tw-text-black !tw-font-medium': isActive && isAdminLink
-        }" [routerLink]="'./' + route">
+            '!tw-text-black !tw-font-medium': isActive && isAdminLink,
+            '!tw-text-3xl': isMenuLink
+        }" [routerLink]="'./' + route" (click)="isMenuLink && closeMenu()">
         {{label}}
     </a>
 </li>

@@ -1,16 +1,31 @@
 <section *ngIf="!isLoading" class="tw-flex tw-flex-col tw-flex-1 tw-w-full tw-pt-36 tw-pb-16">
     <app-container class="tw-w-full">
-        <div class="tw-flex tw-flex-col">
-            <div class="tw-flex tw-mb-12 tw-gap-12 tw-border-b tw-pb-12">
-                <div class="tw-flex tw-flex-1 tw-gap-5">
+        <div class="tw-flex tw-flex-col tw-w-full">
+            <div class="tw-flex tw-mb-12 tw-gap-12 tw-border-b tw-pb-12 max-lg:tw-justify-between max-md:tw-flex-col">
+                <div class="
+                    tw-flex 
+                    tw-flex-1 
+                    max-lg:tw-flex-col-reverse 
+                    tw-gap-5 
+                    max-lg:tw-justify-end 
+                    max-lg:tw-max-w-[400px]
+                    max-md:tw-max-w-full">
                     <app-product-preview-controls [productImages]="product.images"
                         [activeProductImage]="activeProductImage" />
-                    <div class="tw-h-[500px] tw-flex-1">
+                    <div class="tw-h-[500px] tw-flex-1 max-lg:tw-h-auto max-lg:tw-flex-initial">
                         <img class="tw-w-full tw-h-full tw-aspect-square tw-object-contain tw-origin-top tw-object-top"
                             [src]="product.images[activeProductImage()].url" alt="product_details">
                     </div>
                 </div>
-                <div class="tw-flex tw-flex-col tw-gap-5 tw-w-[380px]">
+                <div class="
+                    tw-flex 
+                    tw-flex-col 
+                    tw-gap-5 
+                    tw-w-[380px] 
+                    max-md:tw-w-full
+                    max-md:tw-max-w-full  
+                    max-lg:tw-max-w-[300px] 
+                    max-lg:tw-mx-auto">
                     <app-product-buy-controls [product]="product" />
                 </div>
             </div>

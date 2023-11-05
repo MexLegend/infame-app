@@ -42,9 +42,20 @@
             {{route.isPublic ? "Public" : "Admin"}}
         </div>
     </h5>
-    <div class="tw-text-sm [&_p]:tw-leading-relaxed tw-mt-4 tw-flex tw-items-center tw-justify-between">
+    <div class="tw-text-sm [&_p]:tw-leading-relaxed tw-mt-4 tw-flex tw-items-start tw-justify-between">
         <code
-            class="tw-relative tw-rounded tw-bg-muted tw-px-[0.3rem] tw-py-[0.2rem] tw-font-mono tw-text-sm tw-font-semibold tw-bg-slate-100">
+            class="
+                tw-relative
+                tw-rounded 
+                tw-bg-muted 
+                tw-px-[0.3rem] 
+                tw-py-[0.2rem] 
+                tw-font-mono 
+                tw-text-sm 
+                tw-font-semibold 
+                tw-bg-slate-100
+                tw-max-w-[calc(100%-45px)]
+                tw-break-words">
        {{route.route}}
     </code>
         <button class="

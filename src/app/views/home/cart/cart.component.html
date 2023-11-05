@@ -11,7 +11,7 @@
                             [orderItem]="orderItem" [orderItemIndex]="i" (handleRemove)="handleRemoveOrderItem($event)"
                             (handleUpdate)="handleUpdateOrderItemQuantity($event)" />
                     </div>
-                    <div class="tw-w-full" *ngIf="!order()?.orderItems?.length">
+                    <div class="tw-w-full tw-min-h-[100px]" *ngIf="!order()?.orderItems?.length">
                         <span class="tw-text-2xl tw-text-gray-500">No products added to cart.</span>
                     </div>
                 </div>

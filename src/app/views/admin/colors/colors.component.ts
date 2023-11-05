@@ -51,7 +51,9 @@ export class ColorsComponent {
     },
     {
       label: 'Actions',
-      isSortable: false
+      isSortable: false,
+      isSticky: true,
+      isStickyEnd: true
     }
   ];
 

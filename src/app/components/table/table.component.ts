@@ -52,6 +52,8 @@ export interface DataSourceAction {
 export interface DisplayedColumn {
   label: string;
   isSortable: boolean;
+  isSticky?: boolean;
+  isStickyEnd?: boolean;
 }
 
 @Component({

@@ -2,8 +2,28 @@
     [ngClass]="{'tw-border-b tw-bg-white': isScrolling || !transparentNavbar}">
     <app-container>
         <div class="tw-flex tw-h-16 tw-w-full tw-items-center tw-justify-between tw-gap-7">
-            <app-logo></app-logo>
-            <ul *ngIf="navLinks.length" class="tw-flex tw-flex-1 tw-gap-4 tw-justify-start tw-items-center">
+            <div class="tw-flex tw-gap-1 tw-items-center tw-justify-center">
+                <button *ngIf="router.url.includes('store')" class="
+                    tw-flex
+                    tw-items-center
+                    tw-justify-center
+                    tw-w-10 
+                    tw-h-10 
+                    tw-rounded-full 
+                    tw-bg-black 
+                    tw-text-white 
+                    tw-transition-all 
+                    tw-duration-200
+                    active:tw-scale-95
+                    md:tw-hidden" (click)="handleShowNavbarMenu()">
+                    <mat-icon fontIcon="menu" class="tw-text-xl tw-leading-tight" />
+                </button>
+                <app-navbar-menu class="md:tw-hidden" [activeRoute]="router.url" [isOpen]="isNavbarMenuOpen"
+                    [adminView]="true" [isLoggedIn]="authService.isLoggedIn()" [navLinks]="navLinks" />
+                <app-logo></app-logo>
+            </div>
+            <ul *ngIf="navLinks.length"
+                class="tw-flex tw-flex-1 tw-gap-4 tw-justify-start tw-items-center max-md:tw-hidden">
                 <app-navbar-link [label]="navLink.label" [route]="navLink.link" [isActive]="true"
                     *ngFor="let navLink of navLinks">
                 </app-navbar-link>

@@ -47,6 +47,7 @@ export class ProductDetailsComponent {
   getRouteParams() {
     this.getRouteDataSub$ = this.ativatedRoute.params.subscribe(({ id }) => {
       this.getProduct(id);
+      this.activeProductImage.set(0);
     });
   }
 

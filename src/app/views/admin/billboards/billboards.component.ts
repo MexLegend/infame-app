@@ -44,7 +44,9 @@ export class BillboardsComponent {
     },
     {
       label: 'Actions',
-      isSortable: false
+      isSortable: false,
+      isSticky: true,
+      isStickyEnd: true
     }
   ];
 

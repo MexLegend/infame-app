@@ -5,68 +5,72 @@
 
 <div class="tw-rounded-lg tw-overflow-clip tw-relative tw-border tw-border-gray-300">
 
-    <ng-container *ngIf="isLoadingResults" [ngTemplateOutlet]="loadingContainer"></ng-container>
-    <ng-container *ngIf="hasError" [ngTemplateOutlet]="errorContainer"></ng-container>
+    <ng-container *ngIf="isLoadingResults" [ngTemplateOutlet]="loadingContainer" />
+    <ng-container *ngIf="hasError" [ngTemplateOutlet]="errorContainer" />
 
-    <table mat-table [dataSource]="dataSource" matSort [matSortActive]="activeSortLabel" matSortDisableClear
-        matSortDirection="asc" (matSortChange)="handleSortData($event)" cdkDropList cdkDropListOrientation="vertical"
-        (cdkDropListDropped)="handleReorderRow($event)" class="tw-w-full tw-min-h-[150px]"
-        [ngClass]="{'tw-h-60': hasError || isLoadingResults}">
+    <section class="tw-overflow-x-auto">
+        <table mat-table [dataSource]="dataSource" matSort [matSortActive]="activeSortLabel" matSortDisableClear
+            matSortDirection="asc" (matSortChange)="handleSortData($event)" cdkDropList
+            cdkDropListOrientation="vertical" (cdkDropListDropped)="handleReorderRow($event)"
+            class="tw-w-full tw-min-h-[150px]" [ngClass]="{'tw-h-60': hasError || isLoadingResults}">
 
-        <ng-container [matColumnDef]="column.label" *ngFor="let column of displayedColumns">
-            <!-- Checkbox Column -->
-            <ng-container *ngIf="column.label === 'Select'">
-                <th mat-header-cell *matHeaderCellDef class="!tw-w-10 !tw-pr-0">
-                    <mat-checkbox (change)="$event ? toggleAllRows() : null"
-                        [checked]="selection.hasValue() && isAllSelected()"
-                        [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
-                    </mat-checkbox>
-                </th>
-                <td mat-cell *matCellDef="let row" class="!tw-w-10 !tw-pr-0">
-                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
-                        [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
-                    </mat-checkbox>
-                </td>
-            </ng-container>
-
-            <ng-container *ngIf="column.label !== 'reorder' && column.label !== 'select'">
-                <ng-container *ngIf="column.isSortable">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                        {{column.label}}
+            <ng-container [matColumnDef]="column.label" *ngFor="let column of displayedColumns"
+                [sticky]="column.isSticky" [stickyEnd]="column.isStickyEnd">
+                <!-- Checkbox Column -->
+                <ng-container *ngIf="column.label === 'Select'">
+                    <th mat-header-cell *matHeaderCellDef class="!tw-w-10 !tw-pr-0">
+                        <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                            [checked]="selection.hasValue() && isAllSelected()"
+                            [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+                        </mat-checkbox>
                     </th>
+                    <td mat-cell *matCellDef="let row" class="!tw-w-10 !tw-pr-0">
+                        <mat-checkbox (click)="$event.stopPropagation()"
+                            (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)"
+                            [aria-label]="checkboxLabel(row)">
+                        </mat-checkbox>
+                    </td>
                 </ng-container>
 
-                <ng-container *ngIf="!column.isSortable">
-                    <th mat-header-cell *matHeaderCellDef> {{column.label}}
-                    </th>
+                <ng-container *ngIf="column.label !== 'reorder' && column.label !== 'select'">
+                    <ng-container *ngIf="column.isSortable">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            {{column.label}}
+                        </th>
+                    </ng-container>
+
+                    <ng-container *ngIf="!column.isSortable">
+                        <th mat-header-cell *matHeaderCellDef> {{column.label}}
+                        </th>
+                    </ng-container>
+
+                    <td mat-cell *matCellDef="let row" [ngClass]="row[column.label].customContainerClasses">
+                        <ng-container *ngIf="!row[column.label].actions" [ngTemplateOutlet]="cellContent"
+                            [ngTemplateOutletContext]="{$implicit: column, row}"></ng-container>
+
+                        <ng-container *ngIf="row[column.label].actions" [ngTemplateOutlet]="cellActions"
+                            [ngTemplateOutletContext]="{$implicit: column, row}"></ng-container>
+                    </td>
                 </ng-container>
-
-                <td mat-cell *matCellDef="let row" [ngClass]="row[column.label].customContainerClasses">
-                    <ng-container *ngIf="!row[column.label].actions" [ngTemplateOutlet]="cellContent"
-                        [ngTemplateOutletContext]="{$implicit: column, row}"></ng-container>
-
-                    <ng-container *ngIf="row[column.label].actions" [ngTemplateOutlet]="cellActions"
-                        [ngTemplateOutletContext]="{$implicit: column, row}"></ng-container>
-                </td>
             </ng-container>
-        </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns | safeTableHeaders"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns | safeTableHeaders;" cdkDrag
-            class="tw-group hover:!tw-bg-[whitesmoke]"></tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns | safeTableHeaders"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns | safeTableHeaders;" cdkDrag
+                class="tw-group hover:!tw-bg-[whitesmoke]"></tr>
 
-        <!-- Row shown when there is no matching data. -->
-        <tr *matNoDataRow>
-            <td *ngIf="!!dataSource.data.length" class="tw-h-28 tw-px-4 tw-text-base" colspan="9">
-                No se encontraron coincidencias con el valor "{{input.value}}"
-            </td>
-            <td *ngIf="!dataSource.data.length" class="tw-h-28 tw-px-4 tw-text-base" colspan="9">
-                <div class="tw-flex tw-justify-center tw-items-center tw-flex-1 tw-text-lg">
-                    {{emptyRegistersLabel}}
-                </div>
-            </td>
-        </tr>
-    </table>
+            <!-- Row shown when there is no matching data. -->
+            <tr *matNoDataRow>
+                <td *ngIf="!!dataSource.data.length" class="tw-h-28 tw-px-4 tw-text-base" colspan="9">
+                    No se encontraron coincidencias con el valor "{{input.value}}"
+                </td>
+                <td *ngIf="!dataSource.data.length" class="tw-h-28 tw-px-4 tw-text-base" colspan="9">
+                    <div class="tw-flex tw-justify-center tw-items-center tw-flex-1 tw-text-lg">
+                        {{emptyRegistersLabel}}
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </section>
 
     <mat-paginator [length]="resultsLength" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons
         [attr.aria-label]="'Select page'" class="tw-border-t tw-botder-t-[rgba(0,0,0,0.12)]"></mat-paginator>
