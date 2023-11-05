@@ -1,27 +1,45 @@
-# ECommerce
+# InFame - MarketPlace
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.0.
+<img src="https://res.cloudinary.com/devmexsoft/image/upload/v1691990365/Projects%20Thumbnails/Real_State_Thumbnail_yv0n1s.png" height="400px"/>
 
-## Development server
+### [Demo](https://angular-real-state-app.vercel.app)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Prerequisites
+- Make sure you have the API setup first
+- [Link](https://github.com/MexLegend/ecommerce-api)
 
-## Code scaffolding
+## Cloning the repository
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```shell
+git clone https://github.com/MexLegend/infame-app.git
+```
 
-## Build
+## Getting Started
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Install the dependencies:
 
-## Running unit tests
+```sh
+$ pnpm i
+# or
+$ npm i
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Setup .environment file
 
-## Running end-to-end tests
+```js
+URI: 
+CLOUDINARY_NAME:
+CLOUDINARY_PRESET:
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Start the app
 
-## Further help
+```sh
+$ pnpm start
+# or
+$ npm run start
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Built With
+
+- Angular 16
