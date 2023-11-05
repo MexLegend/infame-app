@@ -2,7 +2,7 @@
 
 <img src="https://res.cloudinary.com/devmexsoft/image/upload/v1699207612/Projects%20Thumbnails/screencapture-infame-app-vercel-app-2023-11-05-12_05_58_dp10al.png" height="900px"/>
 
-### [Demo](https://angular-real-state-app.vercel.app)
+### [Demo](https://infame-app.vercel.app)
 
 ## Prerequisites
 - Make sure you have the API setup first
