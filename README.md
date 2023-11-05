@@ -1,6 +1,6 @@
 # InFame - MarketPlace
 
-<img src="https://res.cloudinary.com/devmexsoft/image/upload/v1699207612/Projects%20Thumbnails/screencapture-infame-app-vercel-app-2023-11-05-12_05_58_dp10al.png" height="400px"/>
+<img src="https://res.cloudinary.com/devmexsoft/image/upload/v1699207612/Projects%20Thumbnails/screencapture-infame-app-vercel-app-2023-11-05-12_05_58_dp10al.png" height="800px"/>
 
 ### [Demo](https://angular-real-state-app.vercel.app)
 
